@@ -21,6 +21,12 @@
 }
 ```
 
+## Dependence
+
+```ruby
+gem 'compass', '~> 0.13.alpha.2'
+```
+
 ## License
 
 Licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
