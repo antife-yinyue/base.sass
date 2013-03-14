@@ -1,0 +1,82 @@
+@import 'compass/reset/utilities';
+
+* {
+  @include reset-box-model;
+  -webkit-tap-highlight-color: rgba(#000, 0);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+
+body {
+  color: $text-color;
+  font: $font-size-base + unquote('/') + $line-height-base $font-family-base;
+}
+
+a {
+  color: $link-color;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    color: $link-color-hover;
+    text-decoration: underline;
+  }
+}
+
+audio, canvas, video {
+  display: inline-block;
+  @include ie7-inline-block;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+button, input, select, textarea {
+  @include reset-font;
+}
+button, input {
+  line-height: 1;
+}
+@include input-placeholder {
+  color: $input-color-placeholder;
+}
+
+code {
+  font-family: $font-family-monospace;
+}
+
+em {
+  font-style: normal;
+}
+
+ol, ul {
+  @include reset-list-style;
+}
+
+sub, sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+
+table {
+  @include reset-table;
+}
+th {
+  text-align: inherit;
+}
+
+@if $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8 {
+  @include reset-html5;
+}

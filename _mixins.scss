@@ -1,0 +1,39 @@
+@import 'compass/css3',
+        'compass/css3/selection',
+        'compass/utilities/general/hacks';
+
+@mixin clearfix {
+  &:before, &:after {
+    content: ' ';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+
+  @include has-layout-zoom;
+}
+
+@mixin ie7-inline-block {
+  @if $legacy-support-for-ie7 {
+    *display: inline;
+    *zoom: 1;
+  }
+}
+
+@mixin ie6-alpha-bg($img) {
+  @if $legacy-support-for-ie6 {
+    _background: none;
+    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$img}', sizingMethod='crop');
+  }
+}
+
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin square($size) {
+  @include size($size, $size);
+}
