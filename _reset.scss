@@ -20,7 +20,7 @@ a {
   text-decoration: none;
 
   &:hover, &:focus {
-    color: $link-color-hover;
+    color: $link-hover-color;
     text-decoration: underline;
   }
 }
@@ -42,7 +42,7 @@ button, input {
   line-height: 1;
 }
 @include input-placeholder {
-  color: $input-color-placeholder;
+  color: $input-placeholder-color;
 }
 
 code {
