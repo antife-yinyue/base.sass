@@ -30,8 +30,8 @@
 }
 
 @mixin size($width, $height) {
-  width: $width;
-  height: $height;
+  width: if(unitless($width), unquote($width + 'px'), $width);
+  height: if(unitless($height), unquote($height + 'px'), $height);
 }
 
 @mixin square($size) {
