@@ -37,3 +37,28 @@
 @mixin square($size) {
   @include size($size, $size);
 }
+
+// replace compass's font-face()
+@mixin fonts($filename, $name: $filename, $includes: eot woff ttf) {
+  $p: $filename + '/' + $filename + '.';
+  $src: '';
+
+  @each $ext in $includes {
+    $suf: if($ext == 'eot', '?#iefix', '');
+    $sep: if($src == '', '', ', ');
+    $src: $src + $sep + font-files(quote($p + $ext + $suf));
+  }
+
+  @font-face {
+    font-family: quote($name);
+
+    @if index($includes, 'eot') {
+      // ie9 compat mode
+      src: font-url($p + 'eot');
+    }
+    src: unquote($src);
+
+    // other styles
+    @content;
+  }
+}
