@@ -1,4 +1,4 @@
-# The base Sass structure for you and me
+# Less reset, Powerful mixins, Utility classes. You deserve to have!
 ---
 
 ## Usage
@@ -7,13 +7,14 @@
 // Core Variables and Mixins
 @import 'variables', 'mixins';
 
-// [optional] Change the legacy-support-for-ie* settings in specific contexts.
-@include set-legacy-ie-support();
-// [optional] Change the experimental-support settings in specific contexts.
-@include capture-and-adjust-experimental();
+// Adjust browser support. Defaults: ie7+ & modern browsers
+@include support($only-webkit: false, $legacy-ie: false);
 
-// CSS Reset
+// Reset
 @import 'reset';
+
+// Utility classes
+@import 'placeholders', 'utilities';
 
 // Custom styles for your app
 .class {
@@ -24,7 +25,7 @@
 ## Dependence
 
 ```ruby
-gem 'compass', '~> 0.13.alpha.2'
+gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :ref => '34159da'
 ```
 
 ## License

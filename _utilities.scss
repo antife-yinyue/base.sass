@@ -1,0 +1,21 @@
+// Floats
+.clearfix {
+  @extend %clearfix;
+}
+.float-l {
+  @include float-left;
+}
+.float-r {
+  @include float-right;
+}
+
+// Toggling content
+.hide {
+  display: none !important;
+}
+.show {
+  display: block !important;
+}
+.invisible {
+  visibility: hidden;
+}

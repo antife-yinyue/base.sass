@@ -1,38 +1,44 @@
-@import 'compass/reset/utilities';
-
 * {
-  @include reset-box-model;
-  -webkit-tap-highlight-color: rgba(#000, 0);
+  margin: 0;
+  padding: 0;
+  @if $experimental-support-for-webkit {
+    -webkit-tap-highlight-color: rgba(#000, 0);
+  }
+  @if $selection-colors != none {
+    @include selection(nth($selection-colors, 1), nth($selection-colors, 2));
+  }
 }
 
 html {
-  -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
+  overflow-y: scroll;
+  @if $experimental-support-for-webkit {
+    -webkit-overflow-scrolling: touch;
+    -webkit-text-size-adjust: 100%;
+  }
+  @if $experimental-support-for-microsoft {
+    -ms-text-size-adjust: 100%;
+  }
 }
 
 body {
+  background-color: $body-bg-color;
   color: $text-color;
   font: $font-size-base + unquote('/') + $line-height-base $font-family-base;
 }
 
 a {
-  color: $link-color;
+  color: nth($link-colors, 1);
   text-decoration: none;
 
-  &:hover, &:focus {
-    color: $link-hover-color;
+  &:hover {
+    @if length($link-colors) == 1 {
+      color: darken($link-colors, 15%);
+    }
+    @else {
+      color: nth($link-colors, 2);
+    }
     text-decoration: underline;
   }
-}
-
-audio, canvas, video {
-  display: inline-block;
-  @include ie7-inline-block;
-}
-
-audio:not([controls]) {
-  display: none;
-  height: 0;
 }
 
 button, input, select, textarea {
@@ -40,21 +46,44 @@ button, input, select, textarea {
 }
 button, input {
   line-height: 1;
+
+  &[disabled] {
+    cursor: default !important;
+  }
 }
-@include input-placeholder {
-  color: $input-placeholder-color;
+button, html input[type='button'], input[type='reset'], input[type='submit'] {
+  @if $legacy-support-for-ie7 {
+    *overflow: visible;
+  }
+  cursor: pointer;
+  @if $experimental-support-for-webkit {
+    -webkit-appearance: button;
+  }
+}
+input, textarea {
+  @include input-placeholder {
+    color: $placeholder-color;
+  }
+}
+textarea {
+  overflow: auto;
+  vertical-align: top;
 }
 
-code {
-  font-family: $font-family-monospace;
+ol, ul {
+  @include reset-list-style;
+}
+
+img {
+  border: 0;
 }
 
 em {
   font-style: normal;
 }
 
-ol, ul {
-  @include reset-list-style;
+audio, canvas, video {
+  @include inline-block;
 }
 
 sub, sup {
@@ -70,13 +99,6 @@ sup {
   top: -0.5em;
 }
 
-table {
-  @include reset-table;
-}
-th {
-  text-align: inherit;
-}
-
-@if $legacy-support-for-ie6 or $legacy-support-for-ie7 or $legacy-support-for-ie8 {
+@if $legacy-support-for-ie {
   @include reset-html5;
 }

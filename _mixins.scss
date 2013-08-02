@@ -1,64 +1,58 @@
-@import 'compass/css3',
-        'compass/css3/selection',
-        'compass/utilities/general/hacks';
+@import 'compass/css3';
+// selection
+@import 'compass/css3/selection';
+// reset-font, reset-list-style, reset-table, reset-html5
+@import 'compass/reset/utilities';
+// float-left, float-right
+@import 'compass/utilities/general/float';
+// has-layout-zoom
+@import 'compass/utilities/general/hacks';
+// min-width, min-height
+@import 'compass/utilities/general/min';
 
-@mixin clearfix {
-  &:before, &:after {
-    content: ' ';
-    display: table;
+
+// Adjust browser support. Defaults: ie7+ & modern browsers
+@mixin support($only-webkit: false, $legacy-ie: 7) {
+  @if $only-webkit {
+    $legacy-support-for-ie: false;
+    $legacy-support-for-mozilla: false;
+    @include capture-and-set-support($webkit: true);
   }
-
-  &:after {
-    clear: both;
+  @else if index(6 7 8, $legacy-ie) {
+    @include set-legacy-ie-support(
+      $ie6: $legacy-ie == 6,
+      $ie7: $legacy-ie <= 7,
+      $ie8: $legacy-ie <= 8
+    );
   }
-
-  @include has-layout-zoom;
+  @else {
+    $legacy-support-for-ie: false;
+    @include set-legacy-ie-support;
+  }
 }
 
-@mixin ie7-inline-block {
+// Sizing shortcuts
+@mixin size($size...) {
+  $size: if(length($size) > 0, $size, auto);
+  $width: nth($size, 1);
+  $height: nth($size, length($size));
+
+  @if $width != auto {
+    $width: if(unitless($width), $width + px, $width);
+  }
+  @if $height != auto {
+    $height: if(unitless($height), $height + px, $height);
+  }
+
+  width: $width;
+  height: $height;
+}
+
+// Cross-browser support for inline-block display (overwrite Compass)
+@mixin inline-block {
+  display: inline-block;
   @if $legacy-support-for-ie7 {
     *display: inline;
     *zoom: 1;
-  }
-}
-
-@mixin ie6-alpha-bg($img) {
-  @if $legacy-support-for-ie6 {
-    _background: none;
-    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$img}', sizingMethod='crop');
-  }
-}
-
-@mixin size($width, $height) {
-  width: if(unitless($width), unquote($width + 'px'), $width);
-  height: if(unitless($height), unquote($height + 'px'), $height);
-}
-
-@mixin square($size) {
-  @include size($size, $size);
-}
-
-// replace compass's font-face()
-@mixin fonts($filename, $name: $filename, $includes: eot woff ttf) {
-  $p: $filename + '/' + $filename + '.';
-  $src: '';
-
-  @each $ext in $includes {
-    $suf: if($ext == 'eot', '?#iefix', '');
-    $sep: if($src == '', '', ', ');
-    $src: $src + $sep + font-files(quote($p + $ext + $suf));
-  }
-
-  @font-face {
-    font-family: quote($name);
-
-    @if index($includes, 'eot') {
-      // ie9 compat mode
-      src: font-url($p + 'eot');
-    }
-    src: unquote($src);
-
-    // other styles
-    @content;
   }
 }
