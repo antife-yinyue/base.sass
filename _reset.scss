@@ -51,15 +51,6 @@ button, input {
     cursor: default !important;
   }
 }
-button, html input[type='button'], input[type='reset'], input[type='submit'] {
-  @if $legacy-support-for-ie7 {
-    *overflow: visible;
-  }
-  cursor: pointer;
-  @if $experimental-support-for-webkit {
-    -webkit-appearance: button;
-  }
-}
 input, textarea {
   @include input-placeholder {
     color: $placeholder-color;
@@ -68,6 +59,7 @@ input, textarea {
 textarea {
   overflow: auto;
   vertical-align: top;
+  resize: vertical;
 }
 
 ol, ul {

@@ -31,31 +31,6 @@
   }
 }
 
-// Sizing shortcuts
-@mixin size($size...) {
-  $size: if(length($size) > 0, $size, auto);
-  $width: nth($size, 1);
-  $height: nth($size, length($size));
-
-  @if $width != auto and unitless($width) {
-    $width: $width + px;
-  }
-  @if $height != auto and unitless($height) {
-    $height: $height + px;
-  }
-
-  width: $width;
-  height: $height;
-}
-
-// Center-align a block level element
-@mixin center-block {
-  margin: {
-    left: auto;
-    right: auto;
-  }
-}
-
 // Cross-browser support for inline-block display (overwrite Compass)
 @mixin inline-block {
   display: inline-block;
@@ -91,5 +66,23 @@
 
     // other styles
     @content;
+  }
+}
+
+// Short retina mixin for setting background-image and -size
+@mixin img-retina($img-1x, $img-2x, $bg-size) {
+  background-image: image-url($img-1x);
+
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and ( min--moz-device-pixel-ratio: 2),
+  only screen and ( -o-min-device-pixel-ratio: 2/1),
+  only screen and ( min-device-pixel-ratio: 2),
+  only screen and ( min-resolution: 192dpi),
+  only screen and ( min-resolution: 2dppx) {
+    background: {
+      image: image-url($img-2x);
+      size: unquote($bg-size);
+    }
   }
 }

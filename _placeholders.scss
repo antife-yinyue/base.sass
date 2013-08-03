@@ -12,12 +12,17 @@
   @include has-layout-zoom;
 }
 
-// Center-align a block level element
-%center-block {
-  @include center-block;
-}
-
 // Cross-browser support for inline-block display
 %inline-block {
   @include inline-block;
+}
+
+// Make an element completely transparent.
+%transparent {
+  @include transparent;
+}
+
+// Make an element completely opaque.
+%opaque {
+  @include opaque;
 }

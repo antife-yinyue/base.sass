@@ -1,7 +1,4 @@
 // Brand colors (via Github)
-$brand-dark-grey:       #333 !default;
-$brand-grey:            #666 !default;
-$brand-light-grey:      #999 !default;
 $brand-red:             #bd2c00 !default;
 $brand-blue:            #4183c4 !default;
 $brand-green:           #6cc644 !default;
@@ -9,19 +6,18 @@ $brand-orange:          #f93 !default;
 
 // Typography
 $font-family-base:      'Hiragino Sans GB', 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
-$font-family-code:      Monaco, Menlo, Consolas, 'Courier New', monospace !default;
 $font-size-base:        14px !default;
 $line-height-base:      1.572 !default;
 
 // Scaffolding
 $body-bg-color:         #fff !default;
-$text-color:            $brand-dark-grey !default;
+$text-color:            #333 !default;
 
 // Links. (Order: normal, hover - defaults: darken(normal, 15%))
 $link-colors:           $brand-blue !default;
 
 // Placeholder
-$placeholder-color:     $brand-light-grey !default;
+$placeholder-color:     #999 !default;
 
 // Selection. (Order: background, text)
 $selection-colors:      none !default;
