@@ -48,11 +48,48 @@
   height: $height;
 }
 
+// Center-align a block level element
+@mixin center-block {
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+
 // Cross-browser support for inline-block display (overwrite Compass)
 @mixin inline-block {
   display: inline-block;
   @if $legacy-support-for-ie7 {
     *display: inline;
     *zoom: 1;
+  }
+}
+
+// Cross-browser support for @font-face (overwrite Compass)
+@mixin font-face(
+  $filename,
+  $font-family: $filename,
+  $includes: eot woff ttf
+) {
+  $prefix: $filename + '/' + $filename + '.';
+  $src: '';
+
+  @each $ext in $includes {
+    $suffix: if($ext == 'eot', '?#iefix', '');
+    $sep: if($src == '', '', ', ');
+    $src: $src + $sep + font-files(quote($prefix + $ext + $suffix));
+  }
+
+  @font-face {
+    font-family: quote($font-family);
+
+    // ie9 compat mode
+    @if index($includes, 'eot') {
+      src: font-url($prefix + 'eot');
+    }
+    src: unquote($src);
+
+    // other styles
+    @content;
   }
 }
