@@ -12,7 +12,15 @@
 
 
 // Adjust browser support. Defaults: ie7+ & modern browsers
-@mixin support($only-webkit: false, $legacy-ie: 7) {
+@mixin support(
+  $only-webkit: false,
+  $legacy-ie: 7,
+  $legacy-webkit: $legacy-support-for-webkit,
+  $legacy-moz: $legacy-support-for-mozilla
+) {
+  $legacy-support-for-webkit: $legacy-webkit;
+  $legacy-support-for-mozilla: $legacy-moz;
+
   @if $only-webkit {
     $legacy-support-for-ie: false;
     $legacy-support-for-mozilla: false;
@@ -47,12 +55,11 @@
   $includes: eot woff ttf
 ) {
   $prefix: $filename + '/' + $filename + '.';
-  $src: '';
+  $src: compact();
 
   @each $ext in $includes {
     $suffix: if($ext == 'eot', '?#iefix', '');
-    $sep: if($src == '', '', ', ');
-    $src: $src + $sep + font-files(quote($prefix + $ext + $suffix));
+    $src: append($src, font-files(quote($prefix + $ext + $suffix)));
   }
 
   @font-face {
@@ -62,7 +69,7 @@
     @if index($includes, 'eot') {
       src: font-url($prefix + 'eot');
     }
-    src: unquote($src);
+    src: $src;
 
     // other styles
     @content;
@@ -75,11 +82,11 @@
 
   @media
   only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and ( min--moz-device-pixel-ratio: 2),
-  only screen and ( -o-min-device-pixel-ratio: 2/1),
-  only screen and ( min-device-pixel-ratio: 2),
-  only screen and ( min-resolution: 192dpi),
-  only screen and ( min-resolution: 2dppx) {
+  only screen and (min--moz-device-pixel-ratio: 2),
+  only screen and (-o-min-device-pixel-ratio: 2/1),
+  only screen and (min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi),
+  only screen and (min-resolution: 2dppx) {
     background: {
       image: image-url($img-2x);
       size: unquote($bg-size);

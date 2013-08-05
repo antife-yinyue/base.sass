@@ -8,7 +8,7 @@
 @import 'variables', 'mixins';
 
 // Adjust browser support. Defaults: ie7+ & modern browsers
-@include support;
+@include support($legacy-webkit: false, $legacy-moz: false);
 
 // Reset
 @import 'reset';

@@ -20,7 +20,7 @@ $link-colors:           $brand-blue !default;
 $placeholder-color:     #999 !default;
 
 // Selection. (Order: background, text)
-$selection-colors:      none !default;
+$selection-colors:      null !default;
 
 // Form states and alerts. (Order: background, text, border)
 $state-warning-colors:  #fcf8e3, #c09853, darken(adjust-hue(#fcf8e3, -10), 3%) !default;

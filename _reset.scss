@@ -4,8 +4,10 @@
   @if $experimental-support-for-webkit {
     -webkit-tap-highlight-color: rgba(#000, 0);
   }
-  @if $selection-colors != none {
-    @include selection(nth($selection-colors, 1), nth($selection-colors, 2));
+  @if $selection-colors != null {
+    @include selection(nth($selection-colors, 1), nth($selection-colors, 2)) {
+      text-shadow: none;
+    };
   }
 }
 
@@ -51,15 +53,15 @@ button, input {
     cursor: default !important;
   }
 }
-input, textarea {
-  @include input-placeholder {
-    color: $placeholder-color;
-  }
-}
 textarea {
   overflow: auto;
   vertical-align: top;
   resize: vertical;
+}
+#{elements-of-type(text-input)} {
+  @include input-placeholder {
+    color: $placeholder-color;
+  }
 }
 
 ol, ul {
