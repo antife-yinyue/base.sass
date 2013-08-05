@@ -77,13 +77,21 @@
 }
 
 // Short retina mixin for setting background-image and -size
-@mixin img-retina($img-1x, $img-2x, $bg-size) {
+@mixin img-retina($img-1x, $img-2x, $bg-size: $default-background-size) {
   background-image: image-url($img-1x);
 
-  @media
-  only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (min--moz-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
+  $vendor: compact();
+  @if $experimental-support-for-webkit {
+    $vendor: append($vendor, unquote('only screen and (-webkit-min-device-pixel-ratio: 2)'));
+  }
+  @if $experimental-support-for-mozilla {
+    $vendor: append($vendor, unquote('only screen and (min--moz-device-pixel-ratio: 2)'));
+  }
+  @if $experimental-support-for-opera {
+    $vendor: append($vendor, unquote('only screen and (-o-min-device-pixel-ratio: 2)'));
+  }
+
+  @media #{$vendor},
   only screen and (min-device-pixel-ratio: 2),
   only screen and (min-resolution: 192dpi),
   only screen and (min-resolution: 2dppx) {
