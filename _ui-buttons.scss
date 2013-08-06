@@ -1,0 +1,113 @@
+.btn {
+  @include inline-block;
+  @if $legacy-support-for-ie7 {
+    *overflow: visible;
+  }
+  padding: 4px 15px;
+  background-color: #eaeaea;
+  @include background-image(linear-gradient(#fafafa, #eaeaea));
+  border: 1px solid #ddd;
+  border-bottom-color: #c5c5c5;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(#000, 0.05);
+  color: $text-color;
+  font-weight: 500;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-shadow: 0 1px rgba(#fff, 0.9);
+  cursor: pointer;
+  @include user-select(none);
+
+  &:hover {
+    background-color: #dadada;
+    @include background-image(linear-gradient(#eaeaea, #dadada));
+    border-color: #ccc #ccc #b5b5b5;
+    color: $text-color;
+    text-decoration: none;
+  }
+
+  &:active {
+    background: {
+      color: #dadada;
+      image: none;
+    }
+    border-color: #b5b5b5;
+    box-shadow: 0 3px 5px rgba(#000, 0.15) inset;
+  }
+
+  &[disabled], &[disabled]:hover,
+  &.disabled, &.disabled:hover {
+    background: {
+      color: #e5e5e5;
+      image: none;
+    }
+    border-color: #c5c5c5;
+    box-shadow: none;
+    color: #666;
+    text-shadow: 0 1px rgba(#fff, 0.9);
+    cursor: default;
+    @include opacity(0.5);
+  }
+}
+
+.btn-green {
+  background-color: #60b044;
+  @include background-image(linear-gradient(#8add6d, #60b044));
+  border-color: #5ca941;
+  color: #fff;
+  text-shadow: 0 -1px rgba(#000, 0.25);
+
+  &:hover {
+    background-color: #569e3d;
+    @include background-image(linear-gradient(#79d858, #569e3d));
+    border-color: #4a993e;
+    color: #fff;
+  }
+
+  &:active {
+    background: {
+      color: #569e3d;
+      image: none;
+    }
+    border-color: #418737;
+  }
+
+  &[disabled], &[disabled]:hover,
+  &.disabled, &.disabled:hover {
+    background-color: #60b044;
+    @include background-image(linear-gradient(#8add6d, #60b044));
+    border-color: #74bb5a #74bb5a #509338;
+    color: #fff;
+    text-shadow: 0 -1px rgba(#000, 0.25);
+  }
+}
+
+.btn-red {
+  color: #900;
+
+  &:hover {
+    background-color: #b33630;
+    @include background-image(linear-gradient(#dc5f59, #b33630));
+    border-color: #cd504a;
+    color: #fff;
+    text-shadow: 0 -1px rgba(#000, 0.3);
+  }
+
+  &:active {
+    background: {
+      color: #b33630;
+      image: none;
+    }
+    border-color: #9f312c;
+    color: #fff;
+  }
+
+  &[disabled], &[disabled]:hover,
+  &.disabled, &.disabled:hover {
+    background-color: #e1e1e1;
+    @include background-image(linear-gradient(#fff, #e1e1e1));
+    border-color: #c5c5c5;
+    color: #900;
+    text-shadow: 0 1px rgba(#fff, 0.9);
+  }
+}
