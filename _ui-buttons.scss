@@ -1,8 +1,5 @@
 .btn {
   @include inline-block;
-  @if $legacy-support-for-ie7 {
-    *overflow: visible;
-  }
   padding: 4px 15px;
   background-color: #eaeaea;
   @include background-image(linear-gradient(#fafafa, #eaeaea));

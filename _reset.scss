@@ -46,10 +46,10 @@ a {
 button, input, select, textarea {
   @include reset-font;
 }
-textarea {
-  overflow: auto;
-  vertical-align: top;
-  resize: vertical;
+button {
+  @if $legacy-support-for-ie7 {
+    *overflow: visible;
+  }
 }
 #{elements-of-type(text-input)} {
   @include input-placeholder {

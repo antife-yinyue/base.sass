@@ -31,3 +31,8 @@
     cursor: not-allowed;
   }
 }
+
+textarea.input {
+  overflow: auto;
+  resize: vertical;
+}
