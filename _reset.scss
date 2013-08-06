@@ -46,13 +46,6 @@ a {
 button, input, select, textarea {
   @include reset-font;
 }
-button, input {
-  line-height: 1;
-
-  &[disabled] {
-    cursor: default !important;
-  }
-}
 textarea {
   overflow: auto;
   vertical-align: top;
