@@ -86,6 +86,13 @@ sup {
   top: -0.5em;
 }
 
+table {
+  @include reset-table;
+}
+th {
+  text-align: inherit;
+}
+
 @if $legacy-support-for-ie {
   @include reset-html5;
 }
