@@ -1,8 +1,8 @@
 // Brand colors
-$brand-red:             #bd2c00 !default;
-$brand-blue:            #4183c4 !default;
-$brand-green:           #6cc644 !default;
-$brand-orange:          #f93 !default;
+$brand-success:         #5cb85c !default;
+$brand-warning:         #f0ad4e !default;
+$brand-danger:          #d9534f !default;
+$brand-info:            #5bc0de !default;
 
 // Typography
 $font-family-base:      'Helvetica Neue', Helvetica, Arial, sans-serif !default;
@@ -14,7 +14,7 @@ $body-bg-color:         #fff !default;
 $text-color:            #333 !default;
 
 // Links. (Order: normal, hover - defaults: darken(normal, 15%))
-$link-colors:           $brand-blue !default;
+$link-colors:           #428bca !default;
 
 // Placeholder
 $placeholder-color:     #999 !default;
@@ -22,8 +22,5 @@ $placeholder-color:     #999 !default;
 // Selection. (Order: text, background)
 $selection-colors:      null !default;
 
-// Form states and alerts. (Order: text, background, border)
-$state-success-colors:  #468847, #dff0d8, darken(adjust-hue(#dff0d8, -10), 5%) !default;
-$state-danger-colors:   #b94a48, #f2dede, darken(adjust-hue(#f2dede, -10), 3%) !default;
-$state-warning-colors:  #c09853, #fcf8e3, darken(adjust-hue(#fcf8e3, -10), 3%) !default;
-$state-info-colors:     #3a87ad, #d9edf7, darken(adjust-hue(#d9edf7, -10), 7%) !default;
+// ============ Components ============
+// Coming maybe soon...
