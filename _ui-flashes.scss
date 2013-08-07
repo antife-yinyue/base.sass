@@ -1,1 +1,41 @@
-.flash {}
+$states: success danger warning info;
+$state-colors: $state-success-colors $state-danger-colors $state-warning-colors $state-info-colors;
+
+.flash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+
+  > div {
+    @include inline-block;
+    padding: 10px 15px;
+    border: {
+      width: 1px;
+      style: solid;
+      radius: 4px;
+    }
+    text-align: left;
+  }
+
+  p + p {
+    margin-top: 5px;
+  }
+}
+
+@each $state in $states {
+  $color: nth($state-colors, index($states, $state));
+
+  .flash-#{$state} {
+    background-color: nth($color, 2);
+    border-color: nth($color, 3);
+    color: nth($color, 1);
+
+    a {
+      color: darken(nth($color, 1), 10%);
+    }
+  }
+}

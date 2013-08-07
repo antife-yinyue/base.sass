@@ -5,7 +5,7 @@
     -webkit-tap-highlight-color: rgba(#000, 0);
   }
   @if $selection-colors != null {
-    @include selection(nth($selection-colors, 1), nth($selection-colors, 2)) {
+    @include selection(nth($selection-colors, 2), nth($selection-colors, 1)) {
       text-shadow: none;
     };
   }
