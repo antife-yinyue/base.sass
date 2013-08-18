@@ -50,6 +50,12 @@ button {
   @if $legacy-support-for-ie7 {
     *overflow: visible;
   }
+  @if $experimental-support-for-mozilla {
+    &::-moz-focus-inner {
+      padding: 0;
+      border: 0;
+    }
+  }
 }
 #{elements-of-type(text-input)} {
   @include input-placeholder {
