@@ -1,26 +1,23 @@
 // Brand colors
-$brand-success:         #5cb85c !default;
-$brand-warning:         #f0ad4e !default;
-$brand-danger:          #d9534f !default;
-$brand-info:            #5bc0de !default;
+$brand-success:     #5cb85c !default;
+$brand-warning:     #f0ad4e !default;
+$brand-danger:      #d9534f !default;
+$brand-info:        #5bc0de !default;
 
 // Typography
-$font-family-base:      'Helvetica Neue', Helvetica, Arial, sans-serif !default;
-$font-size-base:        14px !default;
-$line-height-base:      1.572 !default;
+$font-family-base:  'Helvetica Neue', Helvetica, Arial, sans-serif !default;
+$font-size-base:    14px !default;
+$line-height-base:  1.572 !default;
 
 // Scaffolding
-$body-bg-color:         #fff !default;
-$text-color:            #333 !default;
+$body-bg-color:     #fff !default;
+$text-color:        #333 !default;
 
 // Links. (Order: normal, hover - defaults: darken(normal, 15%))
-$link-colors:           #428bca !default;
+$link-colors:       #428bca !default;
 
 // Placeholder
-$placeholder-color:     #999 !default;
+$placeholder-color: #999 !default;
 
 // Selection. (Order: text, background)
-$selection-colors:      null !default;
-
-// ============ Components ============
-// Coming maybe soon...
+$selection-colors:  null !default;
