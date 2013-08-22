@@ -2,10 +2,10 @@
 .clearfix {
   @extend %clearfix;
 }
-.float-l {
+.float-left {
   @include float-left;
 }
-.float-r {
+.float-right {
   @include float-right;
 }
 
