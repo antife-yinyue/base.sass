@@ -1,4 +1,4 @@
-# Less reset, Powerful mixins, Utility classes. You deserve to have!
+# Less reset, Powerful mixins, Useful helpers. You deserve to have!
 ---
 
 ## Usage
@@ -13,11 +13,11 @@
 // Reset
 @import 'reset';
 
-// Utility classes
-@import 'placeholders', 'utilities';
+// Helper classes
+@import 'placeholders', 'helpers';
 
 // Custom styles for your app
-.class {
+.selector {
   // ...
 }
 ```
