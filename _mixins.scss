@@ -56,11 +56,11 @@
   $includes: eot woff ttf
 ) {
   $prefix: $dirname + '/' + $filename + '.';
-  $src: compact();
+  $src: ();
 
   @each $ext in $includes {
     $suffix: if($ext == 'eot', '?#iefix', '');
-    $src: append($src, font-files(quote($prefix + $ext + $suffix)));
+    $src: append($src, font-files(quote($prefix + $ext + $suffix)), comma);
   }
 
   @font-face {
