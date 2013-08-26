@@ -62,6 +62,16 @@ button {
     color: $placeholder-color;
   }
 }
+input[type='search'] {
+  @include appearance(textfield);
+  @include box-sizing(content-box);
+
+  @if $experimental-support-for-webkit {
+    &::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+  }
+}
 
 ol, ul {
   @include reset-list-style;
