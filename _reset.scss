@@ -62,7 +62,7 @@ button {
     color: $placeholder-color;
   }
 }
-input[type='search'] {
+input[type=search] {
   @include appearance(textfield);
   @include box-sizing(content-box);
 
