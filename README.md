@@ -4,17 +4,17 @@
 ## Usage
 
 ```scss
-// Core Variables and Mixins
+// Core Variables & Mixins
 @import 'variables', 'mixins';
 
-// Adjust browser support. Defaults: ie7+ & modern browsers
+// Adjust Browser Support. Defaults: ie7+ & modern browsers
 @include support($legacy-webkit: false, $legacy-moz: false);
 
 // Reset
 @import 'reset';
 
-// Helper classes
-@import 'placeholders', 'helpers';
+// Helper Classes & Placeholder Selectors
+@import 'helpers', 'placeholders';
 
 // Custom styles for your app
 .selector {
