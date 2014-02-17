@@ -1,14 +1,12 @@
 @import 'compass/css3';
 // selection
 @import 'compass/css3/selection';
-// reset-box-model, reset-font, reset-list-style, reset-table, reset-html5
+// reset-font, reset-list-style, reset-table, reset-html5
 @import 'compass/reset/utilities';
 // float-left, float-right
 @import 'compass/utilities/general/float';
 // has-layout-zoom
 @import 'compass/utilities/general/hacks';
-// min-width, min-height
-@import 'compass/utilities/general/min';
 
 
 // Adjust browser support. Defaults: ie7+ & modern browsers
