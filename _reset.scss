@@ -1,29 +1,48 @@
+//================
+// Flexible Reset
+//================
+
+// reset-font, reset-list-style, reset-table, reset-html5
+@import 'compass/reset/utilities';
+
 * {
   margin: 0;
   padding: 0;
-  @if $experimental-support-for-webkit {
+
+  @if index($supported-browsers, ios-safari) {
     -webkit-tap-highlight-color: rgba(#000, 0);
   }
-  @if $selection-colors != null {
-    @include selection(nth($selection-colors, 2), nth($selection-colors, 1)) {
-      text-shadow: none;
-    };
+
+  @if type-of($selection-colors) == list {
+    @if length($selection-colors) == 1 {
+      @include selection(nth($selection-colors, 1)) {
+        text-shadow: none;
+      }
+    }
+    @else if length($selection-colors) == 2 {
+      @include selection(
+        nth($selection-colors, 1),
+        nth($selection-colors, 2)
+      ) {
+        text-shadow: none;
+      }
+    }
   }
 }
 
 html {
   overflow-y: scroll;
-  @if $experimental-support-for-webkit {
+
+  @if index($supported-browsers, ios-safari) {
     -webkit-overflow-scrolling: touch;
     -webkit-text-size-adjust: 100%;
-  }
-  @if $experimental-support-for-microsoft {
-    -ms-text-size-adjust: 100%;
   }
 }
 
 body {
-  background-color: $body-bg-color;
+  @if type-of($body-bg-color) == color {
+    background-color: $body-bg-color;
+  }
   color: $text-color;
   font: $font-size-base + unquote('/') + $line-height-base $font-family-base;
 }
@@ -33,12 +52,9 @@ a {
   text-decoration: none;
 
   &:hover {
-    @if length($link-colors) == 1 {
-      color: darken($link-colors, 15%);
-    }
-    @else {
-      color: nth($link-colors, 2);
-    }
+    color: if(length($link-colors) == 1,
+             darken(nth($link-colors, 1), 15%),
+               nth($link-colors, 2));
     text-decoration: underline;
   }
 }
@@ -47,10 +63,10 @@ button, input, select, textarea {
   @include reset-font;
 }
 button {
-  @if $legacy-support-for-ie7 {
+  @if support-legacy-browser(ie, 7) {
     *overflow: visible;
   }
-  @if $experimental-support-for-mozilla {
+  @if support-prefix(-moz) {
     &::-moz-focus-inner {
       padding: 0;
       border: 0;
@@ -59,14 +75,14 @@ button {
 }
 #{elements-of-type(text-input)} {
   @include input-placeholder {
-    color: $placeholder-color;
+    color: $input-placeholder-color;
   }
 }
 input[type=search] {
   @include appearance(textfield);
   @include box-sizing(content-box);
 
-  @if $experimental-support-for-webkit {
+  @if support-prefix(-webkit) {
     &::-webkit-search-decoration {
       -webkit-appearance: none;
     }
@@ -109,6 +125,6 @@ th {
   text-align: inherit;
 }
 
-@if $legacy-support-for-ie {
+@if support-legacy-browser(ie, 6, 8) {
   @include reset-html5;
 }

@@ -1,0 +1,48 @@
+//===========
+// Utilities
+//===========
+
+// Display.
+.show {
+  display: block !important;
+}
+.hide {
+  display: none !important;
+}
+.invisible {
+  visibility: hidden !important;
+}
+
+// Floats and clear floats.
+%clearfix {
+  $colon: unquote(if(support-legacy-browser(ie, 8), ':', '::'));
+
+  &#{$colon}before, &#{$colon}after {
+    content: '\20';
+    display: table;
+  }
+
+  &#{$colon}after {
+    clear: both;
+  }
+
+  @if support-legacy-browser(ie, 7) {
+    *zoom: 1;
+  }
+}
+.clearfix {
+  @extend %clearfix;
+}
+
+@mixin float($side) {
+  float: unquote($side);
+  @if support-legacy-browser(ie, 6) {
+    _display: inline;
+  }
+}
+.float-left {
+  @include float(left);
+}
+.float-right {
+  @include float(right);
+}
