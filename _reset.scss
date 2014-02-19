@@ -57,9 +57,12 @@ button, input, select, textarea {
 }
 
 button {
+  cursor: pointer;
+
   @if support-legacy-browser(ie, 7) {
     *overflow: visible;
   }
+
   @if support-prefix(-moz) {
     &::-moz-focus-inner {
       padding: 0;
