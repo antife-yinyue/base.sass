@@ -6,8 +6,8 @@
   margin: 0;
   padding: 0;
 
-  @if index($supported-browsers, ios-safari) {
-    -webkit-tap-highlight-color: transparent;
+  @if support-prefix(-webkit) {
+    -webkit-tap-highlight-color: rgba(#fff, 0);
   }
 
   @if length($selection-colors) == 1 {
@@ -28,9 +28,7 @@
 }
 
 html {
-  overflow-y: scroll;
-
-  @if index($supported-browsers, ios-safari) {
+  @if support-prefix(-webkit) {
     -webkit-overflow-scrolling: touch;
     -webkit-text-size-adjust: 100%;
   }
