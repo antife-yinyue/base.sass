@@ -25,6 +25,16 @@
   }
 }
 
+@mixin appearance($appearance) {
+  $appearance: unquote($appearance);
+
+  @each $prefix in -webkit, -moz {
+    @if support-prefix($prefix) {
+      @include prefix-prop(appearance, $appearance, $prefix);
+    }
+  }
+}
+
 @mixin font-face(
   $filename,
   $font-family: $filename,
