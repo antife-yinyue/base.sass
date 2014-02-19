@@ -14,6 +14,16 @@
 }
 
 // Floats and clear floats.
+.clearfix {
+  @extend %clearfix;
+}
+.float-left {
+  @include float(left, true);
+}
+.float-right {
+  @include float(right, true);
+}
+
 %clearfix {
   $colon: unquote(if(support-legacy-browser(ie, 8), ':', '::'));
 
@@ -29,20 +39,4 @@
   @if support-legacy-browser(ie, 7) {
     *zoom: 1;
   }
-}
-.clearfix {
-  @extend %clearfix;
-}
-
-@mixin float($side) {
-  float: unquote($side);
-  @if support-legacy-browser(ie, 6) {
-    _display: inline;
-  }
-}
-.float-left {
-  @include float(left);
-}
-.float-right {
-  @include float(right);
 }

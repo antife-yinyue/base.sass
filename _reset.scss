@@ -2,30 +2,27 @@
 // Flexible Reset
 //================
 
-// reset-font, reset-list-style, reset-table, reset-html5
-@import 'compass/reset/utilities';
-
 * {
   margin: 0;
   padding: 0;
 
   @if index($supported-browsers, ios-safari) {
-    -webkit-tap-highlight-color: rgba(#000, 0);
+    -webkit-tap-highlight-color: transparent;
   }
 
-  @if type-of($selection-colors) == list {
-    @if length($selection-colors) == 1 {
-      @include selection(nth($selection-colors, 1)) {
-        text-shadow: none;
-      }
+  @if length($selection-colors) == 1 {
+    @include selection(
+      nth($selection-colors, 1)
+    ) {
+      text-shadow: none;
     }
-    @else if length($selection-colors) == 2 {
-      @include selection(
-        nth($selection-colors, 1),
-        nth($selection-colors, 2)
-      ) {
-        text-shadow: none;
-      }
+  }
+  @else if length($selection-colors) == 2 {
+    @include selection(
+      nth($selection-colors, 1),
+      nth($selection-colors, 2)
+    ) {
+      text-shadow: none;
     }
   }
 }
@@ -40,9 +37,7 @@ html {
 }
 
 body {
-  @if type-of($body-bg-color) == color {
-    background-color: $body-bg-color;
-  }
+  background-color: $body-bg-color;
   color: $text-color;
   font: $font-size-base + unquote('/') + $line-height-base $font-family-base;
 }
@@ -62,6 +57,7 @@ a {
 button, input, select, textarea {
   @include reset-font;
 }
+
 button {
   @if support-legacy-browser(ie, 7) {
     *overflow: visible;
@@ -73,11 +69,13 @@ button {
     }
   }
 }
+
 #{elements-of-type(text-input)} {
   @include input-placeholder {
     color: $input-placeholder-color;
   }
 }
+
 input[type=search] {
   @include appearance(textfield);
   @include box-sizing(content-box);
