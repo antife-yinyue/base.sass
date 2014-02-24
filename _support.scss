@@ -4,7 +4,8 @@
 
 // Check whether the prefix is supported according to the supported browsers.
 @function support-prefix($prefix) {
-  @return index(browser-prefixes($supported-browsers), $prefix) != null;
+  $index: index(browser-prefixes($supported-browsers), $prefix);
+  @return $index != null and $index != false;
 }
 
 // Check whether the browser is supported according to the supported browsers,
