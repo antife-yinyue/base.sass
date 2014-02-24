@@ -45,16 +45,12 @@ pre {
   color: map-get($colors, text);
 
   code {
-    @extend %clean-code-styles;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    color: inherit;
+    font-size: inherit;
+    white-space: pre;
   }
-}
-
-%clean-code-styles {
-  margin: 0;
-  padding: 0;
-  background-color: transparent;
-  border: 0;
-  color: inherit;
-  font-size: inherit;
-  white-space: pre;
 }
