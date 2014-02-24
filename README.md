@@ -1,5 +1,18 @@
 # The beginning of your stylesheets.
 
+## Installation
+
+```sh
+git clone https://github.com/jsw0528/base.sass.git path/to/base
+```
+
+Or
+
+```sh
+git submodule add https://github.com/jsw0528/base.sass.git path/to/base
+git submodule init
+```
+
 ## Usage
 
 ```scss
@@ -15,7 +28,7 @@
 // Set this to true to generate comments that will explain why a prefix was included or omitted.
 // $debug-browser-support: true;
 
-@import 'index';
+@import 'base/index';
 
 // Your style codes here.
 ```
