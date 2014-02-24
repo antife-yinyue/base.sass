@@ -10,18 +10,16 @@
     -webkit-tap-highlight-color: rgba(#fff, 0);
   }
 
-  @if length($selection-colors) == 1 {
-    @include selection(
-      nth($selection-colors, 1)
-    ) {
+  $selection-text-color: map-get($selection-colors, text);
+  $selection-bg-color: map-get($selection-colors, background);
+
+  @if $selection-text-color != null {
+    @include selection($selection-bg-color, $selection-text-color) {
       text-shadow: none;
     }
   }
-  @else if length($selection-colors) == 2 {
-    @include selection(
-      nth($selection-colors, 1),
-      nth($selection-colors, 2)
-    ) {
+  @else if $selection-bg-color != null {
+    @include selection($selection-bg-color) {
       text-shadow: none;
     }
   }
@@ -41,13 +39,13 @@ body {
 }
 
 a {
-  color: nth($link-colors, 1);
+  color: map-get($link-colors, normal);
   text-decoration: none;
 
   &:hover {
-    color: if(length($link-colors) == 1,
-             darken(nth($link-colors, 1), 15%),
-               nth($link-colors, 2));
+    color: map-get($link-colors, hover)
+           or
+           darken(map-get($link-colors, normal), 15%);
     text-decoration: underline;
   }
 }

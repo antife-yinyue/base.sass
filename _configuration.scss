@@ -10,14 +10,16 @@ $line-height-base: 1.5 !default;
 
 $text-color: #333 !default;
 
-// The order is normal-color, hover-color.
-// hover-color defaults to darken(normal-color, 15%)
-$link-colors: (#428bca) !default;
+$link-colors: (
+  normal: #428bca,
+  hover: null  // defaults to `darken(normal, 15%)`
+) !default;
 
 $body-bg-color: null !default;
 
 $input-placeholder-color: #999 !default;
 
-// The order is bg-color, text-color.
-// text-color defaults to contrast-color(bg-color)
-$selection-colors: () !default;
+$selection-colors: (
+  text: null,  // defaults to `contrast-color(background)`
+  background: null
+) !default;

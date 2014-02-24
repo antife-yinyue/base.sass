@@ -3,32 +3,46 @@
 //=============
 
 $font-family-code: Monaco, Menlo, Consolas, 'Courier New', monospace !default;
-// The order is text-color, bg-color, border-color.
-$code-colors: (#c7254e #f9f2f4 transparent) !default;
-$pre-colors: (inherit #f5f5f5 #ccc) !default;
+$code-colors: (
+  inline: (
+    text: #c7254e,
+    background: #f9f2f4,
+    border: transparent
+  ),
+  block: (
+    text: inherit,
+    background: #f5f5f5,
+    border: #ccc
+  )
+) !default;
+
 
 code, pre {
   font-family: $font-family-code;
 }
 
 code {
+  $colors: map-get($code-colors, inline);
+
   margin: 0 3px;
   padding: 2px 4px;
-  background-color: nth($code-colors, 2);
-  border: 1px solid nth($code-colors, 3);
+  background-color: map-get($colors, background);
+  border: 1px solid map-get($colors, border);
   border-radius: 4px;
-  color: nth($code-colors, 1);
+  color: map-get($colors, text);
   font-size: 90%;
   white-space: nowrap;
 }
 
 pre {
+  $colors: map-get($code-colors, block);
+
   padding: 6px 10px;
   overflow: auto;
-  background-color: nth($pre-colors, 2);
-  border: 1px solid nth($pre-colors, 3);
+  background-color: map-get($colors, background);
+  border: 1px solid map-get($colors, border);
   border-radius: 4px;
-  color: nth($pre-colors, 1);
+  color: map-get($colors, text);
 
   code {
     @extend %clean-code-styles;
