@@ -27,7 +27,7 @@
 
 @mixin font-face(
   $includes: eot woff ttf,
-  $filename,
+  $filename: '',
   $font-family: $filename,
   $dirname: $filename
 ) {
