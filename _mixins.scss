@@ -4,7 +4,7 @@
 
 @import 'compass/css3';
 @import 'compass/css3/selection';
-// reset-font, reset-list-style, reset-table, reset-html5
+// includes: reset-font, reset-list-style, reset-table, reset-html5
 @import 'compass/reset/utilities';
 
 
@@ -17,17 +17,7 @@
   }
 }
 
-@mixin float($side, $important: false) {
-  float: unquote($side + if($important, ' !important', ''));
-
-  @if support-legacy-browser(ie, 6) {
-    _display: inline;
-  }
-}
-
 @mixin appearance($appearance) {
-  $appearance: unquote($appearance);
-
   @each $prefix in -webkit, -moz {
     @if support-prefix($prefix) {
       @include prefix-prop(appearance, $appearance, $prefix);
@@ -36,10 +26,10 @@
 }
 
 @mixin font-face(
+  $includes: eot woff ttf,
   $filename,
   $font-family: $filename,
-  $dirname: $filename,
-  $includes: eot woff ttf
+  $dirname: $filename
 ) {
   $prefix: $dirname + '/' + $filename + '.';
   $src: comma-list();
@@ -58,9 +48,41 @@
     }
     src: $src;
 
-    // other styles
     @content;
   }
+}
+
+@mixin float($side, $important: false) {
+  float: unquote($side + if($important, ' !important', ''));
+
+  @if support-legacy-browser(ie, 6) {
+    _display: inline;
+  }
+}
+
+@mixin fixed($x: center, $y: center) {
+  $map: (
+    x: (
+      left: 0,
+      right: 0,
+      center: 50%
+    ),
+    y: (
+      top: 0,
+      bottom: 0,
+      center: 50%
+    )
+  );
+
+  position: fixed;
+  #{if($x == right, right, left)}: map-get(map-get($map, x), $x) or $x;
+  #{if($y == bottom, bottom, top)}: map-get(map-get($map, y), $y) or $y;
+
+  @if $x == center or $y == center {
+    @include translate(if($x == center, -50%, 0), if($y == center, -50%, 0));
+  }
+
+  @content;
 }
 
 // Short retina mixin for setting background-image and background-size.
