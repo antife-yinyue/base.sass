@@ -1,0 +1,41 @@
+// brand colors
+$brand-success: #5cb85c !default;
+$brand-error:   #d9534f !default;
+$brand-warn:    #f0ad4e !default;
+$brand-info:    #5bc0de !default;
+
+.form-item {
+  @extend %clearfix;
+  padding: 10px;
+
+  .input {
+    width: 33%;
+    min-width: 200px;
+    margin-right: 5px;
+  }
+
+  .btn[type=submit] {
+    font-size: round($font-size-base * 1.25);
+  }
+
+  .heading-label {
+    display: block;
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+
+  .linking-label {
+    margin: {
+      left: 5px;
+      right: 5px;
+    }
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .required:after {
+    margin-left: 5px;
+    content: '*';
+    color: $brand-error;
+  }
+}

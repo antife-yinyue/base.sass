@@ -1,0 +1,44 @@
+$message-colors: (
+  success: (
+    text: #468847,
+    background: #dff0d8,
+    border: darken(adjust-hue(#dff0d8, -10), 5%)
+  ),
+  error: (
+    text: #b94a48,
+    background: #f2dede,
+    border: darken(adjust-hue(#f2dede, -10), 3%)
+  ),
+  warn: (
+    text: #c09853,
+    background: #fcf8e3,
+    border: darken(adjust-hue(#fcf8e3, -10), 3%)
+  ),
+  info: (
+    text: #3a87ad,
+    background: #d9edf7,
+    border: darken(adjust-hue(#d9edf7, -10), 7%)
+  )
+) !default;
+
+
+%message {
+  margin-bottom: 15px;
+  padding: 8px 13px 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  text-align: left;
+}
+
+@each $type, $colors in $message-colors {
+  .message-#{$type} {
+    @extend %message;
+    border-color: map-get($colors, border);
+    background-color: map-get($colors, background);
+    color: map-get($colors, text);
+
+    a {
+      color: darken(map-get($colors, text), 10%);
+    }
+  }
+}
