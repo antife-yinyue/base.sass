@@ -25,26 +25,45 @@
   }
 }
 
-@mixin font-face(
-  $includes: eot woff ttf,
-  $filename: '',
-  $font-family: $filename,
-  $dirname: $filename
-) {
-  $prefix: $dirname + '/' + $filename + '.';
+// Browser support data: http://caniuse.com/fontface
+@mixin font-face($filename, $font-family: $filename, $path: null) {
+  $prefix: '#{$filename}';
   $src: comma-list();
 
-  @each $ext in $includes {
-    $suffix: if($ext == 'eot', '?#iefix', '');
-    $src: append($src, font-files(quote($prefix + $ext + $suffix)));
+  @if type-of($path) == string {
+    @if str-slice($path, str-length($path)) != '/' {
+      $path: $path + '/';
+    }
+
+    $prefix: $path + $filename;
+  }
+
+  @if support-legacy-browser(ie, 8) {
+    $src: append($src, font-files($prefix + '.eot?#iefix'));
+  }
+
+  // Modern browsers
+  $src: append($src, font-files($prefix + '.woff'));
+
+  @if support-legacy-browser(ios-safari, '4.2-4.3') or
+      support-legacy-browser(android, '4.2-4.3') or
+      support-legacy-browser(safari, 5) or
+      support-legacy-browser(opera, 11) {
+    $src: append($src, font-files($prefix + '.ttf'));
+  }
+
+  @if support-legacy-browser(ios-safari, '4.0-4.1') or
+      support-legacy-browser(android, 2.3) or
+      index($supported-browsers, opera-mini) {
+    $src: append($src, font-files($prefix + '.svg'));
   }
 
   @font-face {
-    font-family: quote($font-family);
+    font-family: '#{$font-family}';
 
-    // ie9 compat mode
-    @if index($includes, 'eot') {
-      src: font-url($prefix + 'eot');
+    // IE9 compat mode
+    @if support-legacy-browser(ie, 9) {
+      src: font-url($prefix + '.eot');
     }
     src: $src;
 
