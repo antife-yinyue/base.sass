@@ -21,5 +21,5 @@
     @return true;
   }
 
-  @return compare-browser-versions($browser, "#{$max-version or $min-version}", $min-required-version) >= 0;
+  @return compare-browser-versions($browser, '#{$max-version or $min-version}', $min-required-version) >= 0;
 }
