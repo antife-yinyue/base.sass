@@ -1,6 +1,6 @@
-//===========
-// Utilities
-//===========
+//=================
+// Utility Classes
+//=================
 
 // Display.
 .show {
@@ -27,8 +27,9 @@
 %clearfix {
   $colon: unquote(if(support-legacy-browser(ie, 8), ':', '::'));
 
-  &#{$colon}before, &#{$colon}after {
-    content: '\20';
+  &#{$colon}before,
+  &#{$colon}after {
+    content: ' ';
     display: table;
   }
 

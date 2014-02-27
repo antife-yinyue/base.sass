@@ -35,7 +35,7 @@ html {
 body {
   background-color: $body-bg-color;
   color: $text-color;
-  font: $font-size-base + unquote('/') + $line-height-base $font-family-base;
+  font: unquote($font-size-base + '/' + $line-height-base) $font-family-base;
 }
 
 a {
