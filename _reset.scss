@@ -30,6 +30,10 @@ html {
     -webkit-overflow-scrolling: touch;
     -webkit-text-size-adjust: 100%;
   }
+
+  @if index($supported-browsers, ie-mobile) {
+    -ms-text-size-adjust: 100%;
+  }
 }
 
 body {
