@@ -122,9 +122,6 @@ sup {
 table {
   @include reset-table;
 }
-th {
-  text-align: inherit;
-}
 
 @if support-legacy-browser(ie, 6, 8) {
   @include reset-html5;
