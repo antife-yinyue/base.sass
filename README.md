@@ -1,4 +1,4 @@
-# The beginning of your stylesheets.
+# The beginning of your stylesheets
 
 ## Installation
 
