@@ -54,6 +54,18 @@ a {
   }
 }
 
+img {
+  border: 0;
+}
+
+em {
+  font-style: normal;
+}
+
+ol, ul {
+  @include reset-list-style;
+}
+
 button, input, select, textarea {
   @include reset-font;
 }
@@ -79,7 +91,7 @@ button {
   }
 }
 
-input[type=search] {
+input[type='search'] {
   @include appearance(textfield);
   @include box-sizing(content-box);
 
@@ -90,20 +102,12 @@ input[type=search] {
   }
 }
 
-ol, ul {
-  @include reset-list-style;
-}
-
-img {
-  border: 0;
-}
-
-em {
-  font-style: normal;
-}
-
 audio, canvas, video {
   @include inline-block;
+}
+
+table {
+  @include reset-table;
 }
 
 sub, sup {
@@ -117,10 +121,6 @@ sub {
 }
 sup {
   top: -0.5em;
-}
-
-table {
-  @include reset-table;
 }
 
 @if support-legacy-browser(ie, 6, 8) {
