@@ -8,15 +8,6 @@
 @import 'compass/reset/utilities';
 
 
-@mixin inline-block {
-  display: inline-block;
-
-  @if support-legacy-browser(ie, 7) {
-    *display: inline;
-    *zoom: 1;
-  }
-}
-
 @mixin appearance($appearance) {
   @each $prefix in -webkit, -moz {
     @if support-prefix($prefix) {
@@ -33,29 +24,13 @@
   }
 }
 
-@mixin fixed($x: center, $y: center) {
-  $map: (
-    x: (
-      left: 0,
-      right: 0,
-      center: 50%
-    ),
-    y: (
-      top: 0,
-      bottom: 0,
-      center: 50%
-    )
-  );
+@mixin inline-block {
+  display: inline-block;
 
-  position: fixed;
-  #{if($x == right, right, left)}: map-get(map-get($map, x), $x) or $x;
-  #{if($y == bottom, bottom, top)}: map-get(map-get($map, y), $y) or $y;
-
-  @if $x == center or $y == center {
-    @include translate(if($x == center, -50%, 0), if($y == center, -50%, 0));
+  @if support-legacy-browser(ie, 7) {
+    *display: inline;
+    *zoom: 1;
   }
-
-  @content;
 }
 
 // Browser support data: http://caniuse.com/fontface
@@ -143,4 +118,30 @@
 
 @function -vendor($prefix, $ratio) {
   @return unquote('only screen and (#{$prefix}-device-pixel-ratio: #{$ratio})');
+}
+
+// Fixed position
+@mixin fixed($x: center, $y: center) {
+  $map: (
+    x: (
+      left: 0,
+      right: 0,
+      center: 50%
+    ),
+    y: (
+      top: 0,
+      bottom: 0,
+      center: 50%
+    )
+  );
+
+  position: fixed;
+  #{if($x == right, right, left)}: map-get(map-get($map, x), $x) or $x;
+  #{if($y == bottom, bottom, top)}: map-get(map-get($map, y), $y) or $y;
+
+  @if $x == center or $y == center {
+    @include translate(if($x == center, -50%, 0), if($y == center, -50%, 0));
+  }
+
+  @content;
 }
