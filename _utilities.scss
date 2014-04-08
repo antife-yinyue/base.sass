@@ -25,15 +25,13 @@
 }
 
 %clearfix {
-  $colon: unquote(if(support-legacy-browser(ie, 8), ':', '::'));
-
-  &#{$colon}before,
-  &#{$colon}after {
+  &#{$pseudo-element-colon}before,
+  &#{$pseudo-element-colon}after {
     content: ' ';
     display: table;
   }
 
-  &#{$colon}after {
+  &#{$pseudo-element-colon}after {
     clear: both;
   }
 

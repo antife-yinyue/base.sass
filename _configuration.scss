@@ -23,3 +23,5 @@ $selection-colors: (
   text: null,  // defaults to `contrast-color(background)`
   background: null
 ) !default;
+
+$pseudo-element-colon: unquote(if(support-legacy-browser(ie, 8), ':', '::'));
