@@ -36,8 +36,8 @@ git submodule init
 ## Dependence
 
 ```ruby
-gem "sass", "~> 3.3.0.rc"
-gem "compass", "~> 1.0.0.alpha"
+gem 'sass', '3.3.4'
+gem 'compass', '~> 1.0.0.alpha'
 ```
 
 ## License
