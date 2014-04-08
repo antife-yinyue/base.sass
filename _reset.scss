@@ -79,10 +79,7 @@ button, input {
   }
 }
 
-button,
-input[type='reset'],
-input[type='submit'],
-html input[type='button'] {
+button, html input[type='button'], input[type='reset'], input[type='submit'] {
   cursor: pointer;
 
   @if index($supported-browsers, ios-safari) {
