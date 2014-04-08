@@ -25,76 +25,6 @@
   }
 }
 
-// Browser support data: http://caniuse.com/fontface
-@mixin font-face($filename, $font-family: $filename, $path: null) {
-  $prefix: '#{$filename}';
-  $ts: if(is-absolute($path), '?' + timestamp(), '');
-  $src: comma-list();
-
-  @if type-of($path) == string {
-    @if str-slice($path, str-length($path)) != '/' {
-      $path: $path + '/';
-    }
-
-    $prefix: $path + $prefix;
-  }
-
-  @if support-legacy-browser(ie, 8) {
-    $src: append($src, font-files($prefix + '.eot' + $ts + '#iefix'));
-  }
-
-  // Modern browsers
-  $src: append($src, font-files($prefix + '.woff' + $ts));
-
-  @if support-legacy-browser(ios-safari, '4.2-4.3') or
-      support-legacy-browser(android, '4.2-4.3') or
-      support-legacy-browser(safari, 5) or
-      support-legacy-browser(opera, 11) {
-    $src: append($src, font-files($prefix + '.ttf' + $ts));
-  }
-
-  @if support-legacy-browser(ios-safari, '4.0-4.1') or
-      support-legacy-browser(android, 2.3) or
-      index($supported-browsers, opera-mini) {
-    $src: append($src, font-files($prefix + '.svg' + $ts + '#legacy'));
-  }
-
-  @font-face {
-    font: {
-      family: '#{$font-family}';
-      style: normal;
-      variant: normal;
-      weight: normal;
-    }
-    speak: none;
-
-    // IE9 compat mode
-    @if support-legacy-browser(ie, 9) {
-      src: font-url($prefix + '.eot' + $ts);
-    }
-    src: $src;
-
-    @content;
-
-    @if support-prefix(-webkit) {
-      -webkit-font-smoothing: antialiased;
-    }
-
-    @if support-legacy-browser(firefox, 25) {
-      -moz-osx-font-smoothing: grayscale;
-    }
-  }
-}
-
-@function is-absolute($path) {
-  $path: '#{$path}';
-  @return str-slice($path, 0, 1) == '/' or str-slice($path, 0, 4) == 'http';
-}
-
-@function timestamp() {
-  @return current-time('%Y%m%d%H%M%S%L');
-}
-
 @mixin float($side, $important: false) {
   float: unquote($side + if($important, ' !important', ''));
 
@@ -128,6 +58,67 @@
   @content;
 }
 
+// Browser support data: http://caniuse.com/fontface
+@mixin font-face($filename, $font-family: $filename, $path: null) {
+  $prefix: '#{$filename}';
+  $ts: if(is-absolute($path), '?' + timestamp(), '');
+
+  @if type-of($path) == string {
+    @if str-slice($path, str-length($path)) != '/' {
+      $path: $path + '/';
+    }
+
+    $prefix: $path + $prefix;
+  }
+
+  @font-face {
+    font-family: '#{$font-family}';
+
+    // IE9 compat mode
+    @if support-legacy-browser(ie, 9) {
+      src: font-url($prefix + '.eot' + $ts);
+    }
+    src: -combo-font-urls($prefix, $ts);
+
+    @content;
+  }
+}
+
+@function is-absolute($path) {
+  $path: '#{$path}';
+  @return str-slice($path, 0, 1) == '/' or str-slice($path, 0, 4) == 'http';
+}
+
+@function timestamp() {
+  @return current-time('%Y%m%d%H%M%S%L');
+}
+
+@function -combo-font-urls($prefix, $timestamp) {
+  $src: comma-list();
+
+  @if support-legacy-browser(ie, 8) {
+    $src: append($src, font-files($prefix + '.eot' + $timestamp + '#iefix'));
+  }
+
+  // Modern browsers
+  $src: append($src, font-files($prefix + '.woff' + $timestamp));
+
+  @if support-legacy-browser(ios-safari, '4.2-4.3') or
+      support-legacy-browser(android, '4.2-4.3') or
+      support-legacy-browser(safari, 5) or
+      support-legacy-browser(opera, 11) {
+    $src: append($src, font-files($prefix + '.ttf' + $timestamp));
+  }
+
+  @if support-legacy-browser(ios-safari, '4.0-4.1') or
+      support-legacy-browser(android, 2.3) or
+      index($supported-browsers, opera-mini) {
+    $src: append($src, font-files($prefix + '.svg' + $timestamp + '#legacy'));
+  }
+
+  @return $src;
+}
+
 // Short retina mixin for setting background-image and background-size.
 @mixin img-retina($img-1x, $img-2x, $bg-size: $default-background-size) {
   background-image: image-url($img-1x);
@@ -149,6 +140,7 @@
     }
   }
 }
+
 @function -vendor($prefix, $ratio) {
   @return unquote('only screen and (#{$prefix}-device-pixel-ratio: #{$ratio})');
 }
