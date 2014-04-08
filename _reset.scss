@@ -70,18 +70,27 @@ button, input, select, textarea {
   @include reset-font;
 }
 
-button {
-  cursor: pointer;
-
-  @if support-legacy-browser(ie, 7) {
-    *overflow: visible;
-  }
-
+button, input {
   @if support-prefix(-moz) {
     &::-moz-focus-inner {
       padding: 0;
       border: 0;
     }
+  }
+}
+
+button,
+input[type='reset'],
+input[type='submit'],
+html input[type='button'] {
+  cursor: pointer;
+
+  @if index($supported-browsers, ios-safari) {
+    -webkit-appearance: button;
+  }
+
+  @if support-legacy-browser(ie, 7) {
+    *overflow: visible;
   }
 }
 
