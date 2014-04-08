@@ -28,6 +28,7 @@
 // Browser support data: http://caniuse.com/fontface
 @mixin font-face($filename, $font-family: $filename, $path: null) {
   $prefix: '#{$filename}';
+  $ts: if(is-absolute($path), '?' + timestamp(), '');
   $src: comma-list();
 
   @if type-of($path) == string {
@@ -35,40 +36,63 @@
       $path: $path + '/';
     }
 
-    $prefix: $path + $filename;
+    $prefix: $path + $prefix;
   }
 
   @if support-legacy-browser(ie, 8) {
-    $src: append($src, font-files($prefix + '.eot?#iefix'));
+    $src: append($src, font-files($prefix + '.eot' + $ts + '#iefix'));
   }
 
   // Modern browsers
-  $src: append($src, font-files($prefix + '.woff'));
+  $src: append($src, font-files($prefix + '.woff' + $ts));
 
   @if support-legacy-browser(ios-safari, '4.2-4.3') or
       support-legacy-browser(android, '4.2-4.3') or
       support-legacy-browser(safari, 5) or
       support-legacy-browser(opera, 11) {
-    $src: append($src, font-files($prefix + '.ttf'));
+    $src: append($src, font-files($prefix + '.ttf' + $ts));
   }
 
   @if support-legacy-browser(ios-safari, '4.0-4.1') or
       support-legacy-browser(android, 2.3) or
       index($supported-browsers, opera-mini) {
-    $src: append($src, font-files($prefix + '.svg'));
+    $src: append($src, font-files($prefix + '.svg' + $ts + '#legacy'));
   }
 
   @font-face {
-    font-family: '#{$font-family}';
+    font: {
+      family: '#{$font-family}';
+      style: normal;
+      variant: normal;
+      weight: normal;
+    }
+    speak: none;
 
     // IE9 compat mode
     @if support-legacy-browser(ie, 9) {
-      src: font-url($prefix + '.eot');
+      src: font-url($prefix + '.eot' + $ts);
     }
     src: $src;
 
     @content;
+
+    @if support-prefix(-webkit) {
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @if support-legacy-browser(firefox, 25) {
+      -moz-osx-font-smoothing: grayscale;
+    }
   }
+}
+
+@function is-absolute($path) {
+  $path: '#{$path}';
+  @return str-slice($path, 0, 1) == '/' or str-slice($path, 0, 4) == 'http';
+}
+
+@function timestamp() {
+  @return current-time('%Y%m%d%H%M%S%L');
 }
 
 @mixin float($side, $important: false) {
