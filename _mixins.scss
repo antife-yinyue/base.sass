@@ -4,10 +4,11 @@
 
 @import 'compass/css3';
 @import 'compass/css3/selection';
-@import 'compass/reset/utilities'; // use reset-font, reset-list-style, reset-table and reset-html5
+@import 'compass/reset/utilities'; // Only use reset-font, reset-list-style, reset-table and reset-html5
+@import 'compass/utilities/sass';
 
 
-// Override https://github.com/chriseppstein/compass/blob/master/core/stylesheets/compass/css3/_appearance.scss
+// Override `compass/css3/appearance`
 @mixin appearance($appearance) {
   @each $prefix in -webkit, -moz {
     @if support-prefix($prefix) {
@@ -16,27 +17,8 @@
   }
 }
 
-// Override https://github.com/chriseppstein/compass/blob/master/core/stylesheets/compass/utilities/general/_float.scss#L19-L22
-@mixin float($side, $important: false) {
-  float: unquote($side + if($important, ' !important', ''));
-
-  @if support-legacy-browser(ie, 6) {
-    _display: inline;
-  }
-}
-
-// Override https://github.com/chriseppstein/compass/blob/master/core/stylesheets/compass/css3/_inline-block.scss
-@mixin inline-block {
-  display: inline-block;
-
-  @if support-legacy-browser(ie, 7) {
-    *display: inline;
-    *zoom: 1;
-  }
-}
-
-// Override https://github.com/chriseppstein/compass/blob/master/core/stylesheets/compass/css3/_font-face.scss
-// Browser support data: http://caniuse.com/fontface
+// Override `compass/css3/font-face`
+// Browsers support data: http://caniuse.com/fontface
 @mixin font-face($filename, $font-family: $filename, $path: null) {
   @if not at-stylesheet-root() {
     @warn 'include font-face mixin from the root level of your stylesheet.'
@@ -66,7 +48,17 @@
   }
 }
 
-// Short retina mixin for setting background-image and background-size.
+// Override `compass/css3/inline-block`
+@mixin inline-block {
+  display: inline-block;
+
+  @if support-legacy-browser(ie, 7) {
+    *display: inline;
+    *zoom: 1;
+  }
+}
+
+// Short retina mixin for setting `background-image` and `background-size`.
 @mixin img-retina($img-1x, $img-2x, $bg-size: $default-background-size) {
   background-image: image-url($img-1x);
 
@@ -85,6 +77,14 @@
       image: image-url($img-2x);
       size: unquote($bg-size);
     }
+  }
+}
+
+@mixin float($side, $important: false) {
+  float: unquote($side + if($important, ' !important', ''));
+
+  @if support-legacy-browser(ie, 6) {
+    _display: inline;
   }
 }
 
@@ -146,7 +146,7 @@
 }
 
 
-// === Pivate ===
+// === Pivate (start with hyphen) ===
 @function -combo-font-urls($prefix, $timestamp) {
   $src: comma-list();
 
