@@ -38,6 +38,10 @@
 // Override https://github.com/chriseppstein/compass/blob/master/core/stylesheets/compass/css3/_font-face.scss
 // Browser support data: http://caniuse.com/fontface
 @mixin font-face($filename, $font-family: $filename, $path: null) {
+  @if not at-stylesheet-root() {
+    @warn 'include font-face mixin from the root level of your stylesheet.'
+  }
+
   $prefix: '#{$filename}';
   $ts: if(is-absolute($path), '?' + timestamp(), '');
 
