@@ -113,7 +113,7 @@
   @content;
 }
 
-// Check whether the path is start with either `/` or `http`.
+// Check whether the $path is start with either `/` or `http`.
 @function is-absolute($path) {
   $path: '#{$path}';
   @return str-slice($path, 0, 1) == '/' or str-slice($path, 0, 4) == 'http';
@@ -123,13 +123,13 @@
   @return current-time('%Y%m%d%H%M%S%L');
 }
 
-// Check whether the prefix is supported according to the supported browsers.
+// Check whether the $prefix is supported according to the supported browsers.
 @function support-prefix($prefix) {
   $index: index(browser-prefixes($supported-browsers), $prefix);
   @return $index != null and $index != false;
 }
 
-// Check whether the browser is supported according to the supported browsers,
+// Check whether the $browser is supported according to the supported browsers,
 // only declared minimum support (overwrite Compass).
 @function support-legacy-browser($browser, $min-version, $max-version: null, $threshold: null) {
   @if not index($supported-browsers, $browser) {
