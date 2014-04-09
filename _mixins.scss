@@ -119,8 +119,31 @@
   @return str-slice($path, 0, 1) == '/' or str-slice($path, 0, 4) == 'http';
 }
 
+@function is-map($data) {
+  @return type-of($data) == map;
+}
+
 @function timestamp() {
   @return current-time('%Y%m%d%H%M%S%L');
+}
+
+@function map-deep-merge($map, $sub-map) {
+  @if not (is-map($map) and is-map($sub-map)) {
+    @warn 'Params for `map-deep-merge` require map data.';
+    @return null;
+  }
+
+  @each $key, $value in $sub-map {
+    $original: map-get($map, $key);
+
+    @if is-map($original) and is-map($value) {
+      $value: map-deep-merge($original, $value);
+    }
+
+    $map: map-merge($map, ($key: $value));
+  }
+
+  @return $map;
 }
 
 // Check whether the $prefix is supported according to the supported browsers.
