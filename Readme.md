@@ -27,8 +27,10 @@ $browser-minimum-versions: (firefox: '20', ie: '9');
 // Set this to true to generate comments that will explain why a prefix was included or omitted.
 // $debug-browser-support: true;
 
-@import 'base/config', 'base/mixins';
-@import 'base/reset', 'base/utils';
+@import 'base/settings';
+@import 'base/functions';
+@import 'base/reset';
+@import 'base/utils';
 
 // Your style codes here.
 ```

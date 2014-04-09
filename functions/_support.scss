@@ -1,0 +1,21 @@
+// Check whether the $prefix is supported according to the supported browsers.
+@function support-prefix($prefix) {
+  $index: index(browser-prefixes($supported-browsers), $prefix);
+  @return $index != null and $index != false;
+}
+
+// Check whether the $browser is supported according to the supported browsers,
+// only declared minimum support (overwrite Compass).
+@function support-legacy-browser($browser, $min-version, $max-version: null, $threshold: null) {
+  @if not index($supported-browsers, $browser) {
+    @return false;
+  }
+
+  $min-required-version: map-get($browser-minimum-versions, $browser);
+
+  @if not $min-required-version {
+    @return true;
+  }
+
+  @return compare-browser-versions($browser, '#{$max-version or $min-version}', $min-required-version) >= 0;
+}

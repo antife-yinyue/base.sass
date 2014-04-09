@@ -1,0 +1,7 @@
+audio, video, canvas {
+  @include inline-block;
+}
+
+@if support-legacy-browser(ie, 6, 8) {
+  @include reset-html5;
+}

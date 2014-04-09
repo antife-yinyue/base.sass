@@ -1,7 +1,3 @@
-//================
-// Flexible Reset
-//================
-
 * {
   margin: 0;
   padding: 0;
@@ -43,14 +39,14 @@ body {
 }
 
 a {
-  color: map-get($link-colors, normal);
-  text-decoration: none;
+  color: map-find($link-status, 'link.color');
+  text-decoration: map-find($link-status, 'link.line');
 
   &:hover {
-    color: map-get($link-colors, hover)
+    color: map-find($link-status, 'hover.color')
            or
-           darken(map-get($link-colors, normal), 15%);
-    text-decoration: underline;
+           darken(map-find($link-status, 'link.color'), 15%);
+    text-decoration: map-find($link-status, 'hover.line');
   }
 }
 
@@ -79,56 +75,6 @@ sup {
   top: -0.5em;
 }
 
-button, input, textarea, select {
-  @include reset-font;
-}
-
-button, input {
-  @if support-prefix(-moz) {
-    &::-moz-focus-inner {
-      padding: 0;
-      border: 0;
-    }
-  }
-}
-
-button, html input[type='button'], input[type='reset'], input[type='submit'] {
-  cursor: pointer;
-
-  @if index($supported-browsers, ios-safari) {
-    -webkit-appearance: button;
-  }
-
-  @if support-legacy-browser(ie, 7) {
-    *overflow: visible;
-  }
-}
-
-#{elements-of-type(text-input)} {
-  @include input-placeholder {
-    color: $input-placeholder-color;
-  }
-}
-
-input[type='search'] {
-  @include appearance(textfield);
-  @include box-sizing(content-box);
-
-  @if support-prefix(-webkit) {
-    &::-webkit-search-decoration {
-      -webkit-appearance: none;
-    }
-  }
-}
-
 table {
   @include reset-table;
-}
-
-audio, video, canvas {
-  @include inline-block;
-}
-
-@if support-legacy-browser(ie, 6, 8) {
-  @include reset-html5;
 }

@@ -1,0 +1,23 @@
+@import 'compass/css3';
+@import 'compass/css3/selection';
+@import 'compass/reset/utilities'; // Only use reset-font, reset-list-style, reset-table and reset-html5
+@import 'compass/utilities/sass';
+
+// Override `compass/css3/appearance`
+@mixin appearance($appearance) {
+  @each $prefix in -webkit, -moz {
+    @if support-prefix($prefix) {
+      @include prefix-prop(appearance, $appearance, $prefix);
+    }
+  }
+}
+
+// Override `compass/css3/inline-block`
+@mixin inline-block {
+  display: inline-block;
+
+  @if support-legacy-browser(ie, 7) {
+    *display: inline;
+    *zoom: 1;
+  }
+}

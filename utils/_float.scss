@@ -1,25 +1,11 @@
-//=================
-// Utility Classes
-//=================
-
-// Display.
-.show {
-  display: block !important;
-}
-.hide {
-  display: none !important;
-}
-.invisible {
-  visibility: hidden !important;
-}
-
-// Floats and clear floats.
 .clearfix {
   @extend %clearfix;
 }
+
 .float-left {
   @include float(left, true);
 }
+
 .float-right {
   @include float(right, true);
 }
