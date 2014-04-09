@@ -66,7 +66,20 @@ ol, ul {
   @include reset-list-style;
 }
 
-button, input, select, textarea {
+sub, sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+
+button, input, textarea, select {
   @include reset-font;
 }
 
@@ -108,25 +121,12 @@ input[type='search'] {
   }
 }
 
-audio, canvas, video {
-  @include inline-block;
-}
-
 table {
   @include reset-table;
 }
 
-sub, sup {
-  position: relative;
-  font-size: 75%;
-  line-height: 0;
-  vertical-align: baseline;
-}
-sub {
-  bottom: -0.25em;
-}
-sup {
-  top: -0.5em;
+audio, video, canvas {
+  @include inline-block;
 }
 
 @if support-legacy-browser(ie, 6, 8) {
