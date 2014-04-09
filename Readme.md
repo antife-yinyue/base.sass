@@ -27,9 +27,8 @@ $browser-minimum-versions: (firefox: '20', ie: '9');
 // Set this to true to generate comments that will explain why a prefix was included or omitted.
 // $debug-browser-support: true;
 
-@import 'base/required';
-@import 'base/reset';
-@import 'base/utils';
+@import 'base/config', 'base/mixins';
+@import 'base/reset', 'base/utils';
 
 // Your style codes here.
 ```
@@ -37,7 +36,7 @@ $browser-minimum-versions: (firefox: '20', ie: '9');
 ## Dependence
 
 ```ruby
-gem 'sass', '3.3.4'
+gem 'sass', '~> 3.3.4'
 gem 'compass', '~> 1.0.0.alpha'
 ```
 
