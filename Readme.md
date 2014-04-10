@@ -27,9 +27,11 @@ $browser-minimum-versions: (firefox: '20', ie: '9');
 // Set this to true to generate comments that will explain why a prefix was included or omitted.
 // $debug-browser-support: true;
 
-@import 'base/settings';
-@import 'base/functions';
+// Required for all output files
+@import 'base/settings', 'base/functions';
+// Flexible resets
 @import 'base/resets/basic', 'base/resets/input-and-button';
+// Utility classes
 @import 'base/utils/display', 'base/utils/float';
 
 // Your style codes here.
