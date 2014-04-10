@@ -23,12 +23,6 @@ button, html input[type='button'], input[type='reset'], input[type='submit'] {
   }
 }
 
-#{elements-of-type(text-input)} {
-  @include input-placeholder {
-    color: $input-placeholder-color;
-  }
-}
-
 input[type='search'] {
   @include appearance(textfield);
   @include box-sizing(content-box);
@@ -37,5 +31,11 @@ input[type='search'] {
     &::-webkit-search-decoration {
       -webkit-appearance: none;
     }
+  }
+}
+
+#{elements-of-type(text-input)} {
+  @include input-placeholder {
+    color: $input-placeholder-color;
   }
 }

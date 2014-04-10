@@ -29,8 +29,8 @@ $browser-minimum-versions: (firefox: '20', ie: '9');
 
 @import 'base/settings';
 @import 'base/functions';
-@import 'base/reset';
-@import 'base/utils';
+@import 'base/reset/basic', 'base/reset/input-and-button';
+@import 'base/utils/display', 'base/utils/float';
 
 // Your style codes here.
 ```
