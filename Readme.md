@@ -44,6 +44,10 @@ gem 'sass', '~> 3.3.4'
 gem 'compass', '~> 1.0.0.alpha'
 ```
 
+## UI Components
+
+https://github.com/jsw0528/base.sass/tree/components
+
 ## License
 
 Licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
