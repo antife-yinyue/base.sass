@@ -2,7 +2,7 @@
 // Browsers support data: http://caniuse.com/fontface
 @mixin font-face($filename, $font-family: $filename, $path: null) {
   @if not at-stylesheet-root() {
-    @warn 'include font-face mixin from the root level of your stylesheet.'
+    @warn 'include font-face mixin from the root level of your stylesheet.';
   }
 
   $prefix: '#{$filename}';
@@ -54,13 +54,15 @@
   @if support-legacy-browser(ios-safari, '4.2-4.3') or
       support-legacy-browser(android, '4.2-4.3') or
       support-legacy-browser(safari, 5) or
-      support-legacy-browser(opera, 11) {
+      support-legacy-browser(opera, 11)
+  {
     $src: append($src, font-files($prefix + '.ttf' + $timestamp));
   }
 
   @if support-legacy-browser(ios-safari, '4.0-4.1') or
       support-legacy-browser(android, 2.3) or
-      index($supported-browsers, opera-mini) {
+      index($supported-browsers, opera-mini)
+  {
     $src: append($src, font-files($prefix + '.svg' + $timestamp + '#legacy'));
   }
 
