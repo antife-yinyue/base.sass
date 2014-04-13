@@ -13,12 +13,19 @@
   );
 
   position: fixed;
-  #{if($x == right, right, left)}: map-get(map-get($map, x), $x) or $x;
-  #{if($y == bottom, bottom, top)}: map-get(map-get($map, y), $y) or $y;
+
+  #{if($x == right, right, left)}: map-find($map, 'x.#{$x}') or $x;
+  #{if($y == bottom, bottom, top)}: map-find($map, 'y.#{$y}') or $y;
 
   @if $x == center or $y == center {
-    @include translate(if($x == center, -50%, 0), if($y == center, -50%, 0));
+    @include translate(-to-number($x), -to-number($y));
   }
 
   @content;
+}
+
+
+// === Pivate (start with hyphen) ===
+@function -to-number($s) {
+  @return if($s == center, -50%, 0);
 }
