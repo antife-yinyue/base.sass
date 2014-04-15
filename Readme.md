@@ -3,13 +3,13 @@
 ## Installation
 
 ```sh
-git clone https://github.com/jsw0528/base.sass.git path/to/base
+git clone https://github.com/jsw0528/base.sass path/to/base
 ```
 
 Or
 
 ```sh
-git submodule add https://github.com/jsw0528/base.sass.git path/to/base
+git submodule add https://github.com/jsw0528/base.sass path/to/base
 git submodule init
 ```
 
