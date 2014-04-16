@@ -1,6 +1,11 @@
 {
   "name": "base.sass",
   "description": "The beginning of your stylesheets",
-  "tags": ["resets", "functions", "mixins", "utilities"],
+  "tags": [
+    "Flexible Resets",
+    "Smart Functions",
+    "Utility Classes",
+    "Compass"
+  ],
   "docs": "https://github.com/jsw0528/base.sass#readme"
 }
