@@ -29,10 +29,10 @@ $browser-minimum-versions: (firefox: '20', ie: '9');
 
 // Required for all output files
 @import 'base/settings', 'base/functions';
-// Flexible resets
+// Flexible Resets
 @import 'base/resets/basic', 'base/resets/input-and-button';
-// Utility classes
-@import 'base/utils/display', 'base/utils/float';
+// Utility Classes
+@import 'base/utils';
 
 // Your style codes here.
 ```
