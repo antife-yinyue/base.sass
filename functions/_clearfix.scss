@@ -1,0 +1,25 @@
+@mixin clearfix {
+  // Only register once
+  @if not global-variable-exists(clearfix-registered) {
+    @at-root %clearfix {
+      &#{$pseudo-element-colon}before,
+      &#{$pseudo-element-colon}after {
+        content: ' ';
+        display: table;
+      }
+
+      &#{$pseudo-element-colon}after {
+        clear: both;
+      }
+
+      @if support-legacy-browser(ie, 7) {
+        *zoom: 1;
+      }
+    }
+
+    // Mark
+    $clearfix-registered: true !global;
+  }
+
+  @extend %clearfix;
+}
