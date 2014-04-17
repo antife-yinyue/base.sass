@@ -1,0 +1,15 @@
+@mixin ellipsis-overflow {
+  // Only register once
+  @if not global-variable-exists(overflow-registered) {
+    @at-root %ellipsis-overflow {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    // Mark
+    $overflow-registered: true !global;
+  }
+
+  @extend %ellipsis-overflow;
+}
