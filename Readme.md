@@ -22,7 +22,7 @@ $supported-browsers: chrome, firefox, safari;
 // Minimum browser versions that must be supported.
 //   The keys of this map are any valid browser according to `browsers()`.
 //   The values of this map are the min version that is valid for that browser according to `browser-versions($browser)`.
-$browser-minimum-versions: (firefox: '20', ie: '9');
+$browser-minimum-versions: (firefox: '20', ie: '9', ios-safari: '5.0-5.1', android: '2.3');
 
 // Set this to true to generate comments that will explain why a prefix was included or omitted.
 // $debug-browser-support: true;
