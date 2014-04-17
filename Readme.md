@@ -40,7 +40,7 @@ $browser-minimum-versions: (firefox: '20', ie: '9');
 ## Dependence
 
 ```ruby
-gem 'sass', '~> 3.3.4'
+gem 'sass', '~> 3.3.5'
 gem 'compass', '~> 1.0.0.alpha'
 ```
 
