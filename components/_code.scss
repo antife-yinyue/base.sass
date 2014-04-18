@@ -1,0 +1,48 @@
+$font-family-code: Monaco, Menlo, Consolas, Courier New, monospace !default;
+$code-colors: (
+  inline: (
+    text: #c7254e,
+    background: #f9f2f4,
+    border: transparent
+  ),
+  block: (
+    text: inherit,
+    background: #f5f5f5,
+    border: #ccc
+  )
+) !default;
+
+
+code, pre {
+  font-family: $font-family-code;
+}
+
+code {
+  margin: 0 3px;
+  padding: 2px 4px;
+  background-color: map-find($code-colors, 'inline.background');
+  border: 1px solid map-find($code-colors, 'inline.border');
+  border-radius: 4px;
+  color: map-find($code-colors, 'inline.text');
+  font-size: 90%;
+  white-space: nowrap;
+}
+
+pre {
+  padding: 6px 10px;
+  overflow: auto;
+  background-color: map-find($code-colors, 'block.background');
+  border: 1px solid map-find($code-colors, 'block.border');
+  border-radius: 4px;
+  color: map-find($code-colors, 'block.text');
+
+  code {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    color: inherit;
+    font-size: inherit;
+    white-space: pre;
+  }
+}

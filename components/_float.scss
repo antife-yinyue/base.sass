@@ -1,15 +1,3 @@
-.show {
-  display: block !important;
-}
-
-.hide {
-  display: none !important;
-}
-
-.invisible {
-  visibility: hidden !important;
-}
-
 .clearfix {
   @include clearfix;
 }
