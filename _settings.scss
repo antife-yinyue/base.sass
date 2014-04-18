@@ -1,4 +1,4 @@
-$font-family-base: 'Helvetica Neue', Helvetica, STHeiTi, sans-serif !default;
+$font-family-base: Helvetica Neue, Helvetica, STHeiTi, sans-serif !default;
 
 $font-size-base: 14px !default;
 
@@ -11,7 +11,7 @@ $body-bg-color: null !default;
 $input-placeholder-color: #999 !default;
 
 $selection-colors: (
-  // text: contrast-color(background),
+  // text: defaults to contrast-color(background),
   background: null
 ) !default;
 
@@ -21,7 +21,7 @@ $link-status: (
     line: none
   ),
   hover: (
-    // color: darken(link.color, 15%),
+    // color: defaults to darken(link.color, 15%),
     line: underline
   )
 ) !default;
