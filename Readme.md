@@ -3,17 +3,18 @@
 ## Installation
 
 ```sh
-git clone https://github.com/jsw0528/base.sass path/to/base
-```
-
-Or
-
-```sh
-git submodule add https://github.com/jsw0528/base.sass path/to/base
-git submodule init
+$ gem install base.sass
 ```
 
 ## Usage
+
+Add to Compass's config file:
+
+```ruby
+require 'base.sass'
+```
+
+Then:
 
 ```scss
 // The list of browsers you want to support. Defaults to `browsers()`.
@@ -28,13 +29,13 @@ $browser-minimum-versions: (firefox: '20', ie: '9', ios-safari: '5.0-5.1', andro
 // $debug-browser-support: true;
 
 // Load Settings
-@import 'base/settings';
+@import 'base.settings';
 // Smart Functions
-@import 'base/functions';
+@import 'base.functions';
 // Flexible Resets
-@import 'base/resets';
+@import 'base.resets';
 // Cool Components
-@import 'base/components';
+@import 'base.components';
 
 // Your styles below.
 ```
