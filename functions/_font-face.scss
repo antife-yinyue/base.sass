@@ -36,7 +36,7 @@
 }
 
 @function timestamp() {
-  @return current-time('%Y%m%d%H%M%S%L');
+  @return current-time('%Y%m%d%H%M%S');
 }
 
 
