@@ -1,11 +1,15 @@
-.show {
+.fn-show {
   display: block !important;
 }
 
-.hide {
+.fn-hide {
   display: none !important;
 }
 
-.invisible {
+.fn-invisible {
   visibility: hidden !important;
+}
+
+.fn-text-overflow {
+  @include ellipsis-overflow;
 }

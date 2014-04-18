@@ -1,11 +1,11 @@
-.clearfix {
+.fn-clear {
   @include clearfix;
 }
 
-.float-left {
+.fn-left {
   @include float(left, true);
 }
 
-.float-right {
+.fn-right {
   @include float(right, true);
 }
