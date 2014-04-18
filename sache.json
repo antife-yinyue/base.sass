@@ -2,8 +2,8 @@
   "name": "base.sass",
   "description": "The beginning of your stylesheets",
   "tags": [
-    "Flexible Resets",
     "Smart Functions",
+    "Flexible Resets",
     "Cool Components",
     "Compass"
   ],

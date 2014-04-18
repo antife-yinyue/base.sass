@@ -27,14 +27,16 @@ $browser-minimum-versions: (firefox: '20', ie: '9', ios-safari: '5.0-5.1', andro
 // Set this to true to generate comments that will explain why a prefix was included or omitted.
 // $debug-browser-support: true;
 
-// Required for all output files
-@import 'base/settings', 'base/functions';
+// Load Settings
+@import 'base/settings';
+// Smart Functions
+@import 'base/functions';
 // Flexible Resets
-@import 'base/resets/basic', 'base/resets/input-and-button';
-// Utility Classes
-@import 'base/utils';
+@import 'base/resets';
+// Cool Components
+@import 'base/components';
 
-// Your style codes here.
+// Your styles below.
 ```
 
 ## Dependence
@@ -43,10 +45,6 @@ $browser-minimum-versions: (firefox: '20', ie: '9', ios-safari: '5.0-5.1', andro
 gem 'sass', '~> 3.3.5'
 gem 'compass', '~> 1.0.0.alpha'
 ```
-
-## UI Components
-
-https://github.com/jsw0528/base.sass/tree/components
 
 ## License
 
