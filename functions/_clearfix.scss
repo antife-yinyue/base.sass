@@ -4,7 +4,7 @@
     @at-root %clearfix {
       &#{$pseudo-element-colon}before,
       &#{$pseudo-element-colon}after {
-        content: ' ';
+        content: '\20';
         display: table;
       }
 
