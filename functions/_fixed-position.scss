@@ -1,4 +1,4 @@
-@mixin fixed($x: center, $y: center) {
+@mixin fixed-position($x: center, $y: center) {
   $map: (
     x: (
       left: 0,
