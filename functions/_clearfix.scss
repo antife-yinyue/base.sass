@@ -1,6 +1,6 @@
 @mixin clearfix {
   // Only register once
-  @if not global-variable-exists(clearfix-registered) {
+  @if not global-variable-exists(clearfix-exists) {
     @at-root %clearfix {
       &#{$pseudo-element-colon}before,
       &#{$pseudo-element-colon}after {
@@ -18,7 +18,7 @@
     }
 
     // Mark
-    $clearfix-registered: true !global;
+    $clearfix-exists: true !global;
   }
 
   @extend %clearfix;
