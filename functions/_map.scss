@@ -6,7 +6,7 @@
 // map-deep-merge($map1, $map2)
 // => ( a: (x: 'x', y: 'y') )
 @function map-deep-merge($map, $sub-map) {
-  @if not (type-of($map) == map and type-of($sub-map) == map) {
+  @if type-of($map) != map or type-of($sub-map) != map {
     @warn 'Params for `map-deep-merge` require map data.';
     @return null;
   }
