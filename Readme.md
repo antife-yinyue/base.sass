@@ -34,8 +34,6 @@ $browser-minimum-versions: (firefox: '20', ie: '9', ios-safari: '5.0-5.1', andro
 @import 'base.functions';
 // Flexible Resets
 @import 'base.resets';
-// Cool Components
-@import 'base.components';
 
 // Your styles below.
 ```
