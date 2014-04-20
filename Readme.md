@@ -28,8 +28,6 @@ $browser-minimum-versions: (firefox: '20', ie: '9', ios-safari: '5.0-5.1', andro
 // Set this to true to generate comments that will explain why a prefix was included or omitted.
 // $debug-browser-support: true;
 
-// Load Settings
-@import 'base.settings';
 // Smart Functions
 @import 'base.functions';
 // Flexible Resets
