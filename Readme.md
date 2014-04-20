@@ -1,5 +1,7 @@
 # The beginning of your stylesheets
 
+[![Gem Version](https://badge.fury.io/rb/base.sass.svg)](http://badge.fury.io/rb/base.sass)
+
 ## Installation
 
 ```sh
