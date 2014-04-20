@@ -1,6 +1,10 @@
 @import 'base.sass/settings';
 
-@import 'base.sass/functions/compass';
+@import 'compass/css3';
+@import 'compass/css3/selection';
+@import 'compass/reset/utilities'; // Only use reset-font, reset-list-style, reset-table and reset-html5
+@import 'base.sass/functions/compass-hacker';
+
 @import 'base.sass/functions/clearfix';
 @import 'base.sass/functions/ellipsis-overflow';
 @import 'base.sass/functions/fixed-position';
