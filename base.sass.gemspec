@@ -6,8 +6,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/jsw0528/base.sass'
   s.license = 'MIT'
   s.platform = Gem::Platform::RUBY
-  s.require_path = '.'
-  s.files = Dir['**/*.scss', 'base.sass.rb']
+  s.files = Dir['lib/*.rb', 'stylesheets/**/*.scss']
 
   s.add_development_dependency 'sass', '~> 3.3.5'
   s.add_development_dependency 'compass', '~> 1.0.0.alpha'

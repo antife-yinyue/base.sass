@@ -1,6 +1,6 @@
 @mixin ellipsis-overflow {
   // Only register once
-  @if not global-variable-exists(ellipsis-overflow-exists) {
+  @if not global-variable-exists(-ellipsis-overflow-exists) {
     @at-root %ellipsis-overflow {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -8,7 +8,7 @@
     }
 
     // Mark
-    $ellipsis-overflow-exists: true !global;
+    $-ellipsis-overflow-exists: true !global;
   }
 
   @extend %ellipsis-overflow;
