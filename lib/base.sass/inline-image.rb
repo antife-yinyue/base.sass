@@ -8,8 +8,8 @@ module Sass::Script::Functions
   protected
 
   def data_url(data, mime_type)
-    data = [data].flatten.pack('m').gsub('\n', '').strip
-    identifier("url('data:#{mime_type};base64,#{data})")
+    data = [data].flatten.pack('m').gsub(/\s/, '')
+    identifier("url(data:#{mime_type};base64,#{data})")
   end
 
   private
