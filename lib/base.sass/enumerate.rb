@@ -5,7 +5,7 @@ module Sass::Script::Functions
       "#{prefix.value}#{separator.value}#{i}"
     }.join(', ')
 
-    unquoted_string(selectors)
+    identifier(selectors)
   end
 
 end

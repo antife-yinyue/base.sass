@@ -4,9 +4,9 @@ module Sass::Script::Functions
     time = Time.now.localtime
 
     if format.is_a?(Sass::Script::Value::String)
-      unquoted_string(time.strftime(format.value))
+      identifier(time.strftime(format.value))
     else
-      unquoted_string(time.to_i.to_s)
+      identifier(time.to_i.to_s)
     end
   end
 
