@@ -1,8 +1,8 @@
 require 'base.sass/env'
 require 'base.sass/inline-image'
 require 'base.sass/list'
-require 'base.sass/selectors'
-require 'base.sass/urls'
+require 'base.sass/selector'
+require 'base.sass/url'
 
 load_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'stylesheets'))
 

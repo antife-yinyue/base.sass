@@ -1,6 +1,6 @@
 module Sass::Script::Functions
 
-  def working_path
+  def pwd
     identifier(Dir.pwd)
   end
 
