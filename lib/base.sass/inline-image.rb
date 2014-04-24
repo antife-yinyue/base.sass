@@ -5,6 +5,10 @@ module Sass::Script::Functions
     data_url(data(path), compute_mime_type(path, mime_type))
   end
 
+  def inline_font_files(*args)
+
+  end
+
   protected
 
   def data_url(data, mime_type)
@@ -26,6 +30,16 @@ module Sass::Script::Functions
       'image/gif'
     when /\.svg$/i
       'image/svg+xml'
+    when /\.otf$/i
+      'font/opentype'
+    when /\.eot$/i
+      'application/vnd.ms-fontobject'
+    when /\.ttf$/i
+      'font/truetype'
+    when /\.woff$/i
+      'application/font-woff'
+    when /\.off$/i
+      'font/openfont'
     when /\.([a-zA-Z]+)$/
       "image/#{Regexp.last_match(1).downcase}"
     else
