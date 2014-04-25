@@ -1,29 +1,31 @@
 require 'multi_json'
 
 BROWSER_NAMES = {
+  # -webkit-
   chrome: 'Chrome',
-  firefox: 'Firefox',
   safari: 'Safari',
-  ie: 'IE',
   opera: 'Opera',
   ios_saf: 'iOS',
-  android: 'Android', # Chrome for Android, Opera Mobile
-  # and_ff: 'Firefox for Android',
-  ie_mob: 'Windows Phone'
-  # Not support Opera Mini and Blackberry
+  android: 'Android',
+  # -moz-
+  firefox: 'Firefox',
+  and_ff: 'Firefox for Android',
+  # -ms-
+  ie: 'IE',
+  ie_mob: 'IE Mobile'
 }
 
 pretty = false
 
 task :gb => [:mock, :generate_browsers]
-task :gp => [:mock, :generate_prefixes]
-task :default => [:download, :generate_browsers, :generate_prefixes]
+task :gs => [:mock, :generate_supports]
+task :default => [:download, :generate_browsers, :generate_supports]
 
 desc 'Mock data.'
 task :mock do
   @data = MultiJson.load(
     File.read(
-      File.join(File.dirname(__FILE__), 'data/caniuse.json')
+      File.join(File.dirname(__FILE__), 'caniuse.json')
     )
   )
 end
@@ -64,8 +66,8 @@ task :generate_browsers do
   end
 
   # The last version for Presto
-  oldVersions = browsers['Opera'].delete('prefix_exceptions')
-  browsers['Opera'].merge! presto: oldVersions.keys.collect { |v| v.to_f }.sort.last
+  presto = browsers['Opera'].delete('prefix_exceptions')
+  browsers['Opera'].merge! presto: presto.keys.collect { |v| v.to_f }.sort.last
 
   file = File.join(File.dirname(__FILE__), 'data/browsers.json')
   open(file, 'wb') do |f|
@@ -79,39 +81,38 @@ end
 # n => not supported
 # p => has polyfill available
 # u => support unknown
-desc 'Generate data to prefixes.json'
-task :generate_prefixes do
-  prefixes = {}
-  features = @data['data'].select { |k, v| v['categories'].any? { |n| n =~ /CSS/ } }
+desc 'Generate data to supports.json'
+task :generate_supports do
+  supports = {}
 
-  features.each do |f, v|
+  @data['data'].select { |k, v|
+    v['categories'].any? { |n| n =~ /CSS/ }
+  }.each do |f, v|
     stats = v['stats']
-    prefixes[f] = {}
+    supports[f] = {}
 
     BROWSER_NAMES.each do |k, n|
       # Find versions which supports current feature
-      supports = stats[k.to_s].select { |i, s| s =~ /(y|a|x)/ }
-      versions = supports.keys.collect { |i| i.to_f }.sort
+      features = stats[k.to_s].select { |i, s| s =~ /(y|a|x)/ }
+      versions = features.keys.collect { |i| i.to_f }.sort
 
       # Find the last version which requires prefix
-      prefixed = supports.select { |i, s| s =~ /x/ }
-      standard = if prefixed.length > 0
-        versions.select { |i|
-          i > prefixed.keys.collect { |i| i.to_f }.sort.last
-        }.first
-      else # needless
+      prefixed = features.select { |i, s| s =~ /x/ }
+      official = if prefixed.length > 0
+        versions.select { |i| i > prefixed.keys.collect { |i| i.to_f }.sort.last }.first
+      else
         versions.first
       end
 
-      prefixes[f][n] = {
-        support: versions.first,
-        standard: standard
+      supports[f][n] = {
+        beginning: versions.first,
+        official: official
       }
     end
   end
 
-  file = File.join(File.dirname(__FILE__), 'data/prefixes.json')
+  file = File.join(File.dirname(__FILE__), 'data/supports.json')
   open(file, 'wb') do |f|
-    f.write(MultiJson.dump(prefixes, pretty: pretty).gsub(/\.0/, ''))
+    f.write(MultiJson.dump(supports, pretty: pretty).gsub(/\.0/, ''))
   end
 end
