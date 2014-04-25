@@ -1,5 +1,3 @@
-require 'base.sass/strftime'
-
 module Sass::Script::Functions
 
   FONT_TYPES = {
