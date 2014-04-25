@@ -1,10 +1,11 @@
 require 'base.sass/env'
-require 'base.sass/inline-image'
 require 'base.sass/list'
-require 'base.sass/selector'
-require 'base.sass/strftime'
+require 'base.sass/json-parse'
 require 'base.sass/support'
+require 'base.sass/strftime'
 require 'base.sass/url'
+require 'base.sass/inline-image'
+require 'base.sass/selector'
 
 load_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'stylesheets'))
 
