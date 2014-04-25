@@ -55,4 +55,5 @@ module Sass::Script::Functions
 
     query
   end
+
 end

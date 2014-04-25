@@ -13,6 +13,7 @@ module Sass::Script::Functions
     path = File.expand_path(path)
 
     if File.readable? path
+      puts "Loading JSON file: #{path}"
       JSON.load(File.read(path))
     else
       raise Sass::SyntaxError, "JSON file not found or cannot be read: #{path}"
@@ -50,4 +51,5 @@ module Sass::Script::Functions
       to_sass_type(item)
     }, :comma)
   end
+
 end
