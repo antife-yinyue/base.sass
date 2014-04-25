@@ -9,6 +9,7 @@ module Sass::Script::Functions
 
   end
 
+
   protected
 
   def data_url(data, mime_type)

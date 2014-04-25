@@ -33,6 +33,7 @@ module Sass::Script::Functions
     identifier("url(#{path}#{query}#{anchor})")
   end
 
+
   private
 
   def join_query(query, cache_buster)
