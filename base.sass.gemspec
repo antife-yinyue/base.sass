@@ -16,5 +16,4 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 1.9'
 
   spec.add_runtime_dependency 'sass', '~> 3.3.5'
-  spec.add_development_dependency 'multi_json', '~> 1.0'
 end

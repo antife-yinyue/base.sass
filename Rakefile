@@ -1,4 +1,4 @@
-require 'multi_json'
+require 'json'
 
 BROWSER_NAMES = {
   # -webkit-
@@ -15,15 +15,13 @@ BROWSER_NAMES = {
   ie_mob: 'IE Mobile'
 }
 
-pretty = false
-
 task :gb => [:mock, :generate_browsers]
 task :gs => [:mock, :generate_supports]
 task :default => [:download, :generate_browsers, :generate_supports]
 
 desc 'Mock data.'
 task :mock do
-  @data = MultiJson.load(
+  @data = JSON.load(
     File.read(
       File.join(File.dirname(__FILE__), 'caniuse.json')
     )
@@ -43,7 +41,7 @@ task :download do
   req = Net::HTTP::Get.new(uri.path)
   res = https.request(req)
 
-  @data = MultiJson.load(res.body)
+  @data = JSON.load(res.body)
 end
 
 desc 'Generate data to browsers.json'
@@ -71,7 +69,7 @@ task :generate_browsers do
 
   file = File.join(File.dirname(__FILE__), 'data/browsers.json')
   open(file, 'wb') do |f|
-    f.write(MultiJson.dump(browsers, pretty: pretty).gsub(/\.0/, ''))
+    f.write(JSON.dump(browsers).gsub(/\.0/, ''))
   end
 end
 
@@ -113,6 +111,6 @@ task :generate_supports do
 
   file = File.join(File.dirname(__FILE__), 'data/supports.json')
   open(file, 'wb') do |f|
-    f.write(MultiJson.dump(supports, pretty: pretty).gsub(/\.0/, ''))
+    f.write(JSON.dump(supports).gsub(/\.0/, ''))
   end
 end
