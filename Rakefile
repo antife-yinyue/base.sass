@@ -2,17 +2,17 @@ require 'json'
 
 BROWSER_NAMES = {
   # -webkit-
-  chrome: 'Chrome',
-  safari: 'Safari',
-  opera: 'Opera',
-  ios_saf: 'iOS',
-  android: 'Android',
+  chrome: 'chrome',
+  safari: 'safari',
+  opera: 'opera',
+  ios_saf: 'ios',
+  android: 'android',
   # -moz-
-  firefox: 'Firefox',
-  and_ff: 'Firefox for Android',
+  firefox: 'firefox',
+  and_ff: 'android-firefox',
   # -ms-
-  ie: 'IE',
-  ie_mob: 'IE Mobile'
+  ie: 'ie',
+  ie_mob: 'ie-mobile'
 }
 
 task :gb => [:mock, :generate_browsers]
@@ -64,8 +64,8 @@ task :generate_browsers do
   end
 
   # The last version for Presto
-  presto = browsers['Opera'].delete('prefix_exceptions')
-  browsers['Opera'].merge! presto: presto.keys.collect { |v| v.to_f }.sort.last
+  presto = browsers['opera'].delete('prefix_exceptions')
+  browsers['opera'].merge! presto: presto.keys.collect { |v| v.to_f }.sort.last
 
   file = File.join(File.dirname(__FILE__), 'data/browsers.json')
   open(file, 'wb') do |f|
