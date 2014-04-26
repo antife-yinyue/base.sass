@@ -4,9 +4,4 @@ module Sass::Script::Functions
     list([], :comma)
   end
 
-  def comma_join(list)
-    assert_type list, :List
-    identifier(list.value.join(', '))
-  end
-
 end
