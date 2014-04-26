@@ -10,6 +10,9 @@ require 'base.sass/strftime'
 require 'base.sass/support'
 require 'base.sass/url'
 
+Sass.add_feature('-json-parse')
+Sass.add_feature('-ruby-to-sass')
+
 load_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'stylesheets'))
 
 if ENV.key? 'SASS_PATH'
