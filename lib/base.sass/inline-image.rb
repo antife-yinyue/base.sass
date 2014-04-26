@@ -49,7 +49,7 @@ module Sass::Script::Functions
   def data(path)
     path = File.expand_path(path)
 
-    if File.readable?(path)
+    if File.readable? path
       File.open(path, 'rb') { |io| io.read }
     else
       raise Sass::SyntaxError, "File not found or cannot be read: #{path}"

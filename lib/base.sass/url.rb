@@ -14,7 +14,7 @@ module Sass::Script::Functions
       path, type, query, anchor = $1 + $2, $2[1..-1].to_sym, $3, $4
     end
 
-    raise Sass::SyntaxError, "Could not determine font type for #{path}" unless FONT_TYPES.key?(type)
+    raise Sass::SyntaxError, "Could not determine font type for #{path}" unless FONT_TYPES.key? type
 
     query = join_query(query, cache_buster) if cache_buster.to_bool
 
@@ -48,7 +48,7 @@ module Sass::Script::Functions
         '&'
       end
 
-    query << if cache_buster.is_a?(Sass::Script::Value::String)
+    query << if cache_buster.is_a? Sass::Script::Value::String
       cache_buster.value
     else
       strftime.value
