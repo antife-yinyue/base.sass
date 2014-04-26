@@ -1,5 +1,7 @@
 module Sass::Script::Functions
 
+  protected
+
   def ruby_to_sass(obj)
     return bool(obj) if obj.is_a?(TrueClass) || obj.is_a?(FalseClass)
     return null() if obj.nil?
@@ -8,9 +10,6 @@ module Sass::Script::Functions
     return to_sass_map(obj) if obj.is_a? Hash
     identifier(obj.to_s)
   end
-
-
-  protected
 
   def to_sass_map(ruby_hash)
     sass_map = map({})
