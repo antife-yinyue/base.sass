@@ -6,7 +6,7 @@ module Sass::Script::Functions
     return number(obj) if obj.is_a? Numeric
     return to_sass_list(obj) if obj.is_a? Array
     return to_sass_map(obj) if obj.is_a? Hash
-    quoted_string(obj.to_s)
+    identifier(obj.to_s)
   end
 
 
