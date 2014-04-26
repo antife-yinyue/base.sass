@@ -1,7 +1,8 @@
 module Sass::Script::Functions
 
-  def cwd
-    identifier(Dir.pwd)
+  def env(name)
+    assert_type name, :String
+    identifier(ENV[name.value.upcase])
   end
 
   def argv(name = nil)
