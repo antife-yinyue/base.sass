@@ -34,7 +34,7 @@ module Sass::Script::Functions
   end
 
 
-  private
+  protected
 
   def join_query(query, cache_buster)
     query = query.to_s
@@ -51,7 +51,7 @@ module Sass::Script::Functions
     query << if cache_buster.is_a?(Sass::Script::Value::String)
       cache_buster.value
     else
-      strftime().value
+      strftime.value
     end
 
     query

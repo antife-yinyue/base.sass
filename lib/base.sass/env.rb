@@ -5,16 +5,16 @@ module Sass::Script::Functions
     identifier(ENV[name.value.upcase])
   end
 
-  def current(name)
-    assert_type name, :String
+  # def current(name)
+  #   assert_type name, :String
 
-    names = {
-      'output-style' => options[:style],
-      'sass-file' => options[:original_filename],
-      'css-file' => options[:css_filename]
-    }
+  #   names = {
+  #     'output-style' => options[:style],
+  #     'sass-file' => options[:original_filename],
+  #     'css-file' => options[:css_filename]
+  #   }
 
-    identifier(names[name.value].to_s)
-  end
+  #   identifier(names[name.value].to_s)
+  # end
 
 end

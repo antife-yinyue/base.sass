@@ -10,7 +10,7 @@ module Sass::Script::Functions
   end
 
 
-  private
+  protected
 
   def to_sass_map(ruby_hash)
     sass_map = map({})
@@ -19,7 +19,7 @@ module Sass::Script::Functions
 
     ruby_hash.each do |k, v|
       _ = {}
-      _[quoted_string(k.to_s)] = ruby_to_sass(v)
+      _[identifier(k.to_s)] = ruby_to_sass(v)
 
       sass_map = map_merge(sass_map, map(_))
     end

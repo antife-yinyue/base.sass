@@ -17,8 +17,6 @@ module Sass::Script::Functions
     identifier("url(data:#{mime_type};base64,#{data})")
   end
 
-  private
-
   def compute_mime_type(path, mime_type = nil)
     return mime_type.value if mime_type
 
