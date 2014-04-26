@@ -5,18 +5,16 @@ module Sass::Script::Functions
     identifier(ENV[name.value.upcase])
   end
 
-  def argv(name = nil)
-    argv = {
-      output_style: options[:style],
-      sass_file: options[:original_filename],
-      css_file: options[:css_filename]
+  def current(name)
+    assert_type name, :String
+
+    names = {
+      'output-style' => options[:style],
+      'sass-file' => options[:original_filename],
+      'css-file' => options[:css_filename]
     }
 
-    if name.is_a?(Sass::Script::Value::String) && argv.key?(name = name.value.to_sym)
-      identifier(argv[name].to_s)
-    else
-      null()
-    end
+    identifier(names[name.value].to_s)
   end
 
 end
