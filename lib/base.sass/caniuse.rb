@@ -16,7 +16,7 @@ class CanIUse
   end
 
   def supports_data
-    @caniuse_browsers
+    @caniuse_supports
   end
 
 end
