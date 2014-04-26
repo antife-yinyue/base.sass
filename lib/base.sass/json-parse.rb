@@ -1,3 +1,5 @@
+require 'json'
+
 module Sass::Script::Functions
 
   $cached_files = {}
