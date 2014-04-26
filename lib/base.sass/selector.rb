@@ -3,12 +3,12 @@ module Sass::Script::Functions
   COMMA_SEPARATOR = /\s*,\s*/
 
   def nest(*args)
-    nested = args.map{ |a| a.value }.inject do |memo, arg|
+    nested = args.map { |a| a.value }.inject do |memo, arg|
       ancestors = memo.split(COMMA_SEPARATOR)
       descendants = arg.split(COMMA_SEPARATOR)
 
-      ancestors.map{ |a|
-        descendants.map{ |d|
+      ancestors.map { |a|
+        descendants.map { |d|
           "#{a} #{d}"
         }.join(', ')
       }.join(', ')
@@ -21,8 +21,8 @@ module Sass::Script::Functions
     ancestors = selector.value.split(COMMA_SEPARATOR)
     descendants = to_append.value.split(COMMA_SEPARATOR)
 
-    nested = ancestors.map{ |a|
-      descendants.map{ |d|
+    nested = ancestors.map { |a|
+      descendants.map { |d|
         "#{a}#{d}"
       }.join(', ')
     }.join(', ')
@@ -52,7 +52,7 @@ module Sass::Script::Functions
       to ||= number(6)
     end
 
-    list((from.value..to.value).map{ |n| identifier("h#{n}") }, :comma)
+    list((from.value..to.value).map { |n| identifier("h#{n}") }, :comma)
   end
   alias headings headers
 
