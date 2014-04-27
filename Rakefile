@@ -9,10 +9,8 @@ BROWSER_NAMES = {
   android: 'android',
   # -moz-
   firefox: 'firefox',
-  and_ff: 'android-firefox',
   # -ms-
-  ie: 'ie',
-  ie_mob: 'ie-mobile'
+  ie: 'ie'
 }
 
 task :gb => [:mock, :generate_browsers]
@@ -34,7 +32,7 @@ task :download do
   require 'net/http'
   require 'net/https'
 
-  uri = URI.parse('https://raw.github.com/Fyrd/caniuse/master/data.json')
+  uri = URI.parse('https://raw.githubusercontent.com/Fyrd/caniuse/master/data.json')
   https = Net::HTTP.new(uri.host, uri.port)
   https.use_ssl = true
 
@@ -55,12 +53,11 @@ task :generate_browsers do
 
   # String to Number
   browsers.each do |k, v|
-    v = v['versions']
-    v.compact!
-    v.collect! { |n| n.split('-') }
-    v.flatten!
-    v.collect! { |n| n.to_f }
-    v.sort!
+    versions = v['versions']
+    future_versions = versions.last(3).compact.collect { |n| n.to_i }
+
+    v['versions'] = versions[0...-3].compact.collect { |n| n.split('-') }.flatten.collect { |n| n.to_f }.sort
+    v['future'] = future_versions unless future_versions.empty?
   end
 
   # The last version for Presto
