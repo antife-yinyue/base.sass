@@ -44,11 +44,10 @@ end
 
 desc 'Generate data to browsers.json'
 task :generate_browsers do
-  browsers = {}
   keeps = ['prefix', 'prefix_exceptions', 'versions']
-
-  BROWSER_NAMES.each do |k, v|
-    browsers[v] = @data['agents'][k.to_s].select { |n| keeps.include? n }
+  browsers = BROWSER_NAMES.inject({}) do |h, (k, v)|
+    h[v] = @data['agents'][k.to_s].select { |n| keeps.include? n }
+    h
   end
 
   # String to Number
@@ -99,10 +98,7 @@ task :generate_supports do
         versions.first
       end
 
-      supports[f][n] = {
-        beginning: versions.first,
-        official: official
-      }
+      supports[f].merge! Hash[n, { beginning: versions.first, official: official }]
     end
   end
 

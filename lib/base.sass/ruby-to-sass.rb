@@ -17,10 +17,10 @@ module Sass::Script::Functions
     return sass_map if ruby_hash.empty?
 
     ruby_hash.each do |k, v|
-      _ = {}
-      _[identifier(k.to_s)] = ruby_to_sass(v)
-
-      sass_map = map_merge(sass_map, map(_))
+      sass_map = map_merge(
+        sass_map,
+        map(Hash[identifier(k.to_s), ruby_to_sass(v)])
+      )
     end
 
     sass_map
