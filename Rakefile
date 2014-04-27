@@ -26,7 +26,7 @@ task :mock do
   )
 end
 
-desc 'Download the JSON file from caniuse.com'
+desc 'Download the JSON file from GitHub'
 task :download do
   require 'uri'
   require 'net/http'
@@ -45,9 +45,9 @@ end
 desc 'Generate data to browsers.json'
 task :generate_browsers do
   keeps = ['prefix', 'prefix_exceptions', 'versions']
-  browsers = BROWSER_NAMES.inject({}) do |h, (k, v)|
-    h[v] = @data['agents'][k.to_s].select { |n| keeps.include? n }
-    h
+  browsers = BROWSER_NAMES.inject({}) do |memo, (k, v)|
+    memo[v] = @data['agents'][k.to_s].select { |n| keeps.include? n }
+    memo
   end
 
   # String to Number
@@ -63,7 +63,7 @@ task :generate_browsers do
   presto = browsers['opera'].delete('prefix_exceptions')
   browsers['opera'].merge! presto: presto.keys.collect { |v| v.to_f }.sort.last
 
-  file = File.join(File.dirname(__FILE__), 'data/browsers.json')
+  file = File.join(File.dirname(__FILE__), 'data', 'browsers.json')
   open(file, 'wb') do |f|
     f.write(JSON.dump(browsers).gsub(/\.0/, ''))
   end
@@ -102,7 +102,7 @@ task :generate_supports do
     end
   end
 
-  file = File.join(File.dirname(__FILE__), 'data/supports.json')
+  file = File.join(File.dirname(__FILE__), 'data', 'supports.json')
   open(file, 'wb') do |f|
     f.write(JSON.dump(supports).gsub(/\.0/, ''))
   end
