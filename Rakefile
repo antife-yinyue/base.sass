@@ -55,7 +55,8 @@ task :generate_browsers do
     versions = v['versions']
     future_versions = versions.last(3).compact.collect { |n| n.to_i }
 
-    v['versions'] = versions[0...-3].compact.collect { |n| n.split('-') }.flatten.collect { |n| n.to_f }.sort
+    v['prefix'] = '-' + v['prefix'] + '-'
+    v['versions'] = versions.compact.collect { |n| n.split('-') }.flatten.collect { |n| n.to_f }.sort
     v['future'] = future_versions unless future_versions.empty?
   end
 
