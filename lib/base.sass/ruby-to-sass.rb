@@ -14,8 +14,6 @@ module Sass::Script::Functions
   def to_sass_map(ruby_hash)
     sass_map = map({})
 
-    return sass_map if ruby_hash.empty?
-
     ruby_hash.each do |k, v|
       sass_map = map_merge(
         sass_map,
@@ -27,8 +25,6 @@ module Sass::Script::Functions
   end
 
   def to_sass_list(ruby_array)
-    return comma_list() if ruby_array.empty?
-
     list(ruby_array.map { |item|
       ruby_to_sass(item)
     }, :comma)

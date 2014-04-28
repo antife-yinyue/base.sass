@@ -1,13 +1,12 @@
 require 'base.sass/caniuse'
-require 'base.sass/env'
-require 'base.sass/json-parse'
-require 'base.sass/list'
 require 'base.sass/ruby-to-sass'
 require 'base.sass/sass-to-ruby'
-require 'base.sass/selector'
-require 'base.sass/strftime'
+require 'base.sass/json-parse'
 require 'base.sass/support'
+require 'base.sass/env'
+require 'base.sass/strftime'
 require 'base.sass/url'
+require 'base.sass/selector'
 
 load_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'stylesheets'))
 
