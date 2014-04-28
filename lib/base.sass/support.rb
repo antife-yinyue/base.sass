@@ -30,7 +30,7 @@ module Sass::Script::Functions
       end
     end
 
-    ruby_to_sass(rules.inject({}) { |memo, browsers|
+    ruby_to_sass(rules.compact.inject({}) { |memo, browsers|
       browsers.each do |k, v|
         memo[k] ||= []
         memo[k] += v
@@ -67,14 +67,6 @@ module Sass::Script::Functions
     end
   end
 
-  # def browser_prefix(browser)
-  #   assert_type browser, :String
-  # end
-
-  # def browser_prefixes(browsers)
-  #   assert_type browsers, :List
-  # end
-
 
   private
 
@@ -94,14 +86,14 @@ module Sass::Script::Functions
     assert_browser_name(browser)
 
     versions = @browsers[browser]['versions']
-    Hash[browser,
-      case sign
+    versions = case sign
       when '>='
         versions.select { |n| n >= version.to_f }
       when '>'
         versions.select { |n| n > version.to_f }
       end
-    ]
+
+    versions.empty? ? nil : Hash[browser, versions]
   end
 
   def direct_parser(browser, version)
