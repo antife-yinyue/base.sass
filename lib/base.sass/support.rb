@@ -46,20 +46,51 @@ module Sass::Script::Functions
   end
 
   def browser_versions(name)
+    assert_type name, :String
+
     @browsers ||= CanIUse.instance.browsers
     assert_browser_name(name.value)
 
-    browser = @browsers[name.value]
-    versions = browser['versions']
-    versions += browser['future'] if browser.key? 'future'
+    ruby_to_sass(@browsers[name.value]['versions'])
+  end
 
-    ruby_to_sass(versions)
+  def browser_prefix(name)
+    assert_type name, :String
+
+    @browsers ||= CanIUse.instance.browsers
+    assert_browser_name(name.value)
+
+    identifier(@browsers[name.value]['prefix'])
   end
 
   def grep_features(regexp)
     assert_type regexp, :String
     regexp = Regexp.new(regexp.value, Regexp::IGNORECASE)
     ruby_to_sass(CanIUse.instance.supports.keys.sort.select { |k| k =~ regexp })
+  end
+
+  def assert_feature_supports(browsers, feature)
+    assert_type browsers, :Map
+    assert_type feature, :String
+
+    feature_supports = CanIUse.instance.supports[feature.value]
+    return bool(false) if feature_supports.nil?
+
+    result = sass_to_ruby(browsers).inject({}) do |memo, (k, v)|
+      beginning = feature_supports[k]['beginning']
+      official = feature_supports[k]['official']
+
+      memo[k] = if official && v.first >= official
+        true
+      elsif beginning && v.last >= beginning
+        browser_prefix(identifier(k)).value
+      else
+        false
+      end
+      memo
+    end
+
+    ruby_to_sass(result)
   end
 
 
