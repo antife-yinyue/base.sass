@@ -42,7 +42,7 @@ module Sass::Script::Functions
   end
 
   def browsers
-    CanIUse.instance.browsers.keys
+    ruby_to_sass(CanIUse.instance.browsers.keys.sort)
   end
 
   def browser_versions(name)
@@ -54,6 +54,12 @@ module Sass::Script::Functions
     versions += browser['future'] if browser.key? 'future'
 
     ruby_to_sass(versions)
+  end
+
+  def grep_features(regexp)
+    assert_type regexp, :String
+    regexp = Regexp.new(regexp.value, Regexp::IGNORECASE)
+    ruby_to_sass(CanIUse.instance.supports.keys.sort.select { |k| k =~ regexp })
   end
 
 
