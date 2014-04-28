@@ -11,11 +11,11 @@ class CanIUse
     @caniuse_supports = json_load(File.join(DATA_DIR, 'supports.json'))
   end
 
-  def browsers_data
+  def browsers
     @caniuse_browsers
   end
 
-  def supports_data
+  def supports
     @caniuse_supports
   end
 

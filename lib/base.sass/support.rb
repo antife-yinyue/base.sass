@@ -3,7 +3,7 @@ module Sass::Script::Functions
   # https://github.com/ai/autoprefixer/blob/master/lib/browsers.coffee#L45
 
   def parse_rules(*rules)
-    @browsers ||= CanIUse.instance.browsers_data
+    @browsers ||= CanIUse.instance.browsers
     rules = rules.map { |r| sass_to_ruby(r) }.flatten.uniq
 
     rules.map! do |rule|
@@ -42,7 +42,7 @@ module Sass::Script::Functions
   end
 
   def browser_versions(name)
-    @browsers ||= CanIUse.instance.browsers_data
+    @browsers ||= CanIUse.instance.browsers
     assert_browser_name(name.value)
 
     browser = @browsers[name.value]
