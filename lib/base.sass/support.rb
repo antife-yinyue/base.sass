@@ -41,6 +41,10 @@ module Sass::Script::Functions
     })
   end
 
+  def browsers
+    CanIUse.instance.browsers.keys
+  end
+
   def browser_versions(name)
     @browsers ||= CanIUse.instance.browsers
     assert_browser_name(name.value)
@@ -57,7 +61,7 @@ module Sass::Script::Functions
 
   def assert_browser_name(name)
     unless @browsers.key? name
-      raise Sass::SyntaxError, "Unknown browser name: #{name}\nAll valid browsers are #{@browsers.keys}"
+      raise Sass::SyntaxError, "Unknown browser name: #{name}\nYou can find all valid names according to `browsers()`"
     end
   end
 
