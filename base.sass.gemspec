@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir[
     'lib/**/*.rb',
     'stylesheets/**/*.scss',
-    'data/*.json',
-    'Rakefile'
+    'data/*.json'
   ]
 
   spec.platform = Gem::Platform::RUBY

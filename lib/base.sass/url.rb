@@ -8,6 +8,8 @@ module Sass::Script::Functions
   }
 
   def font_url(path, cache_buster = bool(true))
+    assert_type path, :String
+
     type, query, anchor = ''
 
     /^(.*)(\.\w+)(\??[^#]*)(#?.*)$/.match(path.value) do
@@ -22,6 +24,8 @@ module Sass::Script::Functions
   end
 
   def image_url(path, cache_buster = bool(true))
+    assert_type path, :String
+
     query, anchor = ''
 
     /^([^\?#]*)(\??[^#]*)(#?.*)$/.match(path.value) do
@@ -34,7 +38,7 @@ module Sass::Script::Functions
   end
 
 
-  protected
+  private
 
   def join_query(query, cache_buster)
     query = query.to_s
