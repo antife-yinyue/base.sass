@@ -4,44 +4,26 @@ module Sass::Script::Functions
 
   def parse_rules(*rules)
     @browsers ||= CanIUse.instance.browsers_data
+    rules = rules.map { |r| sass_to_ruby(r) }.flatten.uniq
 
-    rules.collect! do |rule|
-      rule = rule.value.to_s.downcase
+    rules.map! do |rule|
+      rule = rule.to_s.downcase
 
       # match `last 1 version`
       if rule =~ /^last (\d+) versions?$/
-        @browsers.inject({}) do |memo, (k, v)|
-          memo[k] = v['versions'].last($1.to_i)
-          memo
-        end
+        last_versions_parser($1)
 
       # match `last 3 chrome versions`
       elsif rule =~ /^last (\d+) (\w+) versions?$/
-        assert_browser_name($2)
-        Hash[$2, @browsers[$2]['versions'].last($1.to_i)]
+        last_browser_versions_parser($1, $2)
 
       # match `ie > 9`
       elsif rule =~ /^(\w+) (>=?) ([\d\.]+)$/
-        assert_browser_name($1)
-
-        versions = @browsers[$1]['versions']
-        Hash[$1,
-          case $2
-          when '>='
-            versions.select { |n| n >= $3.to_f }
-          when '>'
-            versions.select { |n| n > $3.to_f }
-          end
-        ]
+        newer_then_parser($1, $2, $3)
 
       # match `ios 7`
       elsif rule =~ /^(\w+) ([\d\.]+)$/
-        assert_browser_name($1)
-
-        version = $2.include?('.') ? $2.to_f : $2.to_i
-        assert_browser_version($1, version)
-
-        Hash[$1, [version]]
+        direct_parser($1, $2)
 
       else
         raise Sass::SyntaxError, "Unknown rule: `#{rule}`"
@@ -93,4 +75,41 @@ module Sass::Script::Functions
   #   assert_type browsers, :List
   # end
 
+
+  private
+
+  def last_versions_parser(num)
+    @browsers.inject({}) do |memo, (k, v)|
+      memo[k] = v['versions'].last(num.to_i)
+      memo
+    end
+  end
+
+  def last_browser_versions_parser(num, browser)
+    assert_browser_name(browser)
+    Hash[browser, @browsers[browser]['versions'].last(num.to_i)]
+  end
+
+  def newer_then_parser(browser, sign, version)
+    assert_browser_name(browser)
+
+    versions = @browsers[browser]['versions']
+    Hash[browser,
+      case sign
+      when '>='
+        versions.select { |n| n >= version.to_f }
+      when '>'
+        versions.select { |n| n > version.to_f }
+      end
+    ]
+  end
+
+  def direct_parser(browser, version)
+    assert_browser_name(browser)
+
+    version = version.include?('.') ? version.to_f : version.to_i
+    assert_browser_version(browser, version)
+
+    Hash[browser, [version]]
+  end
 end
