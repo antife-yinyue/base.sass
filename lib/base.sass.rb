@@ -16,3 +16,5 @@ if ENV.key? 'SASS_PATH'
 else
   ENV['SASS_PATH'] = load_path
 end
+
+ENV['SASS_ENV'] ||= 'development'
