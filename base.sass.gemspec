@@ -1,9 +1,11 @@
 Gem::Specification.new do |spec|
   spec.name = 'base.sass'
-  spec.version = '0.2.0'
-  spec.summary = 'The beginning of your stylesheets'
+  spec.version = '1.0.0.alpha'
+  spec.summary = 'The beginning of your stylesheets.'
+  spec.description = 'A lot of powerful Sass functions.'
   spec.homepage = 'https://github.com/jsw0528/base.sass'
-  spec.author = 'junjun.zhang <http://MrZhang.me>'
+  spec.author = 'junjun.zhang'
+  spec.email = 'i@mrzhang.me'
   spec.license = 'MIT'
   spec.files = Dir[
     'lib/**/*.rb',
@@ -14,5 +16,5 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.required_ruby_version = '>= 1.9'
 
-  spec.add_runtime_dependency 'sass', '~> 3.3.6'
+  spec.add_runtime_dependency 'sass', '>= 3.3', '< 3.5'
 end
