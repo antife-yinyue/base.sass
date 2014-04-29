@@ -5,8 +5,15 @@ module Sass::Script::Functions
   end
 
   def convert_to_number(string)
-    s = string.value.to_s
-    number(s.include?('.') ? s.to_f : s.to_i)
+    number(to_if(string))
   end
 
+
+  protected
+
+  def to_if(s)
+    s = s.value if s.is_a?(Sass::Script::Value::String) || s.is_a?(Sass::Script::Value::Number)
+    s = s.to_s
+    s.include?('.') ? s.to_f : s.to_i
+  end
 end
