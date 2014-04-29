@@ -1,42 +1,15 @@
 module Sass::Script::Functions
-  # https://github.com/ai/autoprefixer#browsers
-  # https://github.com/ai/autoprefixer/blob/master/lib/browsers.coffee#L45
 
+  # Refer to https://github.com/ai/autoprefixer#browsers
+  # Do not support global usage statistics: `> 5%`
   def parse_rules(*rules)
     @browsers ||= CanIUse.instance.browsers
-    rules = rules.map { |r| sass_to_ruby(r) }.flatten.uniq
 
-    rules.map! do |rule|
-      rule = rule.to_s.downcase
-
-      # match `last 1 version`
-      if rule =~ /^last (\d+) versions?$/
-        last_versions_parser($1)
-
-      # match `last 3 chrome versions`
-      elsif rule =~ /^last (\d+) (\w+) versions?$/
-        last_browser_versions_parser($1, $2)
-
-      # match `ie > 9`
-      elsif rule =~ /^(\w+) (>=?) ([\d\.]+)$/
-        newer_then_parser($1, $2, $3)
-
-      # match `ios 7`
-      elsif rule =~ /^(\w+) ([\d\.]+)$/
-        direct_parser($1, $2)
-
-      else
-        raise Sass::SyntaxError, "Unknown rule: `#{rule}`"
-      end
-    end
+    rules = rules.map { |rule| sass_to_ruby(rule) }.flatten.uniq
+                 .map { |rule| rules_parser(rule.downcase) }
 
     ruby_to_sass(rules.compact.inject({}) { |memo, browsers|
-      browsers.each do |k, v|
-        memo[k] ||= []
-        memo[k] += v
-        memo[k].uniq!
-        memo[k].sort!
-      end
+      browsers.each { |k, v| memo[k] = (memo[k].to_a + v).uniq.sort }
       memo
     })
   end
@@ -45,52 +18,50 @@ module Sass::Script::Functions
     ruby_to_sass(CanIUse.instance.browsers.keys.sort)
   end
 
-  def browser_versions(name)
+  def browser_versions(name, include_future = bool(true))
     assert_type name, :String
+    name = name.value.downcase
 
     @browsers ||= CanIUse.instance.browsers
-    assert_browser_name(name.value)
+    assert_browser_name(name)
 
-    ruby_to_sass(@browsers[name.value]['versions'])
+    versions = @browsers[name]['versions']
+    versions += @browsers[name]['future'].to_a if include_future.to_bool
+
+    ruby_to_sass(versions)
   end
 
-  def browser_prefix(name)
-    assert_type name, :String
+  def grep_features(regex)
+    assert_type regex, :String
+    regex = regex.value.strip.sub(/^-+|-+$/, '')
+    regex = regex.gsub(/\s+|-+/, '|') if regex =~ /^[\w\s-]+$/
+    regex = Regexp.new(regex, Regexp::IGNORECASE)
 
-    @browsers ||= CanIUse.instance.browsers
-    assert_browser_name(name.value)
-
-    identifier(@browsers[name.value]['prefix'])
+    ruby_to_sass(CanIUse.instance.supports.keys.select { |k| k =~ regex }.sort)
   end
 
-  def grep_features(regexp)
-    assert_type regexp, :String
-    regexp = Regexp.new(regexp.value, Regexp::IGNORECASE)
-    ruby_to_sass(CanIUse.instance.supports.keys.sort.select { |k| k =~ regexp })
-  end
-
-  def assert_feature_supports(browsers, feature)
+  def required_prefix(browsers, feature)
     assert_type browsers, :Map
     assert_type feature, :String
 
     feature_supports = CanIUse.instance.supports[feature.value]
-    return bool(false) if feature_supports.nil?
+    return null() if feature_supports.nil?
 
-    result = sass_to_ruby(browsers).inject({}) do |memo, (k, v)|
+    prefix = sass_to_ruby(browsers).inject({}) do |memo, (k, v)|
       beginning = feature_supports[k]['beginning']
       official = feature_supports[k]['official']
 
       memo[k] = if official && v.first >= official
-        true
-      elsif beginning && v.last >= beginning
-        browser_prefix(identifier(k)).value
-      else
         false
+      elsif beginning && v.last >= beginning
+        browser_prefix(k, v.first)
+      else
+        nil
       end
       memo
     end
 
-    ruby_to_sass(result)
+    ruby_to_sass(prefix)
   end
 
 
@@ -103,13 +74,46 @@ module Sass::Script::Functions
   end
 
   def assert_browser_version(name, version)
-    unless @browsers[name]['versions'].include? version
-      raise Sass::SyntaxError, "Unknown version of #{name}: #{version}\nYou can find all valid versions according to `browser-versions(#{name})`"
+    versions = sass_to_ruby(browser_versions(identifier(name)))
+    unless versions.include? version
+      raise Sass::SyntaxError, "Unknown version for #{name}: #{version}\nYou can find all valid versions according to `browser-versions(#{name})`"
     end
+  end
+
+  def browser_prefix(name, oldest)
+    browsers = CanIUse.instance.browsers
+    prefix = browsers[name]['prefix']
+
+    if name == 'opera' && oldest <= browsers['opera']['presto']
+      prefix = [prefix, '-o-']
+    end
+    prefix
   end
 
 
   private
+
+  def rules_parser(rule)
+    # match `last 1 version`
+    if rule =~ /^last (\d+) versions?$/
+      last_versions_parser($1)
+
+    # match `last 3 chrome versions`
+    elsif rule =~ /^last (\d+) (\w+) versions?$/
+      last_browser_versions_parser($1, $2)
+
+    # match `ie > 9`
+    elsif rule =~ /^(\w+) (>=?) ([\d\.]+)$/
+      newer_then_parser($1, $2, $3)
+
+    # match `ios 7`
+    elsif rule =~ /^(\w+) ([\d\.]+)$/
+      direct_parser($1, $2)
+
+    else
+      raise Sass::SyntaxError, "Unknown rule: `#{rule}`"
+    end
+  end
 
   def last_versions_parser(num)
     @browsers.inject({}) do |memo, (k, v)|
@@ -138,11 +142,9 @@ module Sass::Script::Functions
   end
 
   def direct_parser(browser, version)
-    assert_browser_name(browser)
-
-    version = version.include?('.') ? version.to_f : version.to_i
+    version = to_if(version)
     assert_browser_version(browser, version)
-
     Hash[browser, [version]]
   end
+
 end
