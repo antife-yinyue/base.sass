@@ -21,14 +21,17 @@
       'Something wrong with `headings()`.');
   }
 
-  @include test('headings([$from], [$to])') {
-    $list1: h1, h2, h3, h4, h5, h6;
-    $list2: h2, h3, h4, h5;
+  @include test('headings()') {
+    $list: h1, h2, h3, h4, h5, h6;
 
-    @include assert-equal(headings(), $list1,
+    @include assert-equal(headings(), $list,
       'Something wrong with `headings()`.');
+  }
 
-    @include assert-equal(headings(2, 5), $list2,
+  @include test('headings([$from], [$to])') {
+    $list: h2, h3, h4, h5;
+
+    @include assert-equal(headings(2, 5), $list,
       'Something wrong with `headings(2, 5)`.');
   }
 
