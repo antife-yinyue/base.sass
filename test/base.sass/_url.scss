@@ -1,0 +1,8 @@
+@include test-module('Font url with `format`') {
+
+  @include test('font-url($path)') {
+    @include assert-true(str-index(font-url('path/to/font.eot'), unquote("format('embedded-opentype')")),
+      "The result of `font-url('path/to/font.eot')` should include `format('embedded-opentype')`.");
+  }
+
+}

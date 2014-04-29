@@ -1,0 +1,8 @@
+@include test-module('SASS_ENV') {
+
+  @include test('env($name)') {
+    @include assert-equal(env(SASS_ENV), development,
+      'Default SASS_ENV should be `development`.');
+  }
+
+}

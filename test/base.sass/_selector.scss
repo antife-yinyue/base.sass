@@ -1,0 +1,35 @@
+@include test-module('Selector Helpers') {
+
+  @include test('nest($selector1, $selector2, ...)') {
+    @include assert-equal(nest('.foo, .bar', '.baz'), unquote('.foo .baz, .bar .baz'),
+      'Something wrong with nested selectors.');
+  }
+
+  @include test('append-selector($selector, $to-append)') {
+    @include assert-equal(append-selector('p, div, span', '.bar'), unquote('p.bar, div.bar, span.bar'),
+      'Something wrong with joined selectors.');
+  }
+
+  @include test('enumerate($prefix, $from, $through, [$separator])') {
+    @include assert-equal(enumerate('.class', 2, 4), unquote('.class-2, .class-3, .class-4'),
+      'Something wrong with enumerated selectors.');
+  }
+
+  @include test('headings()') {
+    $list: h1, h2, h3, h4, h5, h6;
+    @include assert-equal(headings(), $list,
+      'Something wrong with `headings()`.');
+  }
+
+  @include test('headings([$from], [$to])') {
+    $list1: h1, h2, h3, h4, h5, h6;
+    $list2: h2, h3, h4, h5;
+
+    @include assert-equal(headings(), $list1,
+      'Something wrong with `headings()`.');
+
+    @include assert-equal(headings(2, 5), $list2,
+      'Something wrong with `headings(2, 5)`.');
+  }
+
+}

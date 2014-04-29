@@ -1,0 +1,13 @@
+@include test-module('String to Number, Number to String') {
+
+  @include test('convert-to-string($number)') {
+    @include assert-true(type-of(convert-to-string(1)) == string,
+      'The result of `convert-to-string(1)` should be a String.');
+  }
+
+  @include test('convert-to-number($string)') {
+    @include assert-true(type-of(convert-to-number('1')) == number,
+      "The result of `convert-to-number('1')` should be a Number.");
+  }
+
+}
