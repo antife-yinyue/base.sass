@@ -14,5 +14,5 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.required_ruby_version = '>= 1.9'
 
-  spec.add_runtime_dependency 'sass', '~> 3.3.5'
+  spec.add_runtime_dependency 'sass', '~> 3.3.6'
 end
