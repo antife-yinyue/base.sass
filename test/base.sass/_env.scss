@@ -2,7 +2,17 @@
 
   @include test('env($name)') {
     @include assert-equal(env(SASS_ENV), development,
-      'Default SASS_ENV should be `development`.');
+      'The `$name` should supports uppercase letter');
+  }
+
+  @include test('env($name)') {
+    @include assert-equal(env(sass_env), development,
+      'The `$name` should supports lowercase letter');
+  }
+
+  @include test('env($name)') {
+    @include assert-equal(env(other), null,
+      'If not found, should return `null`');
   }
 
 }
