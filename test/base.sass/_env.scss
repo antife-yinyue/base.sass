@@ -16,7 +16,7 @@
   }
 
   @include test('env($name)') {
-    @include assert-equal(env(other), null,
+    @include assert-equal(env(other), 'test',
       'If not found, should return `null`');
   }
 
