@@ -3,7 +3,7 @@
   @include test('strftime([$format])') {
     $t: strftime('%p');
     @include assert-true($t == AM or $t == PM,
-      "The result of `strftime('%p')` should be `AM` or `PM`.");
+      "The result of `strftime('%p')` should be `AM` or `PM`");
   }
 
 }
