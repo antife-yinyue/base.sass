@@ -1,19 +1,26 @@
 module Sass::Script::Functions
 
-  def convert_to_string(number)
+  def to_string(number)
+    return null() unless type_correctly(number)
     identifier(number.value.to_s)
   end
 
-  def convert_to_number(string)
-    number(to_if(string))
+  def to_number(string)
+    return null() unless type_correctly(string)
+    number(to_if(string.value.to_s))
   end
 
 
   protected
 
   def to_if(s)
-    s = s.value if s.is_a?(Sass::Script::Value::String) || s.is_a?(Sass::Script::Value::Number)
-    s = s.to_s
     s.include?('.') ? s.to_f : s.to_i
+  end
+
+
+  private
+
+  def type_correctly(arg)
+    arg.is_a?(Sass::Script::Value::String) || arg.is_a?(Sass::Script::Value::Number)
   end
 end

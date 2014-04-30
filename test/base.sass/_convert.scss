@@ -1,13 +1,44 @@
 @include test-module('String to Number, Number to String') {
 
-  @include test('convert-to-string($number)') {
-    @include assert-true(type-of(convert-to-string(1)) == string,
-      'The result of `convert-to-string(1)` should be a String.');
+  @include test('to-string($number)') {
+    @include assert-equal(type-of(to-string(1.5)), string,
+      'The type of result should be `string`');
   }
 
-  @include test('convert-to-number($string)') {
-    @include assert-true(type-of(convert-to-number('1')) == number,
-      "The result of `convert-to-number('1')` should be a Number.");
+  @include test('to-string($number)') {
+    @include assert-equal(to-string('1.5'), '1.5',
+      "If `$number` is a string, should return self");
+  }
+
+  @include test('to-string($number)') {
+    @include assert-equal(to-string(a b c), null,
+      "If `$number` is not a string or a number, should return `null`");
+  }
+
+
+  @include test('to-number($string)') {
+    @include assert-equal(type-of(to-number('1.5')), number,
+      "The type of result should be `number`");
+  }
+
+  @include test('to-number($string)') {
+    @include assert-equal(to-number('1.5'), 1.5,
+      "If `$string` is float-like, should return a float number");
+  }
+
+  @include test('to-number($string)') {
+    @include assert-equal(to-number('0'), 0,
+      "If `$string` is integer-like, should return a integer number");
+  }
+
+  @include test('to-number($string)') {
+    @include assert-equal(to-number(1.0), 1.0,
+      "If `$string` is a number, should return self");
+  }
+
+  @include test('to-number($string)') {
+    @include assert-equal(to-number(a b c), null,
+      "If `$string` is not a string or a number, should return `null`");
   }
 
 }
