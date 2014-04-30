@@ -13,18 +13,8 @@ BROWSER_NAMES = {
   ie: 'ie'
 }
 
-task :gb => [:mock, :generate_browsers]
-task :gs => [:mock, :generate_supports]
-task :default => [:download, :generate_browsers, :generate_supports]
-
-desc 'Mock data.'
-task :mock do
-  @data = JSON.load(
-    File.read(
-      File.join(File.dirname(__FILE__), 'caniuse.json')
-    )
-  )
-end
+task :default => [:test]
+task :upgrade => [:download, :generate_browsers, :generate_supports]
 
 desc 'Download the JSON file from GitHub'
 task :download do
@@ -67,6 +57,7 @@ task :generate_browsers do
   file = File.join(File.dirname(__FILE__), 'data', 'browsers.json')
   open(file, 'wb') do |f|
     f.write(JSON.dump(browsers).gsub(/\.0/, ''))
+    puts "#{file} - #{(f.size.to_f / 1024).round(2)}k"
   end
 end
 
@@ -106,5 +97,11 @@ task :generate_supports do
   file = File.join(File.dirname(__FILE__), 'data', 'supports.json')
   open(file, 'wb') do |f|
     f.write(JSON.dump(supports).gsub(/\.0/, ''))
+    puts "#{file} - #{(f.size.to_f / 1024).round(2)}k"
   end
+end
+
+desc 'Unit test'
+task :test do
+  system 'cd test && sass -r base.sass -r true tests.scss:report.log'
 end
