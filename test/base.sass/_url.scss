@@ -1,9 +1,50 @@
-@include test-module('Font url with `format`') {
+@include test-module('Url helpers for fonts and images') {
 
   @include test('font-url($path)') {
-    $s: unquote("format('embedded-opentype')");
-    @include assert-true(str-index(font-url('path/to/font.eot'), $s),
-      "The result of `font-url('path/to/font.eot')` should include `#{$s}`.");
+    $f: unquote("format('embedded-opentype')");
+    @include assert-true(str-index(font-url('path/to/font.eot'), $f),
+      "The returns should include `#{$f}`");
+  }
+
+  @include test('font-url($path)') {
+    @include assert-true(str-index(font-url('path/to/font.eot#iefix'), '#iefix)'),
+      "The anchor should can be retained");
+  }
+
+  @include test('font-url($path)') {
+    @include assert-true(str-index(font-url('path/to/font.eot'), '.eot?'),
+      "The timestamp should added automatically");
+  }
+
+  @include test('font-url($path)') {
+    @include assert-false(str-index(font-url('path/to/font.eot', false), '.eot?'),
+      "The timestamp should can be closed");
+  }
+
+  @include test('font-url($path)') {
+    @include assert-true(str-index(font-url('path/to/font.eot', abc), '.eot?abc'),
+      "The timestamp should can be customized");
+  }
+
+
+  @include test('image-url($path)') {
+    @include assert-true(str-index(image-url('path/to/pic.png#anchor'), '#anchor)'),
+      "The anchor should can be retained");
+  }
+
+  @include test('image-url($path)') {
+    @include assert-true(str-index(image-url('path/to/pic.png'), '.png?'),
+      "The timestamp should added automatically");
+  }
+
+  @include test('image-url($path)') {
+    @include assert-false(str-index(image-url('path/to/pic.png', false), '.png?'),
+      "The timestamp should can be closed");
+  }
+
+  @include test('image-url($path)') {
+    @include assert-true(str-index(image-url('path/to/pic.png', abc), '.png?abc'),
+      "The timestamp should can be customized");
   }
 
 }
