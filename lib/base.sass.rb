@@ -9,7 +9,9 @@ require 'base.sass/strftime'
 require 'base.sass/url'
 require 'base.sass/selector'
 
-load_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'stylesheets'))
+
+root_path = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+load_path = File.join(root_path, 'stylesheets')
 
 if ENV.key? 'SASS_PATH'
   ENV['SASS_PATH'] += File::PATH_SEPARATOR + load_path
@@ -18,3 +20,4 @@ else
 end
 
 ENV['SASS_ENV'] ||= 'development'
+ENV['WHICH_BASE.SASS'] = root_path
