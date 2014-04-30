@@ -103,5 +103,5 @@ end
 
 desc 'Unit test'
 task :test do
-  system 'cd test && sass -r base.sass -r true tests.scss:report.log'
+  system 'cd test && bundle install --quiet && sass -r base.sass -r true tests.scss:report.log'
 end

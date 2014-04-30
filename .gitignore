@@ -2,3 +2,4 @@
 .sass-cache
 *.log
 *.gem
+Gemfile.lock
