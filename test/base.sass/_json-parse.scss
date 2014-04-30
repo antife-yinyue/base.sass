@@ -1,20 +1,15 @@
 @include test-module('Parse data from a json file') {
 
-  $json: json-parse('../data/browsers.json');
+  $data: json-parse('../data/browsers.json');
 
   @include test('json-parse($path)') {
-    @include assert-true(type-of($json) == map,
-      'The rendered content should be a Map.');
+    @include assert-equal(type-of($data), map,
+      'The type of rendered content should be `map`');
   }
 
   @include test('json-parse($path)') {
-    @include assert-true(map-has-key($json, chrome),
-      'The rendered content should has the key `chrome`.');
-  }
-
-  @include test('json-parse($path)') {
-    @include assert-true(type-of(map-find($json, 'chrome.versions')) == list,
-      'The rendered content should has the key `chrome`.');
+    @include assert-true(map-has-key($data, chrome),
+      'The rendered content should has the key `chrome`');
   }
 
 }
