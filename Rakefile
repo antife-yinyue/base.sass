@@ -13,7 +13,7 @@ BROWSER_NAMES = {
   ie: 'ie'
 }
 
-task :default => [:test]
+task :default => [:install_gems, :test]
 task :upgrade => [:download, :generate_browsers, :generate_supports]
 
 desc 'Download the JSON file from GitHub'
@@ -101,7 +101,12 @@ task :generate_supports do
   end
 end
 
+desc 'Install gems'
+task :install_gems do
+  system 'cd test && bundle install --quiet'
+end
+
 desc 'Unit test'
 task :test do
-  system 'cd test && bundle install --quiet && sass -r base.sass -r true tests.scss:report.log'
+  system 'cd test && sass -r base.sass -r true tests.scss:report.log'
 end

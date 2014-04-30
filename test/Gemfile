@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-source 'http://ruby.taobao.org'
+# source 'http://ruby.taobao.org'
 
 gem 'base.sass', :github => 'jsw0528/base.sass'
 gem 'true', :github => 'jsw0528/true'
