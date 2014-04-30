@@ -11,6 +11,11 @@
   }
 
   @include test('env($name)') {
+    @include assert-equal(env(sass-env), development,
+      'Hyphen-style should be supported');
+  }
+
+  @include test('env($name)') {
     @include assert-equal(env(other), null,
       'If not found, should return `null`');
   }
