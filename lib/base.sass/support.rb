@@ -20,10 +20,10 @@ module Sass::Script::Functions
 
   def browser_versions(name, include_future = bool(true))
     assert_type name, :String
-    name = name.value.downcase
 
     @browsers ||= CanIUse.instance.browsers
-    assert_browser_name(name)
+    name = name.value.downcase
+    assert_valid_browser(name)
 
     versions = @browsers[name]['versions']
     versions += @browsers[name]['future'].to_a if include_future.to_bool
@@ -33,6 +33,7 @@ module Sass::Script::Functions
 
   def grep_features(regex)
     assert_type regex, :String
+
     regex = regex.value.strip.sub(/^-+|-+$/, '')
     regex = regex.gsub(/\s+|-+/, '|') if regex =~ /^[\w\s-]+$/
     regex = Regexp.new(regex, Regexp::IGNORECASE)
@@ -67,15 +68,12 @@ module Sass::Script::Functions
 
   protected
 
-  def assert_browser_name(name)
+  def assert_valid_browser(name, version = nil)
     unless @browsers.key? name
       raise Sass::SyntaxError, "Unknown browser name: #{name}\nYou can find all valid names according to `browsers()`"
     end
-  end
 
-  def assert_browser_version(name, version)
-    versions = sass_to_ruby(browser_versions(identifier(name)))
-    unless versions.include? version
+    unless version.nil? || sass_to_ruby(browser_versions(identifier(name))).include?(version)
       raise Sass::SyntaxError, "Unknown version for #{name}: #{version}\nYou can find all valid versions according to `browser-versions(#{name})`"
     end
   end
@@ -94,20 +92,22 @@ module Sass::Script::Functions
   private
 
   def rules_parser(rule)
+    case rule
+
     # match `last 1 version`
-    if rule =~ /^last (\d+) versions?$/
+    when /^last (\d+) versions?$/
       last_versions_parser($1)
 
     # match `last 3 chrome versions`
-    elsif rule =~ /^last (\d+) (\w+) versions?$/
+    when /^last (\d+) (\w+) versions?$/
       last_browser_versions_parser($1, $2)
 
     # match `ie > 9`
-    elsif rule =~ /^(\w+) (>=?) ([\d\.]+)$/
+    when /^(\w+) (>=?) ([\d\.]+)$/
       newer_then_parser($1, $2, $3)
 
     # match `ios 7`
-    elsif rule =~ /^(\w+) ([\d\.]+)$/
+    when /^(\w+) ([\d\.]+)$/
       direct_parser($1, $2)
 
     else
@@ -123,12 +123,12 @@ module Sass::Script::Functions
   end
 
   def last_browser_versions_parser(num, browser)
-    assert_browser_name(browser)
+    assert_valid_browser(browser)
     Hash[browser, @browsers[browser]['versions'].last(num.to_i)]
   end
 
   def newer_then_parser(browser, sign, version)
-    assert_browser_name(browser)
+    assert_valid_browser(browser)
 
     versions = @browsers[browser]['versions']
     versions = case sign
@@ -143,7 +143,7 @@ module Sass::Script::Functions
 
   def direct_parser(browser, version)
     version = to_if(version)
-    assert_browser_version(browser, version)
+    assert_valid_browser(browser, version)
     Hash[browser, [version]]
   end
 
