@@ -20,4 +20,4 @@ else
 end
 
 ENV['SASS_ENV'] ||= 'development'
-ENV['WHICH_BASE.SASS'] = root_path
+ENV['WHICH_BASE.SASS'] = root_path + File::SEPARATOR
