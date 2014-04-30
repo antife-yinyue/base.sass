@@ -9,7 +9,7 @@ module Sass::Script::Functions
     path = File.expand_path(path.value)
 
     if $cached_files.key? path
-      puts "Reading data from cache: #{path}"
+      puts "Reading file from cache: #{path}"
       $cached_files[path]
     else
       $cached_files[path] = ruby_to_sass(json_load(path))
@@ -20,14 +20,16 @@ module Sass::Script::Functions
   protected
 
   def json_load(path)
-    path = File.expand_path(path)
+    JSON.load(
+      read_file(File.expand_path(path)).to_s.gsub(/(\\r|\\n)/, '')
+    )
+  end
 
-    if File.readable? path
-      puts "Loading JSON file: #{path}"
-      JSON.load(File.read(path).to_s.gsub(/(\\r|\\n)/, ''))
-    else
-      raise Sass::SyntaxError, "JSON file not found or cannot be read: #{path}"
-    end
+  def read_file(path)
+    raise Sass::SyntaxError, "File not found or cannot be read: #{path}" unless File.readable? path
+
+    puts "Reading file: #{path}"
+    File.open(path, 'rb') { |f| f.read }
   end
 
 end
