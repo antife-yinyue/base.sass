@@ -103,5 +103,9 @@ end
 
 desc 'Unit test'
 task :test do
-  system 'cd test && bundle && sass -r base.sass -r true tests.scss:report.log'
+  system 'cd test && bundle --quiet && sass -r base.sass -r true tests.scss:report.log'
+  open('test/report.log') do |f|
+    log = f.read.to_s
+    raise if log.include?('- FAIL:') || !log.include?('Passed')
+  end
 end
