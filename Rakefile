@@ -103,9 +103,13 @@ end
 
 desc 'Unit test'
 task :test do
-  system 'cd test && bundle install --quiet && sass -r base.sass -r true tests.scss:report.log'
-  open('test/report.log') do |f|
-    log = f.read.to_s
-    raise if log.include?('FAIL:') || !log.include?('Passed')
+  system 'cd test && bundle install --quiet && sass -r base.sass -r true tests.scss:report.css'
+  open('test/report.css') do |f|
+    output = f.read.to_s
+    if output.include?('- FAIL:') || !output.include?('Passed')
+      raise 'Failed!'
+    else
+      puts 'Passed!'
+    end
   end
 end
