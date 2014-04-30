@@ -1,6 +1,6 @@
 @include test-module('Parse data from a json file') {
 
-  $data: json-parse('../data/browsers.json');
+  $data: json-parse(env('which-base.sass') + 'data/browsers.json');
 
   @include test('json-parse($path)') {
     @include assert-equal(type-of($data), map,
