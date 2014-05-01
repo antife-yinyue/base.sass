@@ -47,4 +47,40 @@
       "The timestamp should can be customized");
   }
 
+
+  @include test('data-url($path)') {
+    @include assert-true(str-index(data-url('assets/1px.png'), 'data:image/png;base64,'),
+      "The mime type of png file should be `image/png`");
+  }
+
+  @include test('data-url($path)') {
+    @include assert-true(str-index(data-url('assets/1px.jpg'), 'data:image/jpeg;base64,'),
+      "The mime type of jpg/jpeg file should be `image/jpeg`");
+  }
+
+  @include test('data-url($path)') {
+    @include assert-true(str-index(data-url('assets/1px.gif'), 'data:image/gif;base64,'),
+      "The mime type of gif file should be `image/gif`");
+  }
+
+  @include test('data-url($path)') {
+    @include assert-true(str-index(data-url('assets/font.eot'), 'data:application/vnd.ms-fontobject;base64,'),
+      "The mime type of eot file should be `application/vnd.ms-fontobject`");
+  }
+
+  @include test('data-url($path)') {
+    @include assert-true(str-index(data-url('assets/font.woff'), 'data:application/font-woff;base64,'),
+      "The mime type of woff file should be `application/font-woff`");
+  }
+
+  @include test('data-url($path)') {
+    @include assert-true(str-index(data-url('assets/font.ttf'), 'data:font/truetype;base64,'),
+      "The mime type of ttf file should be `font/truetype`");
+  }
+
+  @include test('data-url($path)') {
+    @include assert-true(str-index(data-url('assets/font.svg'), 'data:image/svg+xml;base64,'),
+      "The mime type of svg file should be `image/svg+xml`");
+  }
+
 }
