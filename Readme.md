@@ -19,6 +19,12 @@ Coming soon...
 gem 'sass', '~> 3.3.5'
 ```
 
+## Test
+
+```sh
+$ git clone https://github.com/jsw0528/base.sass && cd base.sass && rake
+```
+
 ## License
 
 Licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
