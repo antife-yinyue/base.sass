@@ -1,5 +1,5 @@
 .gems
 .sass-cache
-*.log
+*.css
 *.gem
 Gemfile.lock
