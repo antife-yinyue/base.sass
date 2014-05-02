@@ -1,85 +1,119 @@
 @include test-module('Url helpers for fonts and images') {
 
-  @include test('font-url($path)') {
+  @include test('font-url($paths)') {
+    $paths: 'path/to/font.eot', 'path/to/font.woff';
+    @include assert-equal(type-of(font-url($paths)), list,
+      "`$paths` should can be a list");
+  }
+
+  @include test('font-url($paths)') {
     $f: unquote("format('embedded-opentype')");
-    @include assert-true(str-index(font-url('path/to/font.eot'), $f),
+    $url: nth(font-url('path/to/font.eot'), 1);
+    @include assert-true(str-index($url, $f),
       "The returns should include `#{$f}`");
   }
 
-  @include test('font-url($path)') {
-    @include assert-true(str-index(font-url('path/to/font.eot#iefix'), '#iefix)'),
+  @include test('font-url($paths)') {
+    $url: nth(font-url('path/to/font.eot#iefix'), 1);
+    @include assert-true(str-index($url, '#iefix)'),
       "The anchor should can be retained");
   }
 
-  @include test('font-url($path)') {
-    @include assert-true(str-index(font-url('path/to/font.eot'), '.eot?'),
+  @include test('font-url($paths)') {
+    $url: nth(font-url('path/to/font.eot'), 1);
+    @include assert-true(str-index($url, '.eot?'),
       "The timestamp should added automatically");
   }
 
-  @include test('font-url($path)') {
-    @include assert-false(str-index(font-url('path/to/font.eot', false), '.eot?'),
+  @include test('font-url($paths, $cache_buster)') {
+    $url: nth(font-url('path/to/font.eot', false), 1);
+    @include assert-false(str-index($url, '.eot?'),
       "The timestamp should can be closed");
   }
 
-  @include test('font-url($path)') {
-    @include assert-true(str-index(font-url('path/to/font.eot', abc), '.eot?abc'),
+  @include test('font-url($paths, $cache_buster)') {
+    $url: nth(font-url('path/to/font.eot', abc), 1);
+    @include assert-true(str-index($url, '.eot?abc'),
       "The timestamp should can be customized");
   }
 
 
-  @include test('image-url($path)') {
-    @include assert-true(str-index(image-url('path/to/pic.png#anchor'), '#anchor)'),
+  @include test('image-url($paths)') {
+    $paths: 'path/to/pic1.png', 'path/to/pic2.png';
+    @include assert-equal(type-of(image-url($paths)), list,
+      "`$paths` should can be a list");
+  }
+
+  @include test('image-url($paths)') {
+    $url: nth(image-url('path/to/pic.png#anchor'), 1);
+    @include assert-true(str-index($url, '#anchor)'),
       "The anchor should can be retained");
   }
 
-  @include test('image-url($path)') {
-    @include assert-true(str-index(image-url('path/to/pic.png'), '.png?'),
+  @include test('image-url($paths)') {
+    $url: nth(image-url('path/to/pic.png'), 1);
+    @include assert-true(str-index($url, '.png?'),
       "The timestamp should added automatically");
   }
 
-  @include test('image-url($path)') {
-    @include assert-false(str-index(image-url('path/to/pic.png', false), '.png?'),
+  @include test('image-url($paths, $cache_buster)') {
+    $url: nth(image-url('path/to/pic.png', false), 1);
+    @include assert-false(str-index($url, '.png?'),
       "The timestamp should can be closed");
   }
 
-  @include test('image-url($path)') {
-    @include assert-true(str-index(image-url('path/to/pic.png', abc), '.png?abc'),
+  @include test('image-url($paths, $cache_buster)') {
+    $url: nth(image-url('path/to/pic.png', abc), 1);
+    @include assert-true(str-index($url, '.png?abc'),
       "The timestamp should can be customized");
   }
 
 
-  @include test('data-url($path)') {
-    @include assert-true(str-index(data-url('assets/1px.png'), 'data:image/png;base64,'),
+  @include test('data-url($paths)') {
+    $paths: 'assets/1px.png', 'assets/1px.jpg';
+    @include assert-equal(type-of(data-url($paths)), list,
+      "`$paths` should can be a list");
+  }
+
+  @include test('data-url($paths)') {
+    $url: nth(data-url('assets/1px.png'), 1);
+    @include assert-true(str-index($url, 'data:image/png;base64,'),
       "The mime type of png file should be `image/png`");
   }
 
-  @include test('data-url($path)') {
-    @include assert-true(str-index(data-url('assets/1px.jpg'), 'data:image/jpeg;base64,'),
+  @include test('data-url($paths)') {
+    $url: nth(data-url('assets/1px.jpg'), 1);
+    @include assert-true(str-index($url, 'data:image/jpeg;base64,'),
       "The mime type of jpg/jpeg file should be `image/jpeg`");
   }
 
-  @include test('data-url($path)') {
-    @include assert-true(str-index(data-url('assets/1px.gif'), 'data:image/gif;base64,'),
+  @include test('data-url($paths)') {
+    $url: nth(data-url('assets/1px.gif'), 1);
+    @include assert-true(str-index($url, 'data:image/gif;base64,'),
       "The mime type of gif file should be `image/gif`");
   }
 
-  @include test('data-url($path)') {
-    @include assert-true(str-index(data-url('assets/font.eot'), 'data:application/vnd.ms-fontobject;base64,'),
+  @include test('data-url($paths)') {
+    $url: nth(data-url('assets/font.eot'), 1);
+    @include assert-true(str-index($url, 'data:application/vnd.ms-fontobject;base64,'),
       "The mime type of eot file should be `application/vnd.ms-fontobject`");
   }
 
-  @include test('data-url($path)') {
-    @include assert-true(str-index(data-url('assets/font.woff'), 'data:application/font-woff;base64,'),
+  @include test('data-url($paths)') {
+    $url: nth(data-url('assets/font.woff'), 1);
+    @include assert-true(str-index($url, 'data:application/font-woff;base64,'),
       "The mime type of woff file should be `application/font-woff`");
   }
 
-  @include test('data-url($path)') {
-    @include assert-true(str-index(data-url('assets/font.ttf'), 'data:font/truetype;base64,'),
+  @include test('data-url($paths)') {
+    $url: nth(data-url('assets/font.ttf'), 1);
+    @include assert-true(str-index($url, 'data:font/truetype;base64,'),
       "The mime type of ttf file should be `font/truetype`");
   }
 
-  @include test('data-url($path)') {
-    @include assert-true(str-index(data-url('assets/font.svg'), 'data:image/svg+xml;base64,'),
+  @include test('data-url($paths)') {
+    $url: nth(data-url('assets/font.svg'), 1);
+    @include assert-true(str-index($url, 'data:image/svg+xml;base64,'),
       "The mime type of svg file should be `image/svg+xml`");
   }
 
