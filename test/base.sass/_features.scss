@@ -1,0 +1,33 @@
+@include test-module('Features helper') {
+
+  @include test('grep-features($regex)') {
+    $result: grep-features('^css3?');
+    @include assert-true(index($result, css3-boxsizing),
+      'The result should include `css3-boxsizing`');
+  }
+
+  @include test('grep-features($regex)') {
+    $result: grep-features('box');
+    @include assert-true(index($result, css3-boxsizing),
+      'The result should include `css3-boxsizing`');
+  }
+
+  @include test('grep-features($regex)') {
+    $result: grep-features('box sizing');
+    @include assert-true(index($result, css3-boxsizing),
+      'The result should include `css3-boxsizing`');
+  }
+
+  @include test('grep-features($regex)') {
+    $result: grep-features('box-sizing');
+    @include assert-true(index($result, css3-boxsizing),
+      'The result should include `css3-boxsizing`');
+  }
+
+  @include test('grep-features($regex)') {
+    $result: grep-features('  --box--  ');
+    @include assert-true(index($result, css3-boxsizing),
+      'The result should include `css3-boxsizing`');
+  }
+
+}
