@@ -26,10 +26,10 @@ module Sass::Script::Functions
     urls = resolve_paths(paths).map do |path|
       if path =~ PATH_REGEX
         path, ext, query, anchor = $1 + $2, $2[1..-1].downcase.to_sym, $3, $4
-        query += sign(query) + ts unless ts.nil?
 
         raise Sass::SyntaxError, "Could not determine font type for #{path}" unless FONT_TYPES.key? ext
 
+        query += sign(query) + ts unless ts.nil?
         identifier("url(#{path}#{query}#{anchor}) format('#{FONT_TYPES[ext]}')")
       else
         quoted_string(path)
