@@ -1,12 +1,12 @@
 module Sass::Script::Functions
 
   def to_string(number)
-    return null() unless type_correctly(number)
+    return null() unless is_valid(number)
     identifier(number.value.to_s)
   end
 
   def to_number(string)
-    return null() unless type_correctly(string)
+    return null() unless is_valid(string)
     number(to_if(string.value.to_s))
   end
 
@@ -20,7 +20,7 @@ module Sass::Script::Functions
 
   private
 
-  def type_correctly(arg)
+  def is_valid(arg)
     arg.is_a?(Sass::Script::Value::String) || arg.is_a?(Sass::Script::Value::Number)
   end
 end
