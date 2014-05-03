@@ -4,25 +4,48 @@
 
   @include test('parse-rules($list)') {
     $list: 'Firefox >= 29', 'ios 7';
-    $browser-supports: parse-rules($list);
+    $-browser-supports: parse-rules($list);
     $keys: firefox, ios;
 
-    @include assert-equal(map-keys($browser-supports), $keys,
+    @include assert-equal(map-keys($-browser-supports), $keys,
       'The params also support Sass list');
   }
 
   @include test('parse-rules($rule1, $rule2, ...)') {
-    $browser-supports: parse-rules('last 1 version');
+    $-browser-supports: parse-rules('last 1 version');
 
-    @include assert-equal(map-keys($browser-supports), map-keys($data),
+    @include assert-equal(map-keys($-browser-supports), map-keys($data),
       'All browsers should be supported');
   }
 
   @include test('parse-rules($rule1, $rule2, ...)') {
-    $browser-supports: parse-rules('last 2 Chrome versions');
+    $-browser-supports: parse-rules('last 2 Chrome versions');
 
-    @include assert-true(map-has-key($browser-supports, chrome),
+    @include assert-true(map-has-key($-browser-supports, chrome),
       'The rendered content should has the key `chrome`');
+
+    @include assert-equal(length(map-keys($-browser-supports)), 1,
+      'The rendered content should only has one key');
+  }
+
+  @include test('parse-rules($rule1, $rule2, ...)') {
+    $-browser-supports: parse-rules('ie >= 8');
+
+    @include assert-true(map-has-key($-browser-supports, ie),
+      'The rendered content should has the key `ie`');
+
+    @include assert-equal(length(map-keys($-browser-supports)), 1,
+      'The rendered content should only has one key');
+  }
+
+  @include test('parse-rules($rule1, $rule2, ...)') {
+    $-browser-supports: parse-rules('iOS 7');
+
+    @include assert-true(map-has-key($-browser-supports, ios),
+      'The rendered content should has the key `ios`');
+
+    @include assert-equal(length(map-keys($-browser-supports)), 1,
+      'The rendered content should only has one key');
   }
 
 }
