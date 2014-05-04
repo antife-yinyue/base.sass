@@ -66,7 +66,7 @@ module Sass::Script::Functions
   end
 
 
-  protected
+  private
 
   def assert_valid_browser(browser, version = nil)
     unless @browsers.key? browser
@@ -87,9 +87,6 @@ module Sass::Script::Functions
     end
     prefix
   end
-
-
-  private
 
   def rules_parser(rule)
     case rule
