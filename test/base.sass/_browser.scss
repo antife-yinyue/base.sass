@@ -6,7 +6,7 @@
       'All browsers should be supported');
   }
 
-  @include test('browser-versions($name, $include-future)') {
+  @include test('browser-versions($browser, $include-future)') {
     $versions: 4,;
     @for $i from 5 through 37 {
       $versions: append($versions, $i);
@@ -15,7 +15,7 @@
       "All versions of Chrome (include future) should from 4 through #{nth($versions, length($versions))}");
   }
 
-  @include test('browser-versions($name, $include-future)') {
+  @include test('browser-versions($browser, $include-future)') {
     $versions: 4,;
     @for $i from 5 through 34 {
       $versions: append($versions, $i);

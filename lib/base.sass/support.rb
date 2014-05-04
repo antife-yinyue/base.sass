@@ -18,15 +18,15 @@ module Sass::Script::Functions
     ruby_to_sass(CanIUse.instance.browsers.keys.sort)
   end
 
-  def browser_versions(name, include_future = bool(true))
-    assert_type name, :String
+  def browser_versions(browser, include_future = bool(true))
+    assert_type browser, :String
 
     @browsers ||= CanIUse.instance.browsers
-    name = name.value.downcase
-    assert_valid_browser(name)
+    browser = browser.value.downcase
+    assert_valid_browser(browser)
 
-    versions = @browsers[name]['versions']
-    versions += @browsers[name]['future'].to_a if include_future.to_bool
+    versions = @browsers[browser]['versions']
+    versions += @browsers[browser]['future'].to_a if include_future.to_bool
 
     ruby_to_sass(versions)
   end
@@ -68,21 +68,21 @@ module Sass::Script::Functions
 
   protected
 
-  def assert_valid_browser(name, version = nil)
-    unless @browsers.key? name
-      raise Sass::SyntaxError, "Unknown browser name: #{name}\nYou can find all valid names according to `browsers()`"
+  def assert_valid_browser(browser, version = nil)
+    unless @browsers.key? browser
+      raise Sass::SyntaxError, "Unknown browser name: #{browser}\nYou can find all valid names according to `browsers()`"
     end
 
-    unless version.nil? || sass_to_ruby(browser_versions(identifier(name))).include?(version)
-      raise Sass::SyntaxError, "Unknown version for #{name}: #{version}\nYou can find all valid versions according to `browser-versions(#{name})`"
+    unless version.nil? || sass_to_ruby(browser_versions(identifier(browser))).include?(version)
+      raise Sass::SyntaxError, "Unknown version for #{browser}: #{version}\nYou can find all valid versions according to `browser-versions(#{browser})`"
     end
   end
 
-  def browser_prefix(name, oldest)
+  def browser_prefix(browser, oldest)
     browsers = CanIUse.instance.browsers
-    prefix = browsers[name]['prefix']
+    prefix = browsers[browser]['prefix']
 
-    if name == 'opera' && oldest <= browsers['opera']['presto']
+    if browser == 'opera' && oldest <= browsers['opera']['presto']
       prefix = [prefix, '-o-']
     end
     prefix
