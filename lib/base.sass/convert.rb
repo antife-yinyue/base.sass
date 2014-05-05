@@ -1,12 +1,12 @@
 module Sass::Script::Functions
 
   def to_string(number)
-    return null unless assert_valid_type(number)
+    return null unless is_number_or_string(number)
     identifier(number.value.to_s)
   end
 
   def to_number(string)
-    return null unless assert_valid_type(string)
+    return null unless is_number_or_string(string)
     number(to_if(string.value.to_s))
   end
 
@@ -17,8 +17,8 @@ module Sass::Script::Functions
     s.include?('.') ? s.to_f : s.to_i
   end
 
-  def assert_valid_type(arg)
-    arg.is_a?(Sass::Script::Value::String) || arg.is_a?(Sass::Script::Value::Number)
+  def is_number_or_string(arg)
+    arg.is_a?(Sass::Script::Value::Number) || arg.is_a?(Sass::Script::Value::String)
   end
 
 end
