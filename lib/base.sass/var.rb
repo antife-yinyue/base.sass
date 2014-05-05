@@ -6,7 +6,7 @@ module Sass::Script::Functions
     environment.global_env.var(name.value) || null
   end
 
-  # Get the configuration settings
+  # Get the configurations
   def config(name)
     namespace = 'sass-config'
     config = environment.global_env.var(namespace)
