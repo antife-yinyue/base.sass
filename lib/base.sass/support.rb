@@ -5,13 +5,17 @@ module Sass::Script::Functions
   def parse_rules(*rules)
     @browsers ||= CanIUse.instance.browsers
 
-    rules = rules.map { |rule| sass_to_ruby(rule) }.flatten.uniq
-                 .map { |rule| rules_parser(rule.downcase) }
+    rules =
+      rules.map { |rule| sass_to_ruby(rule) }.flatten.uniq
+        .map { |rule| rules_parser(rule.downcase) }.compact
+        .inject({}) { |memo, browsers|
+          browsers.each { |k, v|
+            memo[k] = (memo[k].to_a + v).uniq.sort
+          }
+          memo
+        }
 
-    ruby_to_sass(rules.compact.inject({}) { |memo, browsers|
-      browsers.each { |k, v| memo[k] = (memo[k].to_a + v).uniq.sort }
-      memo
-    })
+    ruby_to_sass(rules)
   end
 
   def browsers
