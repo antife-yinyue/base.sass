@@ -6,10 +6,10 @@ module Sass::Script::Functions
     environment.global_env.var(name.value) || null
   end
 
-  # Get the configurations
-  def config(name)
+  # Get the configurations of current app
+  def app_config(name)
     assert_type name, :String
-    config = var(identifier('sass-config')).value
+    config = var(identifier('app-config')).value
     config.is_a?(Hash) && config[name] || null
   end
 

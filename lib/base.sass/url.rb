@@ -39,7 +39,7 @@ module Sass::Script::Functions
 
   def timestamp(v)
     if v.nil?
-      cfg = config(identifier('timestamp'))
+      cfg = app_config(identifier('timestamp'))
       v = cfg == null ? bool(true) : cfg
     end
 
