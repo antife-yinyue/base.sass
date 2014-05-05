@@ -14,7 +14,7 @@ module Sass::Script::Functions
     raise Sass::SyntaxError, "The global variable `$#{namespace}` not found" if config.nil?
     raise Sass::SyntaxError, "The global variable `$#{namespace}` is not a map" unless config.is_a? Sass::Script::Value::Map
 
-    map_get(config, name)
+    config.value[name] || null
   end
 
 end

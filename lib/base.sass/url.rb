@@ -24,32 +24,11 @@ module Sass::Script::Functions
     kwargs = args.last.is_a?(Hash) ? args.pop : {}
     raise Sass::SyntaxError, 'url() needs one path at least' if args.empty?
 
-    t = bool(true)
-    ts = timestamp(kwargs['timestamp'] || t)
-    encode = kwargs['base64'] == t
+    encode = kwargs['base64'] == bool(true)
+    ts = timestamp(kwargs['timestamp'])
 
-    args = args.map { |arg| sass_to_ruby(arg) }.flatten.map do |arg|
-
-      output = "url(#{arg})"
-
-      if arg.is_a?(String) && arg =~ PATH_REGEX
-
-        path, ext, query, anchor = $1 + $2, $2[1..-1].downcase.to_sym, $3, $4
-
-        if MIME_TYPES.key? ext
-          if encode
-            data = [read_file(File.expand_path(path))].flatten.pack('m').gsub(/\s/, '')
-            output = "url(data:#{MIME_TYPES[ext]};base64,#{data})"
-          else
-            query += sign(query) + ts unless ts.nil?
-            output = "url(#{path}#{query}#{anchor})"
-            output << " format('#{FONT_TYPES[ext]}')" if FONT_TYPES.key? ext
-          end
-        end
-      end
-
-      identifier(output)
-    end
+    args = args.map { |arg| sass_to_ruby(arg) }.flatten
+               .map { |arg| render(arg, encode, ts) }
 
     list(args, :comma)
   end
@@ -58,9 +37,14 @@ module Sass::Script::Functions
 
   private
 
-  def timestamp(arg)
-    return nil unless arg.to_bool
-    (assert_valid_type(arg) ? arg : strftime).value.to_s
+  def timestamp(v)
+    if v.nil?
+      cfg = config(identifier('timestamp'))
+      v = cfg == null ? bool(true) : cfg
+    end
+
+    return nil unless v.to_bool
+    (is_number_or_string(v) ? v : strftime).value.to_s
   end
 
   def sign(query)
@@ -72,6 +56,29 @@ module Sass::Script::Functions
     else
       '&'
     end
+  end
+
+  def render(arg, encode, ts)
+    output = "url(#{arg})"
+
+    if arg.is_a?(String) && arg =~ PATH_REGEX
+
+      path, ext, query, anchor = $1 + $2, $2[1..-1].downcase.to_sym, $3, $4
+
+      if MIME_TYPES.key? ext
+        if encode
+          data = [read_file(File.expand_path(path))].pack('m').gsub(/\s/, '')
+          output = "url(data:#{MIME_TYPES[ext]};base64,#{data})"
+        else
+          query += sign(query) + ts unless ts.nil?
+          output = "url(#{path}#{query}#{anchor})"
+          output << " format('#{FONT_TYPES[ext]}')" if FONT_TYPES.key? ext
+        end
+      end
+
+    end
+
+    identifier(output)
   end
 
 end
