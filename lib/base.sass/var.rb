@@ -8,13 +8,9 @@ module Sass::Script::Functions
 
   # Get the configurations
   def config(name)
-    namespace = 'sass-config'
-    config = environment.global_env.var(namespace)
-
-    raise Sass::SyntaxError, "The global variable `$#{namespace}` not found" if config.nil?
-    raise Sass::SyntaxError, "The global variable `$#{namespace}` is not a map" unless config.is_a? Sass::Script::Value::Map
-
-    config.value[name] || null
+    assert_type name, :String
+    config = var(identifier('sass-config')).value
+    config.is_a?(Hash) && config[name] || null
   end
 
 end
