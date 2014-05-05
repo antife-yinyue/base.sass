@@ -1,12 +1,12 @@
 module Sass::Script::Functions
 
   def to_string(number)
-    return null() unless assert_valid_type(number)
+    return null unless assert_valid_type(number)
     identifier(number.value.to_s)
   end
 
   def to_number(string)
-    return null() unless assert_valid_type(string)
+    return null unless assert_valid_type(string)
     number(to_if(string.value.to_s))
   end
 

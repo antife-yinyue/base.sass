@@ -46,7 +46,7 @@ module Sass::Script::Functions
     assert_type feature, :String
 
     feature_supports = CanIUse.instance.supports[feature.value]
-    return null() if feature_supports.nil?
+    return null if feature_supports.nil?
 
     prefix = sass_to_ruby(browsers).inject({}) do |memo, (k, v)|
       beginning = feature_supports[k]['beginning']

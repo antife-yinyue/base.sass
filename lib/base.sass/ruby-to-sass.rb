@@ -4,7 +4,7 @@ module Sass::Script::Functions
 
   def ruby_to_sass(obj)
     return bool(obj) if obj.is_a?(TrueClass) || obj.is_a?(FalseClass)
-    return null() if obj.nil?
+    return null if obj.nil?
     return number(obj) if obj.is_a? Numeric
     return to_sass_list(obj) if obj.is_a? Array
     return to_sass_map(obj) if obj.is_a? Hash
