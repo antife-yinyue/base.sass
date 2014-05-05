@@ -1,0 +1,32 @@
+@include test-module('Get global variables') {
+
+  @include test('var($name)') {
+    @include assert-equal(var(foo), null,
+      'The value of `$foo` should be `null`');
+  }
+
+  @include test('var($name)') {
+    $foo: bar !global;
+    @include assert-equal(var(foo), bar,
+      'The value of `$foo` should be `bar`');
+  }
+
+
+  @include test('app-config($name)') {
+    @include assert-equal(app-config(foo), null,
+      'If global variable `$app-config` not found, `foo` should be `null`');
+  }
+
+  @include test('app-config($name)') {
+    $app-config: true !global;
+    @include assert-equal(app-config(foo), null,
+      'If global variable `$app-config` is not a map, `foo` should be `null`');
+  }
+
+  @include test('app-config($name)') {
+    $app-config: (foo: bar) !global;
+    @include assert-equal(app-config(foo), bar,
+      'If global variable `$app-config` is defined, `foo` should be `bar`');
+  }
+
+}
