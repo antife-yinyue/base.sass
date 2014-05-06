@@ -1,0 +1,16 @@
+$browser-supports: parse-rules('last 1 version') !default;
+
+// Example:
+// support-browser(ios)
+// support-browser(ie 8)
+@function support-browser($arg) {
+  @if length($arg) == 1 {
+    @return map-has-key($browser-supports, to-lower-case($arg));
+  }
+  @else {
+    @return index(
+      map-get($browser-supports, to-lower-case(nth($arg, 1))),
+      nth($arg, 2)
+    );
+  }
+}

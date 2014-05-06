@@ -1,0 +1,15 @@
+$-registered-placeholders: ();
+
+@mixin placeholder-wrapper($name) {
+  $name: unquote('#{$name}');
+
+  @if not map-has-key($-registered-placeholders, $name) {
+    @at-root %#{$name} {
+      @content;
+    }
+
+    $-registered-placeholders: map-merge($-registered-placeholders, ($name: true)) !global;
+  }
+
+  @extend %#{$name};
+}
