@@ -66,19 +66,28 @@ module Sass::Script::Functions
       path, ext, query, anchor = $1 + $2, $2[1..-1].downcase.to_sym, $3, $4
 
       if MIME_TYPES.key? ext
-        if encode
-          data = [read_file(File.expand_path(path))].pack('m').gsub(/\s/, '')
-          output = "url(data:#{MIME_TYPES[ext]};base64,#{data})"
+        output = if encode
+          output_data(path, ext)
         else
-          query += sign(query) + ts unless ts.nil?
-          output = "url(#{path}#{query}#{anchor})"
-          output << " format('#{FONT_TYPES[ext]}')" if FONT_TYPES.key? ext
+          output_path(path, ext, query, anchor, ts)
         end
       end
 
     end
 
     identifier(output)
+  end
+
+  def output_data(path, ext)
+    data = [read_file(File.expand_path(path))].pack('m').gsub(/\s/, '')
+    "url(data:#{MIME_TYPES[ext]};base64,#{data})"
+  end
+
+  def output_path(path, ext, query, anchor, ts)
+    query += sign(query) + ts unless ts.nil?
+    output = "url(#{path}#{query}#{anchor})"
+    output << " format('#{FONT_TYPES[ext]}')" if FONT_TYPES.key? ext
+    output
   end
 
 end
