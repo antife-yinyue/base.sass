@@ -1,4 +1,5 @@
-# Thanks for Compass, http://beta.compass-style.org/reference/compass/helpers/selectors/
+# Thanks for Compass
+# Document reference: http://beta.compass-style.org/reference/compass/helpers/selectors/
 module Sass::Script::Functions
   COMMA_SEPARATOR = /\s*,\s*/
 

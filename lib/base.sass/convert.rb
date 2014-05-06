@@ -1,10 +1,12 @@
 module Sass::Script::Functions
 
+  # Convert whatever a number or a string to a string.
   def to_string(number)
     return null unless is_number_or_string(number)
     identifier(number.value.to_s)
   end
 
+  # Convert whatever a number or a string to a number.
   def to_number(string)
     return null unless is_number_or_string(string)
     number(to_if(string.value.to_s))

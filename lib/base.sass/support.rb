@@ -15,10 +15,12 @@ module Sass::Script::Functions
     ruby_to_sass(selected_browsers.each { |k, v| v.uniq!; v.sort! })
   end
 
+  # Returns all the known browsers according to `data/browsers.json`.
   def browsers
     ruby_to_sass(CanIUse.instance.browsers.keys.sort)
   end
 
+  # Returns the versions for the given browser.
   def browser_versions(browser, include_future = bool(true))
     assert_type browser, :String
 
@@ -32,6 +34,12 @@ module Sass::Script::Functions
     ruby_to_sass(versions)
   end
 
+  # Grep feature names according to caniuse by regex.
+  #
+  # Examples:
+  # grep-features('^css3?')     => /^css3?/
+  # grep-features('box sizing') => /box|sizing/
+  # grep-features('box-sizing') => /box|sizing/
   def grep_features(regex)
     assert_type regex, :String
 

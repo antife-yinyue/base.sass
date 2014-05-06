@@ -4,6 +4,12 @@ module Sass::Script::Functions
 
   $cached_files = {}
 
+  # Parse a local json file, returns a map, and the result will be cached.
+  # If the `path` is not absolute, relative to current process directory.
+  #
+  # Examples:
+  # json-parse('~/Desktop/example.json')
+  # json-parse('package.json')
   def json_parse(path)
     assert_type path, :String
     path = File.expand_path(path.value)

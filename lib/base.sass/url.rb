@@ -20,6 +20,25 @@ module Sass::Script::Functions
     svg: 'image/svg+xml'
   }
 
+  # Reinforce the official `url()` in CSS to support multi url and data url.
+  # Activates only when all paths are wrapped with quotes.
+  #
+  # Examples:
+  # url(http://a.com/b.png)      => url(http://a.com/b.png) # Did nothing
+  # url('http://a.com/b.png')    => url(http://a.com/b.png?1399394203)
+  # url('a.png', 'b.png')        => url(a.png?1399394203), url(b.png?1399394203)
+  # url('a.eot#iefix', 'b.woff') => url(a.eot?1399394203#iefix) format('embedded-opentype'), url(b.woff?1399394203) format('woff')
+  #
+  # url('a.png', $timestamp: false)   => url(a.png)
+  # url('a.png', $timestamp: '1.0.0') => url(a.png?1.0.0)
+  #
+  # $app-config: (timestamp: 'v587');
+  # url('a.png') => url(a.png?v587)
+  #
+  # $app-config: (timestamp: 'p1');
+  # url('a.png', $timestamp: 'p0') => url(a.png?p0)
+  #
+  # url('a.png', $base64: true) => url(data:image/png;base64,iVBORw...)
   def url(*paths)
     kwargs = paths.last.is_a?(Hash) ? paths.pop : {}
     raise Sass::SyntaxError, 'url() needs one path at least' if paths.empty?
@@ -58,10 +77,10 @@ module Sass::Script::Functions
     end
   end
 
-  def to_url(arg, encode, ts)
-    output = "url(#{arg})"
+  def to_url(path, encode, ts)
+    output = "url(#{path})"
 
-    if arg.is_a?(String) && arg =~ PATH_REGEX
+    if path.is_a?(String) && path =~ PATH_REGEX
 
       path, ext, query, anchor = $1 + $2, $2[1..-1].downcase.to_sym, $3, $4
 
