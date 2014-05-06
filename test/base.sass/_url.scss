@@ -7,6 +7,12 @@
   }
 
   @include test('url($path1, $path2, ...)') {
+    $url: nth(url(http://a.com/b.png), 1);
+    @include assert-equal($url, 'url(http://a.com/b.png)',
+      "Did nothing unless paths are wrapped with quotes");
+  }
+
+  @include test('url($path1, $path2, ...)') {
     $url: nth(url(), 1);
     @include assert-equal($url, 'url()',
       "If no paths assigned, returns self");
