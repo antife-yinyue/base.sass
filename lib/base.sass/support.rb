@@ -113,7 +113,7 @@ module Sass::Script::Functions
   end
 
   def last_versions_parser(num)
-    @browsers.inject do |memo, (k, v)|
+    @browsers.inject({}) do |memo, (k, v)|
       memo[k] = v['versions'].last(num.to_i)
       memo
     end
