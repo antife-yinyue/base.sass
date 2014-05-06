@@ -1,6 +1,7 @@
 # The beginning of your stylesheets.
 
 [![Gem Version](https://badge.fury.io/rb/base.sass.svg)](http://badge.fury.io/rb/base.sass)
+1.0.0.alpha
 [![Build Status](https://travis-ci.org/jsw0528/base.sass.svg?branch=master)](https://travis-ci.org/jsw0528/base.sass)
 
 ## Installation
@@ -16,7 +17,7 @@ Coming soon...
 ## Dependence
 
 ```ruby
-gem 'sass', '~> 3.3.5'
+gem 'sass', '~> 3.3.7'
 ```
 
 ## Test
