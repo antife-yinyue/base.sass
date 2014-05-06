@@ -6,13 +6,13 @@ module Sass::Script::Functions
     rules = rules.map { |rule| sass_to_ruby(rule) }.flatten.uniq
 
     @browsers ||= CanIUse.instance.browsers
-    supported_browsers =
+    selected_browsers =
       rules.map { |rule| rules_parser(rule.downcase) }.compact
            .inject { |memo, versions|
-             memo.merge(versions) { |k, orig, added| (orig + added).uniq.sort }
+             memo.merge(versions) { |k, orig, added| orig + added }
            }
 
-    ruby_to_sass(supported_browsers)
+    ruby_to_sass(selected_browsers.each { |k, v| v.uniq!; v.sort! })
   end
 
   def browsers
