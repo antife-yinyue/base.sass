@@ -20,31 +20,31 @@ module Sass::Script::Functions
     svg: 'image/svg+xml'
   }
 
-  def url(*args)
-    kwargs = args.last.is_a?(Hash) ? args.pop : {}
-    raise Sass::SyntaxError, 'url() needs one path at least' if args.empty?
+  def url(*paths)
+    kwargs = paths.last.is_a?(Hash) ? paths.pop : {}
+    raise Sass::SyntaxError, 'url() needs one path at least' if paths.empty?
 
     encode = kwargs['base64'] == bool(true)
     ts = timestamp(kwargs['timestamp'])
 
-    args = args.map { |arg| sass_to_ruby(arg) }.flatten
-               .map { |arg| render(arg, encode, ts) }
+    paths = paths.map { |path| sass_to_ruby(path) }.flatten
+                 .map { |path| to_url(path, encode, ts) }
 
-    list(args, :comma)
+    list(paths, :comma)
   end
   declare :url, [], var_args: true, var_kwargs: true
 
 
   private
 
-  def timestamp(v)
-    if v.nil?
+  def timestamp(ts)
+    if ts.nil?
       cfg = app_config(identifier('timestamp'))
-      v = cfg == null ? bool(true) : cfg
+      ts = cfg == null ? bool(true) : cfg
     end
 
-    return nil unless v.to_bool
-    (is_number_or_string(v) ? v : strftime).value.to_s
+    return nil unless ts.to_bool
+    (is_number_or_string(ts) ? ts : strftime).value.to_s
   end
 
   def sign(query)
@@ -58,7 +58,7 @@ module Sass::Script::Functions
     end
   end
 
-  def render(arg, encode, ts)
+  def to_url(arg, encode, ts)
     output = "url(#{arg})"
 
     if arg.is_a?(String) && arg =~ PATH_REGEX

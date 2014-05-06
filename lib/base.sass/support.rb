@@ -5,15 +5,11 @@ module Sass::Script::Functions
   def parse_rules(*rules)
     @browsers ||= CanIUse.instance.browsers
 
-    rules =
-      rules.map { |rule| sass_to_ruby(rule) }.flatten.uniq
-        .map { |rule| rules_parser(rule.downcase) }.compact
-        .inject({}) { |memo, browsers|
-          browsers.each { |k, v|
-            memo[k] = (memo[k].to_a + v).uniq.sort
-          }
-          memo
-        }
+    rules = rules.map { |rule| sass_to_ruby(rule) }.flatten.uniq
+    rules = rules.map { |rule| rules_parser(rule.downcase) }.compact
+    rules = rules.inject { |memo, versions|
+      memo.merge(versions) { |k, orig, added| (orig + added).uniq.sort }
+    }
 
     ruby_to_sass(rules)
   end
@@ -117,7 +113,7 @@ module Sass::Script::Functions
   end
 
   def last_versions_parser(num)
-    @browsers.inject({}) do |memo, (k, v)|
+    @browsers.inject do |memo, (k, v)|
       memo[k] = v['versions'].last(num.to_i)
       memo
     end
