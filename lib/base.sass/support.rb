@@ -3,15 +3,16 @@ module Sass::Script::Functions
   # Refer to https://github.com/ai/autoprefixer#browsers
   # Do not support global usage statistics: `> 5%`
   def parse_rules(*rules)
-    @browsers ||= CanIUse.instance.browsers
-
     rules = rules.map { |rule| sass_to_ruby(rule) }.flatten.uniq
-    rules = rules.map { |rule| rules_parser(rule.downcase) }.compact
-    rules = rules.inject { |memo, versions|
-      memo.merge(versions) { |k, orig, added| (orig + added).uniq.sort }
-    }
 
-    ruby_to_sass(rules)
+    @browsers ||= CanIUse.instance.browsers
+    supported_browsers =
+      rules.map { |rule| rules_parser(rule.downcase) }.compact
+           .inject { |memo, versions|
+             memo.merge(versions) { |k, orig, added| (orig + added).uniq.sort }
+           }
+
+    ruby_to_sass(supported_browsers)
   end
 
   def browsers
