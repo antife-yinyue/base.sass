@@ -1,0 +1,9 @@
+@mixin float($side, $important: null) {
+  $important: if($important, ' !important', '');
+  $side: unquote($side) + $important;
+
+  float: $side;
+  @if support-browser(ie 6) {
+    _display: inline + $important;
+  }
+}
