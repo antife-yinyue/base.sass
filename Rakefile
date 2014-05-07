@@ -103,7 +103,7 @@ end
 
 desc 'Unit test'
 task :test do
-  system 'cd test && bundle --quiet && bundle exec sass -r base.sass -r true tests.scss:report.css'
+  system 'cd test && bundle --quiet && bundle exec sass -r base.sass -r true -t expanded tests.scss:report.css'
   open('test/report.css') do |f|
     output = f.read.to_s
     raise if output.include?('- FAIL:') || !output.include?('Passed')
