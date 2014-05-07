@@ -1,7 +1,7 @@
 @mixin clearfix {
   $colon: unquote(if(support-browser(ie 8), ':', '::')) !global;
 
-  @include placeholder-wrapper(-clearfix) {
+  @include placeholder-wrapper('clearfix') {
     &#{$colon}before,
     &#{$colon}after {
       content: '\20';

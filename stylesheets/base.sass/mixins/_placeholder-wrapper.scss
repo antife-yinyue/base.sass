@@ -1,15 +1,14 @@
 $-registered-placeholders: ();
 
 @mixin placeholder-wrapper($name) {
-  $name: unquote('#{$name}');
+  $times: map-get($-registered-placeholders, $name) or 0;
 
-  @if not map-has-key($-registered-placeholders, $name) {
-    @at-root %#{$name} {
+  @if $times == 0 {
+    @at-root %-#{$name} {
       @content;
     }
-
-    $-registered-placeholders: map-merge($-registered-placeholders, ($name: true)) !global;
   }
 
-  @extend %#{$name};
+  @extend %-#{$name};
+  $-registered-placeholders: map-merge($-registered-placeholders, ($name: $times + 1)) !global;
 }
