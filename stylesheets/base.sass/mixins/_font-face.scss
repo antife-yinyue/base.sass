@@ -6,7 +6,6 @@
       @if str-index($path, '.eot') {
         $i: str-index($path, '#');
         $end: if($i, $i - 1, str-length($path));
-
         $ie9-url: url(str-slice($path, 1, $end));
       }
     }
@@ -19,29 +18,3 @@
     src: url($paths);
   }
 }
-
-// === Pivate (start with hyphen) ===
-// @function -combo-font-urls($prefix, $timestamp) {
-//   $src: comma-list();
-
-//   @if support-browser(ie 8) {
-//     $src: append($src, font-files($prefix + '.eot' + $timestamp + '#iefix'));
-//   }
-
-//   // Modern browsers
-//   $src: append($src, font-files($prefix + '.woff' + $timestamp));
-
-//   @if support-browser(ios 4.2) or
-//       support-browser(android 4.2) or
-//       support-browser(safari 5) or
-//       support-browser(opera 11)
-//   {
-//     $src: append($src, font-files($prefix + '.ttf' + $timestamp));
-//   }
-
-//   @if support-browser(ios 4) or support-browser(android 2.3) {
-//     $src: append($src, font-files($prefix + '.svg' + $timestamp + '#iconfont'));
-//   }
-
-//   @return $src;
-// }
