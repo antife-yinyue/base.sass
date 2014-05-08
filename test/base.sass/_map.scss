@@ -1,0 +1,24 @@
+@include test-module('Functions for map') {
+
+  @include test('map-deep-merge($map, $sub-map)') {
+    $map1: ( a: (x: 'x') );
+    $map2: ( a: (y: 'y') );
+    $map3: ( a: (x: 'x', y: 'y') );
+    @include assert-equal(map-deep-merge($map1, $map2), $map3,
+      'Map should deep merge');
+  }
+
+  @include test('map-find($map, $keys)') {
+    $map: ( a: (x: 'x') );
+    $result: (x: 'x');
+    @include assert-equal(map-find($map, a), $result,
+      'The result should be a map');
+  }
+
+  @include test('map-find($map, $keys)') {
+    $map: ( a: (x: 'x') );
+    @include assert-equal(map-find($map, 'a.x'), x,
+      'The result should be `x`');
+  }
+
+}
