@@ -1,12 +1,8 @@
 @mixin inline-block {
+  display: inline-block;
+
   @if support-browser(ie 7) {
-    @include placeholder-wrapper('inline-block') {
-      display: inline-block;
-      *display: inline;
-      *zoom: 1;
-    }
-  }
-  @else {
-    display: inline-block;
+    *display: inline;
+    *zoom: 1;
   }
 }
