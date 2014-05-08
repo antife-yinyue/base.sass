@@ -8,7 +8,7 @@ $browser-supports: parse-rules('last 1 version') !default;
     @return map-has-key($browser-supports, to-lower-case($arg));
   }
   @else {
-    @return index(
+    @return not not index(
       map-get($browser-supports, to-lower-case(nth($arg, 1))),
       nth($arg, 2)
     );
