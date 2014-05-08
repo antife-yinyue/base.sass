@@ -1,5 +1,5 @@
 @mixin float($side, $important: null) {
-  $flag: if($important, ' !important', null);
+  $flag: if($important, ' !important', '');
 
   float: unquote($side) + $flag;
   @if support-browser(ie 6) {
