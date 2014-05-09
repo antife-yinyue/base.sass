@@ -2,7 +2,6 @@
 @import 'base.sass/*';
 
 @import 'base.sass/browser';
-@import 'base.sass/convert';
 @import 'base.sass/env';
 @import 'base.sass/features';
 @import 'base.sass/json-parse';
@@ -12,6 +11,5 @@
 @import 'base.sass/selector';
 @import 'base.sass/strftime';
 @import 'base.sass/url';
-@import 'base.sass/var';
 
 @include report;

@@ -12,4 +12,11 @@ module Sass::Script::Functions
     ruby_to_sass(ENV[name.value.gsub('-', '_').upcase])
   end
 
+  # Get the configurations of current app
+  def app_config(name)
+    assert_type name, :String
+    config = environment.global_env.var('app-config')
+    config.is_a?(Sass::Script::Value::Map) && config.value[name] || null
+  end
+
 end

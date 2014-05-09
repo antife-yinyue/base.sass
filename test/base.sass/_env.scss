@@ -1,4 +1,4 @@
-@include test-module('SASS_ENV') {
+@include test-module('Environment') {
 
   @include test('env($name)') {
     @include assert-equal(env(SASS_ENV), development,
@@ -18,6 +18,24 @@
   @include test('env($name)') {
     @include assert-equal(env(other), null,
       'If not found, should return `null`');
+  }
+
+
+  @include test('app-config($name)') {
+    @include assert-equal(app-config(foo), null,
+      'If global variable `$app-config` not found, `foo` should be `null`');
+  }
+
+  @include test('app-config($name)') {
+    $app-config: true !global;
+    @include assert-equal(app-config(foo), null,
+      'If global variable `$app-config` is not a map, `foo` should be `null`');
+  }
+
+  @include test('app-config($name)') {
+    $app-config: (foo: bar) !global;
+    @include assert-equal(app-config(foo), bar,
+      'If global variable `$app-config` is defined, `foo` should be `bar`');
   }
 
 }

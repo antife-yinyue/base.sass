@@ -1,7 +1,15 @@
 module Sass::Script::Functions
 
-  # Refer to https://github.com/ai/autoprefixer#browsers
-  # Do not support global usage statistics: `> 5%`
+  # `last 1 version`
+  #   is last versions for each browser.
+  # `last 2 Chrome versions`
+  #   is last versions of the specified browser.
+  # `IE > 8`
+  #   is IE versions newer than 8.
+  # `IE >= 8`
+  #   is IE version 8 or newer.
+  # `iOS 7`
+  #   to set browser version directly.
   def parse_rules(*rules)
     rules = rules.map { |rule| sass_to_ruby(rule) }.flatten.uniq
 
@@ -20,7 +28,7 @@ module Sass::Script::Functions
     ruby_to_sass(CanIUse.instance.browsers.keys.sort)
   end
 
-  # Returns the versions for the given browser.
+  # Returns the versions by the given browser.
   def browser_versions(browser, include_future = bool(true))
     assert_type browser, :String
 
@@ -50,30 +58,6 @@ module Sass::Script::Functions
     ruby_to_sass(CanIUse.instance.supports.keys.select { |k| k =~ regex }.sort)
   end
 
-  def required_prefix(browsers, feature)
-    assert_type browsers, :Map
-    assert_type feature, :String
-
-    feature_supports = CanIUse.instance.supports[feature.value]
-    return null if feature_supports.nil?
-
-    prefix = sass_to_ruby(browsers).inject({}) do |memo, (k, v)|
-      beginning = feature_supports[k]['beginning']
-      official = feature_supports[k]['official']
-
-      memo[k] = if official && v.first >= official
-        false
-      elsif beginning && v.last >= beginning
-        browser_prefix(k, v.first)
-      else
-        nil
-      end
-      memo
-    end
-
-    ruby_to_sass(prefix)
-  end
-
 
   private
 
@@ -85,16 +69,6 @@ module Sass::Script::Functions
     unless version.nil? || sass_to_ruby(browser_versions(identifier(browser))).include?(version)
       raise Sass::SyntaxError, "Unknown version for #{browser}: #{version}\nYou can find all valid versions according to `browser-versions(#{browser})`"
     end
-  end
-
-  def browser_prefix(browser, oldest)
-    browsers = CanIUse.instance.browsers
-    prefix = browsers[browser]['prefix']
-
-    if browser == 'opera' && oldest <= browsers['opera']['presto']
-      prefix = [prefix, '-o-']
-    end
-    prefix
   end
 
   def rules_parser(rule)
@@ -151,6 +125,10 @@ module Sass::Script::Functions
     version = to_if(version)
     assert_valid_browser(browser, version)
     Hash[browser, [version]]
+  end
+
+  def to_if(s)
+    s.include?('.') ? s.to_f : s.to_i
   end
 
 end

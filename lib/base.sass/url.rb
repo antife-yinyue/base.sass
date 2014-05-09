@@ -57,13 +57,15 @@ module Sass::Script::Functions
   private
 
   def timestamp(ts)
+    # no kwargs
     if ts.nil?
       cfg = app_config(identifier('timestamp'))
       ts = cfg == null ? bool(true) : cfg
     end
 
     return nil unless ts.to_bool
-    (is_number_or_string(ts) ? ts : strftime).value.to_s
+    return strftime.value if ts.is_a? Sass::Script::Value::Bool
+    ts.value.to_s
   end
 
   def sign(query)
