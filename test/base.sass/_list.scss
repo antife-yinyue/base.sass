@@ -1,7 +1,12 @@
 @include test-module('Functions for list') {
 
-  @include test('comma-list()') {
+  @include test('comma-list($list)') {
     @include assert-equal(list-separator(comma-list()), comma,
+      'The separator should be `comma`');
+  }
+
+  @include test('comma-list($list)') {
+    @include assert-equal(list-separator(comma-list(1 2 3)), comma,
       'The separator should be `comma`');
   }
 
