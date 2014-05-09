@@ -1,23 +1,37 @@
 # The beginning of your stylesheets.
 
-[![Gem Version](https://badge.fury.io/rb/base.sass.svg)](http://badge.fury.io/rb/base.sass)
-1.0.0.alpha
 [![Build Status](https://travis-ci.org/jsw0528/base.sass.svg?branch=master)](https://travis-ci.org/jsw0528/base.sass)
 
 ## Installation
 
-```sh
-$ gem install base.sass
+```ruby
+gem 'base.sass', :github => 'jsw0528/base.sass'
 ```
-
-## Usage
-
-Coming soon...
 
 ## Dependence
 
 ```ruby
-gem 'sass', '~> 3.3.7'
+gem 'sass', '~> 3.3'
+```
+
+## Rules (case insensitive)
+
+### Browsers
+
+```scss
+browsers() //=> android, chrome, firefox, ie, ios, opera, safari
+```
+
+- `last 1 version` is last versions for each browser.
+- `last 2 Chrome versions` is last versions of the specified browser.
+- `IE > 8` is IE versions newer than 8.
+- `IE >= 8` is IE version 8 or newer.
+- `iOS 7` to set browser version directly.
+
+## Usage
+
+```scss
+$browser-supports: parse-rules('last 1 version', 'IE >= 8');
 ```
 
 ## Test
