@@ -1,13 +1,13 @@
 @include test-module('Parse data from a json file') {
 
-  $data: json-parse(env(pwd) + '/../data/browsers.json');
+  $data: parse-json(env(pwd) + '/../data/browsers.json');
 
-  @include test('json-parse($path)') {
+  @include test('parse-json($path)') {
     @include assert-equal(type-of($data), map,
       'The type of rendered content should be `map`');
   }
 
-  @include test('json-parse($path)') {
+  @include test('parse-json($path)') {
     @include assert-true(map-has-key($data, chrome),
       'The rendered content should has the key `chrome`');
   }

@@ -8,9 +8,9 @@ module Sass::Script::Functions
   # If the `path` is not absolute, relative to current process directory.
   #
   # Examples:
-  # json-parse('~/Desktop/example.json')
-  # json-parse('package.json')
-  def json_parse(path)
+  # parse-json('~/Desktop/example.json')
+  # parse-json('package.json')
+  def parse_json(path)
     assert_type path, :String
     path = File.expand_path(path.value)
 
@@ -18,14 +18,14 @@ module Sass::Script::Functions
       Sass.logger.debug "Reading file from cache: #{path}"
       $cached_files[path]
     else
-      $cached_files[path] = ruby_to_sass(json_load(path))
+      $cached_files[path] = ruby_to_sass(load_json(path))
     end
   end
 
 
   protected
 
-  def json_load(path)
+  def load_json(path)
     JSON.load(
       read_file(File.expand_path(path)).to_s.gsub(/(\\r|\\n)/, '')
     )

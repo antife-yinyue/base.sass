@@ -7,8 +7,8 @@ class CanIUse
   DATA_DIR = File.join(File.dirname(__FILE__), '..', '..', 'data')
 
   def initialize
-    @caniuse_browsers = json_load(File.join(DATA_DIR, 'browsers.json'))
-    @caniuse_supports = json_load(File.join(DATA_DIR, 'supports.json'))
+    @caniuse_browsers = load_json(File.join(DATA_DIR, 'browsers.json'))
+    @caniuse_supports = load_json(File.join(DATA_DIR, 'supports.json'))
   end
 
   def browsers

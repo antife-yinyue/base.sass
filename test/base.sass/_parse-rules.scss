@@ -1,6 +1,6 @@
 @include test-module('Parse rules') {
 
-  $data: json-parse(env(pwd) + '/../data/browsers.json');
+  $data: parse-json(env(pwd) + '/../data/browsers.json');
 
   @include test('parse-rules($list)') {
     $list: 'Firefox >= 29', 'ios 7';
