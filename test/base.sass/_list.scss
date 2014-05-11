@@ -10,4 +10,47 @@
       'The separator should be `comma`');
   }
 
+
+  @include test('slice($list, $min, $max)') {
+    $list: comma-list(1 2 3 4 5);
+    @include assert-equal(slice($list), $list,
+      'The result should be equal to self');
+  }
+
+  @include test('slice($list, $min, $max)') {
+    $list: comma-list(1 2 3 4 5);
+    @include assert-equal(slice($list, 3), comma-list(3 4 5),
+      'The result should be equal to 3, 4, 5');
+  }
+
+  @include test('slice($list, $min, $max)') {
+    $list: comma-list(1 2 3 4 5);
+    @include assert-equal(slice($list, 2, 4), comma-list(2 3 4),
+      'The result should be equal to 2, 3, 4');
+  }
+
+  @include test('slice($list, $min, $max)') {
+    $list: comma-list(1 2 3 4 5);
+    @include assert-equal(slice($list, 3, -1), comma-list(3 4 5),
+      'The result should be equal to 3, 4, 5');
+  }
+
+  @include test('slice($list, $min, $max)') {
+    $list: comma-list(1 2 3 4 5);
+    @include assert-equal(slice($list, 4, 6), comma-list(4 5),
+      'The result should be equal to 4, 5');
+  }
+
+  @include test('slice($list, $min, $max)') {
+    $list: comma-list(1 2 3 4 5);
+    @include assert-equal(slice($list, 4, -3), comma-list(),
+      'The result should be an empty list');
+  }
+
+  @include test('slice($list, $min, $max)') {
+    $list: comma-list(1 2 3 4 5);
+    @include assert-equal(slice($list, -1, 2), comma-list(),
+      'The result should be an empty list');
+  }
+
 }
