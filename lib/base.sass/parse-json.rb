@@ -4,8 +4,8 @@ module Sass::Script::Functions
 
   $cached_files = {}
 
-  # Parse a local json file, returns a map, and the result will be cached.
-  # If the `path` is not absolute, relative to current process directory.
+  # Parses a local json file, returns a map, and the result will be cached.
+  # If the `path` is not a absolute path, relative to current process directory.
   #
   # Examples:
   # parse-json('~/Desktop/example.json')

@@ -13,10 +13,11 @@ module Sass::Script::Functions
   end
 
   # Get the configurations of current app.
-  # All settings are defined in `app-config` namespace.
+  # Returns null if the named configuration does not exist.
   #
   # Examples:
-  # $app-config: (timestamp: false);
+  # $app-config: (timestamp: '1.0.0');
+  # app-config(timestamp) => 1.0.0
   def app_config(name)
     assert_type name, :String
     config = environment.global_env.var('app-config')
