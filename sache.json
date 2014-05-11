@@ -1,6 +1,6 @@
 {
   "name": "base.sass",
   "description": "The beginning of your stylesheets.",
-  "tags": ["Sass Extensions", "Mixins Build On Placeholder Selectors"],
+  "tags": ["Sass Extensions", "Powerful Mixins"],
   "docs": "https://github.com/jsw0528/base.sass#readme"
 }

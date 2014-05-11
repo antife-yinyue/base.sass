@@ -1,7 +1,5 @@
 module Sass::Script::Functions
 
-  PATH_REGEX = /^(.*)(\.\w+)(\??[^#]*)(#?.*)$/
-
   FONT_TYPES = {
     eot: 'embedded-opentype',
     woff: 'woff',
@@ -20,6 +18,8 @@ module Sass::Script::Functions
     svg: 'image/svg+xml'
   }
 
+  PATH_REGEX = /^(.*)(\.\w+)(\??[^#]*)(#?.*)$/
+
   # Reinforce the official `url()` in CSS to support multi url and data url.
   # Activates only when all paths are wrapped with quotes.
   #
@@ -32,8 +32,8 @@ module Sass::Script::Functions
   # url('a.png', $timestamp: false)   => url(a.png)
   # url('a.png', $timestamp: '1.0.0') => url(a.png?1.0.0)
   #
-  # $app-config: (timestamp: 'v587');
-  # url('a.png') => url(a.png?v587)
+  # $app-config: (timestamp: '1.0.0');
+  # url('a.png') => url(a.png?1.0.0)
   #
   # $app-config: (timestamp: 'p1');
   # url('a.png', $timestamp: 'p0') => url(a.png?p0)
