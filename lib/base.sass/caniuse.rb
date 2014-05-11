@@ -8,15 +8,15 @@ class CanIUse
 
   def initialize
     @caniuse_browsers = load_json(File.join(DATA_DIR, 'browsers.json'))
-    @caniuse_supports = load_json(File.join(DATA_DIR, 'supports.json'))
+    # @caniuse_supports = load_json(File.join(DATA_DIR, 'supports.json'))
   end
 
   def browsers
     @caniuse_browsers
   end
 
-  def supports
-    @caniuse_supports
-  end
+  # def supports
+  #   @caniuse_supports
+  # end
 
 end

@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir[
     'lib/**/*.rb',
     'stylesheets/**/*.scss',
-    'data/*.json'
+    'data/browsers.json'
   ]
 
   spec.platform = Gem::Platform::RUBY

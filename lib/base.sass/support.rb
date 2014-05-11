@@ -50,15 +50,15 @@ module Sass::Script::Functions
   # grep-features('^css3?')     => /^css3?/
   # grep-features('box sizing') => /box|sizing/
   # grep-features('box-sizing') => /box|sizing/
-  def grep_features(regex)
-    assert_type regex, :String
+  # def grep_features(regex)
+  #   assert_type regex, :String
 
-    regex = regex.value.strip.sub(/^-+|-+$/, '')
-    regex = regex.gsub(/\s+|-+/, '|') if regex =~ /^[\w\s-]+$/
-    regex = Regexp.new(regex, Regexp::IGNORECASE)
+  #   regex = regex.value.strip.sub(/^-+|-+$/, '')
+  #   regex = regex.gsub(/\s+|-+/, '|') if regex =~ /^[\w\s-]+$/
+  #   regex = Regexp.new(regex, Regexp::IGNORECASE)
 
-    ruby_to_sass(CanIUse.instance.supports.keys.select { |k| k =~ regex }.sort)
-  end
+  #   ruby_to_sass(CanIUse.instance.supports.keys.select { |k| k =~ regex }.sort)
+  # end
 
 
   private
