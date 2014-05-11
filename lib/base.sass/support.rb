@@ -1,5 +1,7 @@
 module Sass::Script::Functions
 
+  # Which browsers you wanted support?
+  #
   # `last 1 version`
   #   is last versions for each browser.
   # `last 2 Chrome versions`
@@ -23,7 +25,7 @@ module Sass::Script::Functions
     ruby_to_sass(selected_browsers.each { |k, v| v.uniq!; v.sort! })
   end
 
-  # Returns all the known browsers according to `data/browsers.json`.
+  # Returns `(android, chrome, firefox, ie, ios, opera, safari)`.
   def browsers
     ruby_to_sass(CanIUse.instance.browsers.keys.sort)
   end

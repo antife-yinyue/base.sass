@@ -12,7 +12,11 @@ module Sass::Script::Functions
     ruby_to_sass(ENV[name.value.gsub('-', '_').upcase])
   end
 
-  # Get the configurations of current app
+  # Get the configurations of current app.
+  # All settings are defined in `app-config` namespace.
+  #
+  # Examples:
+  # $app-config: (timestamp: false);
   def app_config(name)
     assert_type name, :String
     config = environment.global_env.var('app-config')
