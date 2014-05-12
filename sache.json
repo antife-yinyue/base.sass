@@ -1,6 +1,6 @@
 {
-  "name": "base.sass",
-  "description": "The beginning of your stylesheets.",
+  "name": "Base.Sass",
+  "description": "Awesome Extensions For Sass",
   "tags": ["Sass Extensions", "Powerful Mixins"],
   "docs": "https://github.com/jsw0528/base.sass#readme"
 }
