@@ -96,7 +96,11 @@ module Sass::Script::Functions
 
     end
 
-    identifier(output)
+    if output.is_a? Array
+      list(output, :space)
+    else
+      identifier(output)
+    end
   end
 
   def output_data(path, ext)
@@ -106,9 +110,11 @@ module Sass::Script::Functions
 
   def output_path(path, ext, query, anchor, ts)
     query += sign(query) + ts unless ts.nil?
+
     output = "url(#{path}#{query}#{anchor})"
-    output << " format('#{FONT_TYPES[ext]}')" if FONT_TYPES.key? ext
-    output
+    return output unless FONT_TYPES.key? ext
+
+    [identifier(output), identifier("format('#{FONT_TYPES[ext]}')")]
   end
 
 end
