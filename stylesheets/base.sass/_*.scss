@@ -1,6 +1,5 @@
-@import 'functions/list';
-@import 'functions/map';
-@import 'functions/support';
+$app-config: () !default;
+$browser-supports: parse-rules('last 1 version') !default;
 
 @import 'mixins/clearfix';
 @import 'mixins/ellipsis-overflow';
@@ -8,3 +7,7 @@
 @import 'mixins/font-face';
 @import 'mixins/inline-block';
 @import 'mixins/placeholder-wrapper';
+
+@import 'functions/list';
+@import 'functions/map';
+@import 'functions/support';
