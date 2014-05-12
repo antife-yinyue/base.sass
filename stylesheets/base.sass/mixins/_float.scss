@@ -1,4 +1,4 @@
-@mixin float($side, $important: null) {
+@mixin float($side, $important: false) {
   $flag: if($important, ' !important', '');
 
   float: unquote($side) + $flag;

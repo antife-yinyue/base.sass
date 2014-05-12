@@ -2,6 +2,7 @@
   @return join((), $list, comma);
 }
 
+
 @function slice($list, $min: 1, $max: length($list)) {
   $output: comma-list();
   $length: length($list);
