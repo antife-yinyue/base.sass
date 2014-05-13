@@ -27,52 +27,52 @@
   @include test('url($path1, $path2, ...)') {
     $f: unquote("format('embedded-opentype')");
     $url: nth(url('assets/font.eot'), 1);
-    @include assert-true(str-index($url, $f),
+    @include assert-true(nth($url, 2),
       "The returns should include `#{$f}`");
   }
 
   @include test('url($path1, $path2, ...)') {
-    $url: nth(url('assets/font.eot#iefix'), 1);
+    $url: nth(nth(url('assets/font.eot#iefix'), 1), 1);
     @include assert-true(str-index($url, '#iefix)'),
       "The anchor should can be retained");
   }
 
   @include test('url($path1, $path2, ...)') {
     $app-config: (timestamp: null) !global;
-    $url: nth(url('assets/font.eot'), 1);
+    $url: nth(nth(url('assets/font.eot'), 1), 1);
     @include assert-true(str-index($url, '.eot?'),
       "The timestamp should added automatically");
   }
 
   @include test('url($path1, $path2, ...)') {
-    $url: nth(url('assets/font.eot', $timestamp: false), 1);
+    $url: nth(nth(url('assets/font.eot', $timestamp: false), 1), 1);
     @include assert-false(str-index($url, '.eot?'),
       "The timestamp should can be closed by keyword argument");
   }
 
   @include test('url($path1, $path2, ...)') {
     $app-config: (timestamp: false) !global;
-    $url: nth(url('assets/font.eot'), 1);
+    $url: nth(nth(url('assets/font.eot'), 1), 1);
     @include assert-false(str-index($url, '.eot?'),
       "The timestamp should can be closed by `$app-config`");
   }
 
   @include test('url($path1, $path2, ...)') {
-    $url: nth(url('assets/font.eot', $timestamp: abc), 1);
+    $url: nth(nth(url('assets/font.eot', $timestamp: abc), 1), 1);
     @include assert-true(str-index($url, '.eot?abc'),
       "The timestamp should can be customized by keyword argument");
   }
 
   @include test('url($path1, $path2, ...)') {
     $app-config: (timestamp: abc) !global;
-    $url: nth(url('assets/font.eot'), 1);
+    $url: nth(nth(url('assets/font.eot'), 1), 1);
     @include assert-true(str-index($url, '.eot?abc'),
       "The timestamp should can be customized by `$app-config`");
   }
 
   @include test('url($path1, $path2, ...)') {
     $app-config: (timestamp: def) !global;
-    $url: nth(url('assets/font.eot', $timestamp: abc), 1);
+    $url: nth(nth(url('assets/font.eot', $timestamp: abc), 1), 1);
     @include assert-true(str-index($url, '.eot?abc'),
       "keyword argument is higher priority than `$app-config`");
   }
