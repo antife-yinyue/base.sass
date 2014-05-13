@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'base.sass'
-  spec.version = '1.0.0'
+  spec.version = '1.0.1'
   spec.summary = 'The beginning of your stylesheets.'
   spec.description = 'A lot of powerful Sass functions.'
   spec.homepage = 'https://github.com/jsw0528/base.sass'
