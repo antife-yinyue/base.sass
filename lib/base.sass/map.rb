@@ -5,9 +5,12 @@ module Sass::Script::Functions
   #
   # Examples:
   # $map: (a: (b: (c: 1)));
-  # map-get($map, a)       => (b: (c: 1))
-  # map-get($map, a, b)    => (c: 1)
-  # map-get($map, a, b, c) => 1
+  # map-get($map, a)          => (b: (c: 1))
+  # map-get($map, a, b)       => (c: 1)
+  # map-get($map, a, b, c)    => 1
+  # map-get($map, x)          => null
+  # map-get($map, a, x, c)    => null
+  # map-get($map, a, b, c, x) => null
   def map_get(map, *keys)
     assert_type map, :Map
     assert_args_number(keys)
@@ -30,9 +33,12 @@ module Sass::Script::Functions
   #
   # Examples:
   # $map: (a: (b: (c: 1)));
-  # $map-remove($map, a)       => ()
-  # $map-remove($map, a, b)    => (a: ())
-  # $map-remove($map, a, b, c) => (a: (b: ()))
+  # map-remove($map, a)          => ()
+  # map-remove($map, a, b)       => (a: ())
+  # map-remove($map, a, b, c)    => (a: (b: ()))
+  # map-remove($map, x)          => (a: (b: (c: 1)))
+  # map-remove($map, a, x, c)    => (a: (b: (c: 1)))
+  # map-remove($map, a, b, c, x) => (a: (b: (c: 1)))
   def map_remove(map, *keys)
     return map unless map_has_key(map, *keys).to_bool
 
@@ -51,12 +57,12 @@ module Sass::Script::Functions
   #
   # Examples:
   # $map: (a: (b: (c: 1)));
-  # $map-has-key($map, a)          => true
-  # $map-has-key($map, a, b)       => true
-  # $map-has-key($map, a, c)       => false
-  # $map-has-key($map, a, b, c)    => true
-  # $map-has-key($map, a, x, c)    => false
-  # $map-has-key($map, a, b, c, d) => false
+  # map-has-key($map, a)          => true
+  # map-has-key($map, a, b)       => true
+  # map-has-key($map, a, c)       => false
+  # map-has-key($map, a, b, c)    => true
+  # map-has-key($map, a, x, c)    => false
+  # map-has-key($map, a, b, c, x) => false
   def map_has_key(map, *keys)
     assert_type map, :Map
     assert_args_number(keys)
