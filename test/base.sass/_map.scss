@@ -38,6 +38,12 @@
       "Returns should be `null`");
   }
 
+  @include test('map-get($map, $key-router...)') {
+    $map: ();
+    @include assert-equal(map-get($map, x), null,
+      "Returns `null` if map is empty");
+  }
+
 
   @include test('map-remove($map, $key-router...)') {
     $map: (a: (b: (c: 1)));
@@ -90,6 +96,13 @@
       "If the parent keys not found, returns a new map, the same as old map");
   }
 
+  @include test('map-remove($map, $key-router...)') {
+    $map: ();
+    $output: map-remove($map, x);
+    @include assert-equal($output, $map,
+      "If $map is empty, returns a new map, the same as old map");
+  }
+
 
   @include test('map-has-key($map, $key-router...)') {
     $map: (a: (b: (c: 1)));
@@ -127,6 +140,12 @@
       "Returns should be `false`");
   }
 
+  @include test('map-has-key($map, $key-router...)') {
+    $map: ();
+    @include assert-false(map-has-key($map, x),
+      "Returns `false` if map is empty");
+  }
+
 
   @include test('map-merge($map1, $map2, $deep: false)') {
     $map1: (a: (b: (c: 1 2, d: foo, e: baz)));
@@ -142,6 +161,50 @@
     $output: (a: (b: (c: 1 2 3 4, d: bar, e: baz)));
     @include assert-equal(map-merge($map1, $map2, true), $output,
       "Returns should be `(a: (b: (c: 1 2 3 4, d: bar, e: baz)))`");
+  }
+
+  @include test('map-merge($map1, $map2, $deep: false)') {
+    $map1: (a: (b: (c: 1 2, d: foo, e: baz)));
+    $map2: ();
+    @include assert-equal(map-merge($map1, $map2), $map1,
+      "Returns $map1 if $map2 is empty");
+  }
+
+  @include test('map-merge($map1, $map2, $deep: false)') {
+    $map1: (a: (b: (c: 1 2, d: foo, e: baz)));
+    $map2: ();
+    @include assert-equal(map-merge($map1, $map2, true), $map1,
+      "Returns $map1 if $map2 is empty");
+  }
+
+  @include test('map-merge($map1, $map2, $deep: false)') {
+    $map1: ();
+    $map2: (a: (b: (c: 3 4, d: bar)));
+    @include assert-equal(map-merge($map1, $map2), $map2,
+      "Returns $map2 if $map1 is empty");
+  }
+
+  @include test('map-merge($map1, $map2, $deep: false)') {
+    $map1: ();
+    $map2: (a: (b: (c: 3 4, d: bar)));
+    @include assert-equal(map-merge($map1, $map2, true), $map2,
+      "Returns $map2 if $map1 is empty");
+  }
+
+  @include test('map-merge($map1, $map2, $deep: false)') {
+    $map1: ();
+    $map2: ();
+    $output: map-merge($map1, $map2);
+    @include assert-equal(length(map-keys($output)), 0,
+      "Returns a new empty map if $map1 and $map2 are both empty");
+  }
+
+  @include test('map-merge($map1, $map2, $deep: false)') {
+    $map1: ();
+    $map2: ();
+    $output: map-merge($map1, $map2, true);
+    @include assert-equal(length(map-keys($output)), 0,
+      "Returns a new empty map if $map1 and $map2 are both empty");
   }
 
 }

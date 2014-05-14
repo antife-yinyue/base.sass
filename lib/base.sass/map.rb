@@ -11,11 +11,12 @@ module Sass::Script::Functions
   # map-get($map, x)          => null
   # map-get($map, a, x, c)    => null
   # map-get($map, a, b, c, x) => null
+  # map-get((), x)            => null
   def map_get(map, *keys)
     assert_type map, :Map
     assert_args_number(keys)
 
-    hash, target = map.value, keys.pop
+    hash, target = map.value.to_h, keys.pop
 
     keys.each do |key|
       # Each parent node must be a map
@@ -90,7 +91,7 @@ module Sass::Script::Functions
     assert_type map1, :Map
     assert_type map2, :Map
 
-    map1, map2 = map1.value.dup, map2.value
+    map1, map2 = map1.value.dup.to_h, map2.value.to_h
     return map(map1.merge(map2)) unless deep.to_bool
 
     map2.each do |k, v|
