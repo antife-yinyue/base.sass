@@ -46,7 +46,8 @@ module Sass::Script::Functions
     hash.delete target
 
     while keys.size > 0
-      target, _hash, hash = keys.pop, map(hash), _dup(map, keys)
+      target = keys.pop
+      _hash, hash = map(hash), _dup(map, keys)
       hash[target] = _hash
     end
 
