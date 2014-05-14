@@ -42,11 +42,9 @@ module Sass::Script::Functions
   def headers(from = nil, to = nil)
     if from && !to
       if from.is_a?(Sass::Script::Value::String) && from.value == 'all'
-        from = number(1)
-        to = number(6)
+        to, from = number(6), number(1)
       else
-        to = from
-        from = number(1)
+        to, from = from, number(1)
       end
     else
       from ||= number(1)
