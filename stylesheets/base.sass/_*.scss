@@ -9,5 +9,4 @@ $browser-supports: parse-rules('last 1 version') !default;
 @import 'mixins/placeholder-wrapper';
 
 @import 'functions/list';
-@import 'functions/map';
 @import 'functions/support';
