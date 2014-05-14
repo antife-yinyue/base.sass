@@ -16,7 +16,8 @@ module Sass::Script::Functions
     assert_type map, :Map
     assert_args_number(keys)
 
-    hash, target = map.value.to_h, keys.pop
+    hash, target = map.value, keys.pop
+    return null if hash.empty?
 
     keys.each do |key|
       # Each parent node must be a map
@@ -91,7 +92,7 @@ module Sass::Script::Functions
     assert_type map1, :Map
     assert_type map2, :Map
 
-    map1, map2 = map1.value.dup.to_h, map2.value.to_h
+    map1, map2 = _to_h(map1), _to_h(map2)
     return map(map1.merge(map2)) unless deep.to_bool
 
     map2.each do |k, v|
@@ -121,6 +122,12 @@ module Sass::Script::Functions
     else
       newVal
     end
+  end
+
+  def _to_h(map)
+    h = map.value.dup
+    h = {} if h.empty?
+    h
   end
 
 end
