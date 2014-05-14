@@ -1,24 +1,147 @@
-@include test-module('Functions for map') {
+@include test-module('New functions for map') {
 
-  @include test('map-deep-merge($map, $sub-map)') {
-    $map1: ( a: (x: 'x') );
-    $map2: ( a: (y: 'y') );
-    $map3: ( a: (x: 'x', y: 'y') );
-    @include assert-equal(map-deep-merge($map1, $map2), $map3,
-      'Map should deep merge');
+  @include test('map-get($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    $output: (b: (c: 1));
+    @include assert-equal(map-get($map, a), $output,
+      "Returns should be `(b: (c: 1))`");
   }
 
-  @include test('map-find($map, $keys)') {
-    $map: ( a: (x: 'x') );
-    $result: (x: 'x');
-    @include assert-equal(map-find($map, a), $result,
-      'The result should be a map');
+  @include test('map-get($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    $output: (c: 1);
+    @include assert-equal(map-get($map, a, b), $output,
+      "Returns should be `(c: 1)`");
   }
 
-  @include test('map-find($map, $keys)') {
-    $map: ( a: (x: 'x') );
-    @include assert-equal(map-find($map, 'a.x'), x,
-      'The result should be `x`');
+  @include test('map-get($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    @include assert-equal(map-get($map, a, b, c), 1,
+      "Returns should be `1`");
+  }
+
+  @include test('map-get($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    @include assert-equal(map-get($map, x), null,
+      "Returns should be `null`");
+  }
+
+  @include test('map-get($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    @include assert-equal(map-get($map, a, x, c), null,
+      "Returns should be `null`");
+  }
+
+  @include test('map-get($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    @include assert-equal(map-get($map, a, b, c, d), null,
+      "Returns should be `null`");
+  }
+
+
+  @include test('map-remove($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    $output: map-remove($map, a);
+    @include assert-equal(length(map-keys($output)), 0,
+      "Returns should be an empty map");
+  }
+
+  @include test('map-remove($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    $output: map-remove($map, a, b);
+    @include assert-equal(length(map-keys($output)), 1,
+      "Returns should only has one key");
+
+    @include assert-true(map-has-key($output, a),
+      "Returns should has the key `a`");
+
+    @include assert-false(map-has-key($output, a, b),
+      "Returns should not has the key `b`");
+
+    @include assert-equal(type-of(map-get($output, a)), map,
+      "Returns should has the key `a` with an empty map value");
+  }
+
+  @include test('map-remove($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    $output: map-remove($map, a, b, c);
+    @include assert-false(map-has-key($output, a, b, c),
+      "Returns should has the key `c`");
+  }
+
+  @include test('map-remove($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    $output: map-remove($map, x);
+    @include assert-equal($output, $map,
+      "If the key not found, returns a new map, the same as old map");
+  }
+
+  @include test('map-remove($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    $output: map-remove($map, a, b, c, x);
+    @include assert-equal($output, $map,
+      "If the key not found, returns a new map, the same as old map");
+  }
+
+  @include test('map-remove($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    $output: map-remove($map, a, x, c);
+    @include assert-equal($output, $map,
+      "If the parent keys not found, returns a new map, the same as old map");
+  }
+
+
+  @include test('map-has-key($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    @include assert-true(map-has-key($map, a),
+      "Returns should be `true`");
+  }
+
+  @include test('map-has-key($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    @include assert-true(map-has-key($map, a, b),
+      "Returns should be `true`");
+  }
+
+  @include test('map-has-key($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    @include assert-false(map-has-key($map, a, c),
+      "Returns should be `false`");
+  }
+
+  @include test('map-has-key($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    @include assert-true(map-has-key($map, a, b, c),
+      "Returns should be `true`");
+  }
+
+  @include test('map-has-key($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    @include assert-false(map-has-key($map, a, x, c),
+      "Returns should be `false`");
+  }
+
+  @include test('map-has-key($map, $key-router...)') {
+    $map: (a: (b: (c: 1)));
+    @include assert-false(map-has-key($map, a, b, c, x),
+      "Returns should be `false`");
+  }
+
+
+  @include test('map-merge($map1, $map2, $deep: false)') {
+    $map1: (a: (b: (c: 1 2, d: foo, e: baz)));
+    $map2: (a: (b: (c: 3 4, d: bar)));
+    $output: (a: (b: (c: 3 4, d: bar)));
+    @include assert-equal(map-merge($map1, $map2), $output,
+      "Returns should be `(a: (b: (c: 3 4, d: bar)))`");
+  }
+
+  @include test('map-merge($map1, $map2, $deep: false)') {
+    $map1: (a: (b: (c: 1 2, d: foo, e: baz)));
+    $map2: (a: (b: (c: 3 4, d: bar)));
+    $output: (a: (b: (c: 1 2 3 4, d: bar, e: baz)));
+    @include assert-equal(map-merge($map1, $map2, true), $output,
+      "Returns should be `(a: (b: (c: 1 2 3 4, d: bar, e: baz)))`");
   }
 
 }
