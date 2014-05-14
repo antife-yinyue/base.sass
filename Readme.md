@@ -10,7 +10,7 @@
 In your [`Gemfile`](http://bundler.io/v1.6/gemfile.html):
 
 ```ruby
-gem 'base.sass', '~> 1.0'
+gem 'base.sass', '~> 1.1'
 ```
 
 Or in command line:
@@ -41,7 +41,7 @@ require 'base.sass'
 
 ## Features
 
-### Read environment variable name (case insensitive)
+### Read environment variable (case insensitive)
 
 When you run:
 
@@ -147,6 +147,24 @@ url('a.png', $base64: true)
 
 url('a.eot', 'b.woff', $base64: true)
 //=> url(data:application/vnd.ms-fontobject;base64,HAcAA...), url(data:application/font-woff;base64,d09GR...)
+```
+
+### Enhanced map functions
+
+**Overrides official map functions to support nest keys.**
+
+```scss
+map-get($map, a)
+map-get($map, a, b, c)
+
+map-remove($map, a)
+map-remove($map, a, b, c)
+
+map-has-key($map, a)
+map-has-key($map, a, b, c)
+
+map-merge($map1, $map2)
+map-merge($map1, $map2, true) // deep merge
 ```
 
 ### Placeholder-style mixins
