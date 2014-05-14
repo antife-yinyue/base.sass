@@ -1,7 +1,7 @@
-$-registered-placeholders: ();
+$anonymous-placeholders: ();
 
 @mixin placeholder-wrapper($name) {
-  $times: map-get($-registered-placeholders, $name) or 0;
+  $times: map-get($anonymous-placeholders, $name) or 0;
 
   @if $times == 0 {
     @at-root %-#{$name} {
@@ -10,5 +10,5 @@ $-registered-placeholders: ();
   }
 
   @extend %-#{$name};
-  $-registered-placeholders: map-merge($-registered-placeholders, ($name: $times + 1)) !global;
+  $anonymous-placeholders: map-merge($anonymous-placeholders, ($name: $times + 1)) !global;
 }
