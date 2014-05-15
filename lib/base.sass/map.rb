@@ -96,7 +96,7 @@ module Sass::Script::Functions
 
     map2.each do |k, v|
       orig = map1[k]
-      map1[k] = get_value(orig, v)
+      map1[k] = compare_value(orig, v)
     end
 
     map(map1)
@@ -113,7 +113,7 @@ module Sass::Script::Functions
     (keys.empty? ? map : map_get(map, *keys)).to_h.dup
   end
 
-  def get_value(oldVal, newVal)
+  def compare_value(oldVal, newVal)
     if oldVal.is_a?(Sass::Script::Value::Map) && newVal.is_a?(Sass::Script::Value::Map)
       map_merge(oldVal, newVal, bool(true))
     elsif oldVal.is_a?(Sass::Script::Value::List) && newVal.is_a?(Sass::Script::Value::List)
