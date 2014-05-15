@@ -1,18 +1,13 @@
 @include test-module('Environment') {
 
   @include test('env($name)') {
-    @include assert-equal(env(SASS_ENV), development,
-      'The `$name` should supports uppercase letter');
+    @include assert-equal(env(SASS_ENV), env(sass_env),
+      'The `$name` should supports both uppercase letter and lowercase letter');
   }
 
   @include test('env($name)') {
-    @include assert-equal(env(sass_env), development,
-      'The `$name` should supports lowercase letter');
-  }
-
-  @include test('env($name)') {
-    @include assert-equal(env(sass-env), development,
-      'Hyphen-style should be supported');
+    @include assert-equal(env(sass_env), env(sass-env),
+      'The `$name` should supports both hyphen and underscore');
   }
 
   @include test('env($name)') {
@@ -22,20 +17,14 @@
 
 
   @include test('app-config($name)') {
-    @include assert-equal(app-config(foo), null,
-      'If global variable `$app-config` not found, `foo` should be `null`');
-  }
-
-  @include test('app-config($name)') {
-    $app-config: true !global;
-    @include assert-equal(app-config(foo), null,
-      'If global variable `$app-config` is not a map, `foo` should be `null`');
-  }
-
-  @include test('app-config($name)') {
-    $app-config: (foo: bar) !global;
-    @include assert-equal(app-config(foo), bar,
-      'If global variable `$app-config` is defined, `foo` should be `bar`');
+    $app-config: (
+      development: (
+        foo: bar
+      )
+    ) !global;
+    $output: map-get($app-config, env(sass-env), foo);
+    @include assert-equal(app-config(foo), $output,
+      "The value of `foo` in $app-config should be `#{inspect($output)}`");
   }
 
 }

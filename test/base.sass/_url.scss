@@ -38,7 +38,11 @@
   }
 
   @include test('url($path1, $path2, ...)') {
-    $app-config: (timestamp: null) !global;
+    $app-config: (
+      development: (
+        timestamp: null
+      )
+    ) !global;
     $url: nth(nth(url('assets/font.eot'), 1), 1);
     @include assert-true(str-index($url, '.eot?'),
       "The timestamp should added automatically");
@@ -51,7 +55,11 @@
   }
 
   @include test('url($path1, $path2, ...)') {
-    $app-config: (timestamp: false) !global;
+    $app-config: (
+      development: (
+        timestamp: false
+      )
+    ) !global;
     $url: nth(nth(url('assets/font.eot'), 1), 1);
     @include assert-false(str-index($url, '.eot?'),
       "The timestamp should can be closed by `$app-config`");
@@ -64,14 +72,22 @@
   }
 
   @include test('url($path1, $path2, ...)') {
-    $app-config: (timestamp: abc) !global;
+    $app-config: (
+      development: (
+        timestamp: abc
+      )
+    ) !global;
     $url: nth(nth(url('assets/font.eot'), 1), 1);
     @include assert-true(str-index($url, '.eot?abc'),
       "The timestamp should can be customized by `$app-config`");
   }
 
   @include test('url($path1, $path2, ...)') {
-    $app-config: (timestamp: def) !global;
+    $app-config: (
+      development: (
+        timestamp: def
+      )
+    ) !global;
     $url: nth(nth(url('assets/font.eot', $timestamp: abc), 1), 1);
     @include assert-true(str-index($url, '.eot?abc'),
       "keyword argument is higher priority than `$app-config`");

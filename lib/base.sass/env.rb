@@ -1,6 +1,6 @@
 module Sass::Script::Functions
 
-  # Returns the value for environment variable name as a string.
+  # Returns the value of environment variable associated with the given name.
   # Returns null if the named variable does not exist.
   #
   # Examples:
@@ -12,16 +12,31 @@ module Sass::Script::Functions
     ruby_to_sass(ENV[name.value.gsub('-', '_').upcase])
   end
 
-  # Get the configurations of current app.
-  # Returns null if the named configuration does not exist.
+  # Returns the config associated with the given name.
+  # Configs are be grouped by `SASS_ENV` environment.
   #
   # Examples:
-  # $app-config: (timestamp: '1.0.0');
-  # app-config(timestamp) => 1.0.0
+  # $app-config: (
+  #   development: (
+  #     foo: bar
+  #   ),
+  #   production: (
+  #     foo: baz
+  #   )
+  # );
+  #
+  # $ sass --watch -r base.sass src:dist
+  # app-config(foo) => bar
+  #
+  # $ SASS_ENV=production sass --watch -r base.sass src:dist
+  # app-config(foo) => baz
   def app_config(name)
     assert_type name, :String
+
     config = environment.global_env.var('app-config')
-    config.is_a?(Sass::Script::Value::Map) && config.to_h[name] || null
+    return null unless config.is_a? Sass::Script::Value::Map
+
+    map_get(config, *[env(identifier('sass-env')), name])
   end
 
 end
