@@ -1,12 +1,8 @@
-$app-config: () !default;
-$browser-supports: parse-rules('last 1 version') !default;
-
+@import 'functions/support';
+@import 'functions/list';
+@import 'mixins/placeholder-wrapper';
 @import 'mixins/clearfix';
 @import 'mixins/ellipsis-overflow';
-@import 'mixins/float';
 @import 'mixins/font-face';
 @import 'mixins/inline-block';
-@import 'mixins/placeholder-wrapper';
-
-@import 'functions/list';
-@import 'functions/support';
+@import 'mixins/float';
