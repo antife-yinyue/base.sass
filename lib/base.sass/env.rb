@@ -21,7 +21,7 @@ module Sass::Script::Functions
   def app_config(name)
     assert_type name, :String
     config = environment.global_env.var('app-config')
-    config.is_a?(Sass::Script::Value::Map) && config.value[name] || null
+    config.is_a?(Sass::Script::Value::Map) && config.to_h[name] || null
   end
 
 end

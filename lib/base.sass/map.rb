@@ -16,8 +16,7 @@ module Sass::Script::Functions
     assert_type map, :Map
     assert_args_number(keys)
 
-    hash, target = map.value, keys.pop
-    return null if hash.empty?
+    hash, target = map.to_h, keys.pop
 
     keys.each do |key|
       # Each parent node must be a map
@@ -44,12 +43,12 @@ module Sass::Script::Functions
   def map_remove(map, *keys)
     return map unless map_has_key(map, *keys).to_bool
 
-    target, hash = keys.pop, _dup(map, keys)
+    target, hash = keys.pop, get_hash(map, keys)
     hash.delete target
 
     while keys.size > 0
       target = keys.pop
-      _hash, hash = map(hash), _dup(map, keys)
+      _hash, hash = map(hash), get_hash(map, keys)
       hash[target] = _hash
     end
 
@@ -70,7 +69,7 @@ module Sass::Script::Functions
     assert_type map, :Map
     assert_args_number(keys)
 
-    hash = map.value
+    hash = map.to_h
 
     keys.each do |key|
       # Each parent node must be a map
@@ -92,12 +91,12 @@ module Sass::Script::Functions
     assert_type map1, :Map
     assert_type map2, :Map
 
-    map1, map2 = _to_h(map1), _to_h(map2)
+    map1, map2 = map1.to_h.dup, map2.to_h
     return map(map1.merge(map2)) unless deep.to_bool
 
     map2.each do |k, v|
       orig = map1[k]
-      map1[k] = _val(orig, v)
+      map1[k] = get_value(orig, v)
     end
 
     map(map1)
@@ -110,11 +109,11 @@ module Sass::Script::Functions
     raise ArgumentError.new('wrong number of arguments (1 for 2+)') if keys.empty?
   end
 
-  def _dup(map, keys)
-    (keys.empty? ? map : map_get(map, *keys)).value.dup
+  def get_hash(map, keys)
+    (keys.empty? ? map : map_get(map, *keys)).to_h.dup
   end
 
-  def _val(oldVal, newVal)
+  def get_value(oldVal, newVal)
     if oldVal.is_a?(Sass::Script::Value::Map) && newVal.is_a?(Sass::Script::Value::Map)
       map_merge(oldVal, newVal, bool(true))
     elsif oldVal.is_a?(Sass::Script::Value::List) && newVal.is_a?(Sass::Script::Value::List)
@@ -122,12 +121,6 @@ module Sass::Script::Functions
     else
       newVal
     end
-  end
-
-  def _to_h(map)
-    h = map.value.dup
-    h = {} if h.empty?
-    h
   end
 
 end

@@ -10,14 +10,14 @@ module Sass::Script::Functions
   end
 
   def to_ruby_hash(sass_map)
-    sass_map.value.inject({}) do |memo, (k, v)|
+    sass_map.to_h.inject({}) do |memo, (k, v)|
       memo[k.to_s] = sass_to_ruby(v)
       memo
     end
   end
 
   def to_ruby_array(sass_list)
-    sass_list.value.map do |item|
+    sass_list.to_a.map do |item|
       sass_to_ruby(item)
     end
   end

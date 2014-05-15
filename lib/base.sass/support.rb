@@ -44,22 +44,6 @@ module Sass::Script::Functions
     ruby_to_sass(versions)
   end
 
-  # Grep feature names according to caniuse by regex.
-  #
-  # Examples:
-  # grep-features('^css3?')     => /^css3?/
-  # grep-features('box sizing') => /box|sizing/
-  # grep-features('box-sizing') => /box|sizing/
-  # def grep_features(regex)
-  #   assert_type regex, :String
-
-  #   regex = regex.value.strip.sub(/^-+|-+$/, '')
-  #   regex = regex.gsub(/\s+|-+/, '|') if regex =~ /^[\w\s-]+$/
-  #   regex = Regexp.new(regex, Regexp::IGNORECASE)
-
-  #   ruby_to_sass(CanIUse.instance.supports.keys.select { |k| k =~ regex }.sort)
-  # end
-
 
   private
 
