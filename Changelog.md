@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.0
+
+### Upgrades `app-config()`
+
 ## v1.1.0
 
 ### Overrides official map functions to support nest keys
@@ -16,7 +20,7 @@
 
 ## v1.0.1
 
-- Fix font url in `font-face()` for ie9
+### Fix font url in `font-face()` for ie9
 
 ## v1.0.0
 
