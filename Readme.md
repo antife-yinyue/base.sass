@@ -10,7 +10,7 @@
 In your [`Gemfile`](http://bundler.io/v1.6/gemfile.html):
 
 ```ruby
-gem 'base.sass', '~> 1.1'
+gem 'base.sass', '~> 1.2'
 ```
 
 Or in command line:
@@ -21,7 +21,7 @@ $ gem install base.sass
 
 ## Usage
 
-In your Sass file:
+At top of your Sass file:
 
 ```scss
 @import 'base.sass/*';
@@ -30,7 +30,7 @@ In your Sass file:
 And then in command line:
 
 ```sh
-$ sass -r base.sass --watch src:dist
+$ sass --watch -r base.sass src:dist
 ```
 
 Or in `config.rb`:
@@ -41,12 +41,12 @@ require 'base.sass'
 
 ## Features
 
-### Read environment variable (case insensitive)
+### Read environment variables (case insensitive)
 
 When you run:
 
 ```sh
-$ SASS_ENV=production sass -r base.sass --update src:dist
+$ SASS_ENV=production sass --update -r base.sass src:dist
 ```
 
 Then you can use `env()` in a Sass file to get the value:
