@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'base.sass'
-  spec.version = '1.0.1'
+  spec.version = '1.1.0'
   spec.summary = 'Awesome Extensions For Sass'
   spec.description = 'Awesome features that you wanted'
   spec.homepage = 'https://github.com/jsw0528/base.sass'
@@ -10,7 +10,8 @@ Gem::Specification.new do |spec|
   spec.files = Dir[
     'lib/**/*.rb',
     'stylesheets/**/*.scss',
-    'data/browsers.json'
+    'data/browsers.json',
+    '*.md'
   ]
 
   spec.platform = Gem::Platform::RUBY
