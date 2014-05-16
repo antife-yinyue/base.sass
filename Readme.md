@@ -27,7 +27,7 @@ At top of your Sass file:
 @import 'base.sass/*';
 ```
 
-And then in command line:
+Then, use `-r` option in command line:
 
 ```sh
 $ sass --watch -r base.sass src:dist
@@ -73,7 +73,7 @@ $pkg: parse-json('package.json');
 
 // Then, you can:
 map-keys($map)
-map-get($pkg, 'sass')
+map-get($pkg, 'some key')
 ```
 
 > Now you can use the same configurations both in js and css.
