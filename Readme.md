@@ -39,6 +39,10 @@ Or in `config.rb`:
 require 'base.sass'
 ```
 
+## Examples
+
+Please refer to [wiki](https://github.com/jsw0528/base.sass/wiki) page.
+
 ## Features
 
 ### Read environment variables (case insensitive)
@@ -49,7 +53,7 @@ When you run:
 $ SASS_ENV=production sass --update -r base.sass src:dist
 ```
 
-Then you can use `env()` in a Sass file to get the value:
+Then you can use `env()` in Sass files to get the value:
 
 ```scss
 env(SASS_ENV) //=> production
@@ -57,7 +61,7 @@ env(sass_env) //=> production
 env(sass-env) //=> production
 ```
 
-You can use any `KEY=value` if you want.
+> You can use any `KEY=value` if you want.
 
 ### Parse local json file
 
@@ -72,7 +76,7 @@ map-keys($map)
 map-get($pkg, 'sass')
 ```
 
-Now you can use the same configurations both in js and css.
+> Now you can use the same configurations both in js and css.
 
 ### Parse browser supports (case insensitive)
 
@@ -89,18 +93,22 @@ All supported browsers: `chrome`, `firefox`, `safari`, `ie`, `opera`, `ios`, `an
 - `iOS 7` to set browser version directly.
 
 ```scss
-// You can use one param
-parse-rules('last 1 version')
-
-// Or multi params
-parse-rules('last 1 version', 'IE >= 8')
+// You can use multi params
+$browser-supports: parse-rules('last 1 version', 'IE >= 8');
 
 // Or a list
 $rules: 'last 1 version', 'IE >= 8';
-parse-rules($rules)
-```
+$browser-supports: parse-rules($rules);
 
-[See example](https://github.com/jsw0528/base.sass/wiki/Parse-browser-supports).
+// Then, you can:
+@if support-browser(Android) {
+  // ...
+}
+
+@if not support-browser(ie 8) {
+  // ...
+}
+```
 
 ### Enhanced `url()`
 
@@ -130,16 +138,24 @@ url('a.png', $timestamp: '1.0.0')
 //=> url(a.png?1.0.0)
 ```
 
-Also, you can defined timestamp as a global setting in `app-config` namespace:
+Also, you can defined timestamp as a global configuration in `app-config` namespace:
 
 ```scss
-$app-config: (timestamp: '1.0.0');
+$app-config: (
+  development: (
+    timestamp: '1.1.0.alpha'
+  ),
+  production: (
+    timestamp: '1.0.0'
+  )
+);
 
 url('a.png')
-//=> url(a.png?1.0.0)
+//=> url(a.png?1.1.0.alpha) if SASS_ENV is development
+//=> url(a.png?1.0.0) if SASS_ENV is production
 ```
 
-The data uri is also be supported. Must be! :blush:
+The data uri is also be supported.
 
 ```scss
 url('a.png', $base64: true)
@@ -149,9 +165,9 @@ url('a.eot', 'b.woff', $base64: true)
 //=> url(data:application/vnd.ms-fontobject;base64,HAcAA...), url(data:application/font-woff;base64,d09GR...)
 ```
 
-### Enhanced map functions
+### Powerful map functions
 
-**Overrides official map functions to support nest keys.**
+> Overrides official map functions to support nest keys.
 
 ```scss
 map-get($map, a)
@@ -192,8 +208,6 @@ Compiles to:
   white-space: nowrap;
 }
 ```
-
-### [Read more in Wiki](https://github.com/jsw0528/base.sass/wiki)
 
 ## Test
 
