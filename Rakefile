@@ -14,7 +14,7 @@ BROWSER_NAMES = {
 }
 
 task :default => [:test]
-task :upgrade => [:download, :generate_browsers, :generate_supports]
+task :upgrade => [:download, :generate_browsers]
 
 desc 'Download the JSON file from GitHub'
 task :download do
