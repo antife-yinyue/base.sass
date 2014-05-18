@@ -1,7 +1,5 @@
 @include test-module('Parse rules') {
 
-  $data: parse-json(env(pwd) + '/../data/browsers.json');
-
   @include test('parse-rules($list)') {
     $list: 'Firefox >= 29', 'ios 7';
     $-browser-supports: parse-rules($list);
@@ -14,7 +12,7 @@
   @include test('parse-rules($rule1, $rule2, ...)') {
     $-browser-supports: parse-rules('last 1 version');
 
-    @include assert-equal(map-keys($-browser-supports), map-keys($data),
+    @include assert-equal(length(map-keys($-browser-supports)), 7,
       'All browsers should be supported');
   }
 

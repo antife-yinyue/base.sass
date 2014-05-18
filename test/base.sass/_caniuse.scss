@@ -1,0 +1,23 @@
+@include test-module('Check what can i use') {
+
+  @include test('caniuse($cond)') {
+    @include assert-equal(length(caniuse(browsers)), 7,
+      'Should be length 7');
+  }
+
+  @include test('caniuse($cond)') {
+    @include assert-true(not not index(caniuse(Chrome versions), 34),
+      'Should include version 34');
+  }
+
+  @include test('caniuse($cond)') {
+    @include assert-false(not not index(caniuse(Chrome versions), 37),
+      'Should include version 37');
+  }
+
+  @include test('caniuse($cond)') {
+    @include assert-true(not not index(caniuse(Chrome all versions), 37),
+      'Should include version 37');
+  }
+
+}
