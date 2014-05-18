@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.3.0
+
+### Adds a multifunctional helper
+
+- caniuse($cond)
+
+### Removes legacy functions
+
+- browsers()
+- browser-versions($browser, [$include-future])
+
 ## v1.2.0
 
 ### Upgrades `app-config()`
