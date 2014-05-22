@@ -1,10 +1,3 @@
-require 'compass'
-extension_path = File.expand_path(File.join(File.dirname(__FILE__), ".."))
-
-Compass::Frameworks.register('base.sass', :path => extension_path)
-
-
-
 load_path = File.expand_path(File.join(File.dirname(__FILE__), '..', 'stylesheets'))
 
 ENV['SASS_PATH'] = [ENV['SASS_PATH'], load_path].compact.join(File::PATH_SEPARATOR)
