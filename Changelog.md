@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.3.2
+
+### Update data for Chrome and Opera
+
+## v1.3.1
+
+### Register as a Compass extension
+
 ## v1.3.0
 
 ### Adds a multifunctional helper
