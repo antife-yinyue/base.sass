@@ -11,13 +11,17 @@ begin
 rescue LoadError
 end
 
-require 'base.sass/caniuse'
-require 'base.sass/env'
-require 'base.sass/map'
-require 'base.sass/parse-json'
-require 'base.sass/parse-rules'
-require 'base.sass/ruby-to-sass'
-require 'base.sass/sass-to-ruby'
-require 'base.sass/selector'
-require 'base.sass/strftime'
-require 'base.sass/url'
+%w(
+  caniuse
+  env
+  map
+  parse-json
+  parse-rules
+  ruby-to-sass
+  sass-to-ruby
+  selector
+  strftime
+  url
+).each do |lib|
+  require "base.sass/#{lib}"
+end
