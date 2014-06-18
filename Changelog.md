@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.3
+
+### Update browser data
+
 ## v1.3.2
 
 ### Update data for Chrome and Opera
