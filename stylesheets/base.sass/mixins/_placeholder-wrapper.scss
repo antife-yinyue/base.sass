@@ -1,14 +1,15 @@
 $anonymous-placeholders: ();
 
-@mixin placeholder-wrapper($name) {
-  $times: map-get($anonymous-placeholders, $name) or 0;
+@mixin placeholder-wrapper($name, $args...) {
+  $times: map-get($anonymous-placeholders, ($name, $args)) or 0;
+  $anonymous-placeholders: map-merge($anonymous-placeholders, (($name, $args): $times + 1)) !global;
+  $index: index($anonymous-placeholders, (($name, $args) ($times + 1)));
 
   @if $times == 0 {
-    @at-root %-#{$name} {
+    @at-root %-#{$name}-#{$index} {
       @content;
     }
   }
 
-  @extend %-#{$name};
-  $anonymous-placeholders: map-merge($anonymous-placeholders, ($name: $times + 1)) !global;
+  @extend %-#{$name}-#{$index};
 }
