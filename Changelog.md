@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.4
+
+### Support mixin arguments in placeholder-wrapper()
+### Update browser data
+
 ## v1.3.3
 
 ### Update browser data
