@@ -175,8 +175,8 @@ url('a.eot', 'b.woff', $base64: true)
 map-get($map, a)
 map-get($map, a, b, c)
 
-map-remove($map, a)
-map-remove($map, a, b, c)
+map-delete($map, a)
+map-delete($map, a, b, c)
 
 map-has-key($map, a)
 map-has-key($map, a, b, c)

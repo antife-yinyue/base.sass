@@ -34,13 +34,13 @@ module Sass::Script::Functions
   #
   # Examples:
   # $map: (a: (b: (c: 1)));
-  # map-remove($map, a)          => ()
-  # map-remove($map, a, b)       => (a: ())
-  # map-remove($map, a, b, c)    => (a: (b: ()))
-  # map-remove($map, x)          => (a: (b: (c: 1)))
-  # map-remove($map, a, x, c)    => (a: (b: (c: 1)))
-  # map-remove($map, a, b, c, x) => (a: (b: (c: 1)))
-  def map_remove(map, *keys)
+  # map-delete($map, a)          => ()
+  # map-delete($map, a, b)       => (a: ())
+  # map-delete($map, a, b, c)    => (a: (b: ()))
+  # map-delete($map, x)          => (a: (b: (c: 1)))
+  # map-delete($map, a, x, c)    => (a: (b: (c: 1)))
+  # map-delete($map, a, b, c, x) => (a: (b: (c: 1)))
+  def map_delete(map, *keys)
     return map unless map_has_key(map, *keys).to_bool
 
     target, hash = keys.pop, get_hash(map, keys)

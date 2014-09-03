@@ -11,11 +11,6 @@
   }
 
   @include test('caniuse($cond)') {
-    @include assert-false(not not index(caniuse(Chrome versions), 37),
-      'Should include version 37');
-  }
-
-  @include test('caniuse($cond)') {
     @include assert-true(not not index(caniuse(Chrome all versions), 37),
       'Should include version 37');
   }

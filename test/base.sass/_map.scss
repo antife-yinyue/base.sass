@@ -45,16 +45,16 @@
   }
 
 
-  @include test('map-remove($map, $key-router...)') {
+  @include test('map-delete($map, $key-router...)') {
     $map: (a: (b: (c: 1)));
-    $output: map-remove($map, a);
+    $output: map-delete($map, a);
     @include assert-equal(length(map-keys($output)), 0,
       "Returns should be an empty map");
   }
 
-  @include test('map-remove($map, $key-router...)') {
+  @include test('map-delete($map, $key-router...)') {
     $map: (a: (b: (c: 1)));
-    $output: map-remove($map, a, b);
+    $output: map-delete($map, a, b);
     @include assert-equal(length(map-keys($output)), 1,
       "Returns should only has one key");
 
@@ -68,37 +68,37 @@
       "Returns should has the key `a` with an empty map value");
   }
 
-  @include test('map-remove($map, $key-router...)') {
+  @include test('map-delete($map, $key-router...)') {
     $map: (a: (b: (c: 1)));
-    $output: map-remove($map, a, b, c);
+    $output: map-delete($map, a, b, c);
     @include assert-false(map-has-key($output, a, b, c),
       "Returns should has the key `c`");
   }
 
-  @include test('map-remove($map, $key-router...)') {
+  @include test('map-delete($map, $key-router...)') {
     $map: (a: (b: (c: 1)));
-    $output: map-remove($map, x);
+    $output: map-delete($map, x);
     @include assert-equal($output, $map,
       "If the key not found, returns a new map, the same as old map");
   }
 
-  @include test('map-remove($map, $key-router...)') {
+  @include test('map-delete($map, $key-router...)') {
     $map: (a: (b: (c: 1)));
-    $output: map-remove($map, a, b, c, x);
+    $output: map-delete($map, a, b, c, x);
     @include assert-equal($output, $map,
       "If the key not found, returns a new map, the same as old map");
   }
 
-  @include test('map-remove($map, $key-router...)') {
+  @include test('map-delete($map, $key-router...)') {
     $map: (a: (b: (c: 1)));
-    $output: map-remove($map, a, x, c);
+    $output: map-delete($map, a, x, c);
     @include assert-equal($output, $map,
       "If the parent keys not found, returns a new map, the same as old map");
   }
 
-  @include test('map-remove($map, $key-router...)') {
+  @include test('map-delete($map, $key-router...)') {
     $map: ();
-    $output: map-remove($map, x);
+    $output: map-delete($map, x);
     @include assert-equal($output, $map,
       "If $map is empty, returns a new map, the same as old map");
   }
