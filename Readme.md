@@ -12,7 +12,7 @@
 In your [`Gemfile`](http://bundler.io/v1.6/gemfile.html):
 
 ```ruby
-gem 'base.sass', '~> 1.3'
+gem 'base.sass', '~> 1.4'
 ```
 
 Or in command line:
