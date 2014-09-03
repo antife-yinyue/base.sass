@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.4.0
+
+### Rename `map-remove()` to `map-delete()`
+### Update browser data
+
 ## v1.3.4
 
 ### Support mixin arguments in placeholder-wrapper()

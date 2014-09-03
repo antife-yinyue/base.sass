@@ -1,5 +1,6 @@
 .gems
 .sass-cache
 *.css
+*.css.map
 *.gem
 Gemfile.lock
