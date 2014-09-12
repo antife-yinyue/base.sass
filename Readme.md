@@ -26,7 +26,7 @@ $ gem install base.sass
 At top of your Sass file:
 
 ```scss
-@import 'base.sass/*';
+@import 'base.sass/+';
 ```
 
 Then, use `-r` option in command line:
