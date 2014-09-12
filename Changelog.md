@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5.0
+
+### Change `@import 'base.sass/*'` to `@import 'base.sass/+'` [#5](https://github.com/jsw0528/base.sass/issues/5)
+
 ## v1.4.0
 
 ### Rename `map-remove()` to `map-delete()`
