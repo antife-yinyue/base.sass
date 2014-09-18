@@ -5,7 +5,7 @@
 
 > Requires Sass >= 3.3
 
-[![SassMeister](http://ww3.sinaimg.cn/large/624f9842jw1ejz905ocbhj21kw0nvdlc.jpg)](http://sassmeister.com/)
+[![SassMeister](http://ww3.sinaimg.cn/large/624f9842jw1ekgg6t0a5dj214g0hotbs.jpg)](http://sassmeister.com/)
 
 ## Installation
 
