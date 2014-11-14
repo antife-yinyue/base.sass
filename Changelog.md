@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5.1
+
+### Update browser data
+
 ## v1.5.0
 
 ### Change `@import 'base.sass/*'` to `@import 'base.sass/+'` [#5](https://github.com/jsw0528/base.sass/issues/5)
