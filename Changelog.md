@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.6.0
+
+### Update browser data
+### Add 2 mixins: `img-retina` and `img-responsive`
+
 ## v1.5.1
 
 ### Update browser data
