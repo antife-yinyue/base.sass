@@ -46,8 +46,8 @@ task :generate_browsers do
     future_versions = versions.last(3).compact.collect { |n| n.to_i }
 
     v['prefix'] = '-' + v['prefix'] + '-'
-    v['versions'] = versions[0...-3].compact.collect { |n| n.split('-') }.flatten.collect { |n| n.to_f }.sort
-    v['future'] = future_versions unless future_versions.empty?
+    v['versions'] = versions[0...-3].compact.collect { |n| n.split('-') }.flatten.collect { |n| n.to_f }.uniq.sort
+    v['future'] = future_versions.uniq unless future_versions.empty?
   end
 
   # The last version for Presto
