@@ -1,4 +1,8 @@
-# Changelog
+# HISTORY
+
+## v1.7.0
+
+### Update browser data
 
 ## v1.6.0
 
